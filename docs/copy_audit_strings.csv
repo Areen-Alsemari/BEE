@@ -1,0 +1,1719 @@
+page,section,element,words,raw_identifiers,text
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,p,1,,BEE
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,h1,9,,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication Requests
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,p,27,,"A comparison of heuristic rules, plain PPO and two bee-inspired PPO variants for scheduling Deep Space Network antenna time, tested across five weeks of real 2018 requests."
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,3,,[Member 1 name]
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,2,,Heuristic schedulers
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,3,,[Member 2 name]
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,3,,Plain Maskable PPO
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,3,,[Member 3 name]
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,2,,Fixed-threshold BEE
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,3,,[Member 4 name]
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,2,,Adaptive-threshold BEE
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,div,3,,[University / department]
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,div,4,,Team details are placeholders.
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,a,3,,Open the lab
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,button,5,,Start the tour (coming next)
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,2,,(coming next)
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,div,10,,illustrative DSN complexes at their public locations; rotation is decorative
+Landing,A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication,span,1,,illustrative
+Landing,"Overall duration fulfillment, five test weeks",h2,6,,"Overall duration fulfillment, five test weeks"
+Landing,"Overall duration fulfillment, five test weeks",span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Landing,"Overall duration fulfillment, five test weeks",span,3,internal label: heuristic (no training),heuristic (no training)
+Landing,"Overall duration fulfillment, five test weeks",span,2,,random feasible
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.6216
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0142
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0142
+Landing,"Overall duration fulfillment, five test weeks",span,2,,earliest window-end
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.6798
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0032
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0032
+Landing,"Overall duration fulfillment, five test weeks",span,2,,shortest duration
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.5206
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0093
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0093
+Landing,"Overall duration fulfillment, five test weeks",span,2,,least flexible
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.6467
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0040
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0040
+Landing,"Overall duration fulfillment, five test weeks",span,3,config code: H4,weighted composite H4
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.6652
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0010
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0010
+Landing,"Overall duration fulfillment, five test weeks",span,2,,Plain PPO
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.6202
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0088
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0088
+Landing,"Overall duration fulfillment, five test weeks",span,2,,Fixed BEE
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.6226
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0073
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0073
+Landing,"Overall duration fulfillment, five test weeks",span,3,config code: A6,Adaptive BEE (A6)
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.6176
+Landing,"Overall duration fulfillment, five test weeks",div,4,,W50 seed SD 0.0047
+Landing,"Overall duration fulfillment, five test weeks",span,1,,0.0047
+Landing,"Overall duration fulfillment, five test weeks",p,30,,"Listed in a fixed order, not ranked. Compare differences with the W50 seed SD (n = 5 folds). Full tables, paired differences and their limits are in the Results Arena."
+Landing,"Overall duration fulfillment, five test weeks",a,2,,Results Arena
+Mission Control,(page),div,3,,WEEK (TEST FOLD)
+Mission Control,(page),button,1,,W10
+Mission Control,(page),button,1,,W20
+Mission Control,(page),button,1,,W30
+Mission Control,(page),button,1,,W40
+Mission Control,(page),button,1,,W50
+Mission Control,(page),label,9,config code: A6,METHOD Heuristic Plain PPO Fixed BEE Adaptive BEE (A6)
+Mission Control,(page),label,3,,TRAINING SEED 42
+Mission Control,(page),label,7,,EVALUATION SEED 1001 2002 3003 4004 5005
+Mission Control,(page),span,2,,Compare mode
+Mission Control,(page),div,2,,TIMELINE LAYERS
+Mission Control,(page),span,2,,Maintenance intervals
+Mission Control,(page),span,2,,Visibility windows
+Mission Control,(page),p,8,,The selected request's own windows are always outlined.
+Mission Control,(page),span,1,,VIEW
+Mission Control,(page),button,2,,Whole system
+Mission Control,(page),button,1,,Goldstone
+Mission Control,(page),button,1,,Canberra
+Mission Control,(page),button,1,,Madrid
+Mission Control,(page),button,3,,Follow active link
+Mission Control,(page),span,3,,· 4 dishes
+Mission Control,(page),div,2,,Mission 835
+Mission Control,(page),div,2,,Mission 963
+Mission Control,(page),div,2,,Mission 36
+Mission Control,(page),div,2,,Mission 580
+Mission Control,(page),div,6,,Mission 18 · not active now
+Mission Control,(page),span,3,config code: A6,Adaptive BEE (A6)
+Mission Control,(page),span,5,,Mon 01 Oct 06:00 UTC
+Mission Control,(page),span,3,,Active links: 4
+Mission Control,(page),span,1,,illustrative
+Mission Control,(page),span,7,,Spacecraft positions illustrative; schedule data is real
+Mission Control,(page),span,3,,"unscheduled, in window"
+Mission Control,(page),button,1,,Play
+Mission Control,(page),label,9,,Speed 10 min/s 1 h/s 4 h/s 12 h/s
+Mission Control,(page),span,8,,wheel: zoom · shift+drag: pan · space: play
+Mission Control,Adaptive BEE (A6),h2,3,config code: A6,Adaptive BEE (A6)
+Mission Control,Adaptive BEE (A6),span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Mission Control,Adaptive BEE (A6),div,12,week key: W40_2018,W40_2018 · fold 4 · training seed 42 · evaluation seed 1001
+Mission Control,Adaptive BEE (A6),span,2,,DURATION FULFILLMENT
+Mission Control,Adaptive BEE (A6),span,1,,0.5251
+Mission Control,Adaptive BEE (A6),span,3,,W40 mean 0.5336
+Mission Control,Adaptive BEE (A6),div,15,,"Cross-week mean 0.6176, fold SD 0.0576, n = 5 folds · W50 training-seed SD 0.0047"
+Mission Control,Adaptive BEE (A6),span,2,,MINIMUM SATISFACTION
+Mission Control,Adaptive BEE (A6),span,1,,0.6607
+Mission Control,Adaptive BEE (A6),span,3,,W40 mean 0.6565
+Mission Control,Adaptive BEE (A6),div,10,,"Cross-week mean 0.7319, fold SD 0.0486, n = 5 folds"
+Mission Control,Adaptive BEE (A6),span,2,,FULL SATISFACTION
+Mission Control,Adaptive BEE (A6),span,1,,0.5766
+Mission Control,Adaptive BEE (A6),span,3,,W40 mean 0.5640
+Mission Control,Adaptive BEE (A6),div,10,,"Cross-week mean 0.6650, fold SD 0.0579, n = 5 folds"
+Mission Control,Adaptive BEE (A6),span,2,,UNMET HOURS
+Mission Control,Adaptive BEE (A6),span,1,,824.8
+Mission Control,Adaptive BEE (A6),span,3,,W40 mean 809.9
+Mission Control,Adaptive BEE (A6),div,10,,"Cross-week mean 548.7, fold SD 155.9, n = 5 folds"
+Mission Control,Adaptive BEE (A6),span,2,,MISSION FAIRNESS
+Mission Control,Adaptive BEE (A6),span,1,,0.8742
+Mission Control,Adaptive BEE (A6),span,3,,W40 mean 0.8630
+Mission Control,Adaptive BEE (A6),div,10,,"Cross-week mean 0.9056, fold SD 0.0292, n = 5 folds"
+Mission Control,Adaptive BEE (A6),span,2,,Constraint violations
+Mission Control,Adaptive BEE (A6),span,2,,0 ✓
+Mission Control,Adaptive BEE (A6),div,4,,Scheduled 220 of 333
+Mission Control,Adaptive BEE (A6),span,1,,220
+Mission Control,Adaptive BEE (A6),span,2,,of 333
+Mission Control,Adaptive BEE (A6),div,2,,Unscheduled 113
+Mission Control,Adaptive BEE (A6),span,1,,113
+Mission Control,Request 3dbbf258-1-1,h2,2,,Request 3dbbf258-1-1
+Mission Control,Request 3dbbf258-1-1,button,1,,Clear
+Mission Control,Request 3dbbf258-1-1,dt,1,,Mission
+Mission Control,Request 3dbbf258-1-1,dd,1,,18
+Mission Control,Request 3dbbf258-1-1,dt,1,,Requested
+Mission Control,Request 3dbbf258-1-1,dd,9,,1 h 00 min (minimum 1 h 00 min)
+Mission Control,Request 3dbbf258-1-1,span,5,,(minimum 1 h 00 min)
+Mission Control,Request 3dbbf258-1-1,dt,2,,Time window
+Mission Control,Request 3dbbf258-1-1,dd,11,,Mon 01 Oct 00:00 UTC to Mon 08 Oct 12:00 UTC
+Mission Control,Request 3dbbf258-1-1,dt,2,,Antenna options
+Mission Control,Request 3dbbf258-1-1,dd,8,,"DSS-14, DSS-24, DSS-25, DSS-26, DSS-34, DSS-35, DSS-36, DSS-43"
+Mission Control,Request 3dbbf258-1-1,span,3,config code: A6,Adaptive BEE (A6)
+Mission Control,Request 3dbbf258-1-1,span,1,,scheduled
+Mission Control,Request 3dbbf258-1-1,dt,1,,Antenna
+Mission Control,Request 3dbbf258-1-1,dd,1,,DSS-43
+Mission Control,Request 3dbbf258-1-1,dt,1,,Start
+Mission Control,Request 3dbbf258-1-1,dd,5,,Mon 01 Oct 03:49 UTC
+Mission Control,Request 3dbbf258-1-1,dt,1,,End
+Mission Control,Request 3dbbf258-1-1,dd,5,,Mon 01 Oct 04:49 UTC
+Mission Control,Request 3dbbf258-1-1,dt,1,,Allocated
+Mission Control,Request 3dbbf258-1-1,dd,4,,1 h 00 min
+Mission Control,Request 3dbbf258-1-1,dt,2,,Visibility used
+Mission Control,Request 3dbbf258-1-1,dd,11,,Mon 01 Oct 03:49 UTC to Mon 01 Oct 16:13 UTC
+Mission Control,Request 3dbbf258-1-1,button,3,,Jump to start
+Mission Control,Unscheduled (A),h2,2,,Unscheduled (A)
+Mission Control,Unscheduled (A),span,3,,113 of 333
+Mission Control,Unscheduled (A),span,1,,253
+Mission Control,Unscheduled (A),span,1,,0d06c893-7-1
+Mission Control,Unscheduled (A),span,4,,8 h 00 min
+Mission Control,Unscheduled (A),span,1,,996
+Mission Control,Unscheduled (A),span,1,,10c40da1-4-1
+Mission Control,Unscheduled (A),span,4,,4 h 00 min
+Mission Control,Unscheduled (A),span,1,,884
+Mission Control,Unscheduled (A),span,1,,24c0402c-5-1
+Mission Control,Unscheduled (A),span,1,,576
+Mission Control,Unscheduled (A),span,1,,32df189e-7-1
+Mission Control,Unscheduled (A),span,4,,10 h 00 min
+Mission Control,Unscheduled (A),span,1,,196
+Mission Control,Unscheduled (A),span,1,,3602669c-1-1
+Mission Control,Unscheduled (A),span,1,,228
+Mission Control,Unscheduled (A),span,1,,45bed96a-9-2
+Mission Control,Unscheduled (A),span,1,,762
+Mission Control,Unscheduled (A),span,1,,67a7e270-8-1
+Mission Control,Unscheduled (A),span,1,,835
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-1
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-2
+Mission Control,Unscheduled (A),span,1,,593
+Mission Control,Unscheduled (A),span,1,,8c5e400c-2-1
+Mission Control,Unscheduled (A),span,4,,1 h 00 min
+Mission Control,Unscheduled (A),span,1,,405
+Mission Control,Unscheduled (A),span,1,,dd3c695b-3-1
+Mission Control,Unscheduled (A),span,4,,3 h 18 min
+Mission Control,Unscheduled (A),span,1,,425
+Mission Control,Unscheduled (A),span,1,,dfe8c4e7-6-1
+Mission Control,Unscheduled (A),span,1,,221
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-1
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-2
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-3
+Mission Control,Unscheduled (A),span,1,,648
+Mission Control,Unscheduled (A),span,1,,35495ac9-7-1
+Mission Control,Unscheduled (A),span,1,,18
+Mission Control,Unscheduled (A),span,1,,d500ec63-7-1
+Mission Control,Unscheduled (A),span,1,,963
+Mission Control,Unscheduled (A),span,1,,e9d507b1-7-1
+Mission Control,Unscheduled (A),span,1,,e4dd1ad1-7-1
+Mission Control,Unscheduled (A),span,1,,1658030f-4-1
+Mission Control,Unscheduled (A),span,1,,b1e97b08-4-1
+Mission Control,Unscheduled (A),span,1,,484
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-1
+Mission Control,Unscheduled (A),span,1,,640e87c3-8-1
+Mission Control,Unscheduled (A),span,1,,50ecbfba-2-1
+Mission Control,Unscheduled (A),span,1,,d9936c54-2-1
+Mission Control,Unscheduled (A),span,4,,7 h 18 min
+Mission Control,Unscheduled (A),span,1,,877
+Mission Control,Unscheduled (A),span,1,,9e70dbb9-2-1
+Mission Control,Unscheduled (A),span,4,,5 h 00 min
+Mission Control,Unscheduled (A),span,1,,32df189e-7-2
+Mission Control,Unscheduled (A),span,1,,882
+Mission Control,Unscheduled (A),span,1,,0e4e5c6b-21-1
+Mission Control,Unscheduled (A),span,1,,0d06c893-7-2
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-4
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-4
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-5
+Mission Control,Unscheduled (A),span,1,,d500ec63-7-2
+Mission Control,Unscheduled (A),span,1,,e9d507b1-7-2
+Mission Control,Unscheduled (A),span,1,,380aafa8-7-2
+Mission Control,Unscheduled (A),span,1,,dfe8c4e7-6-2
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-4
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-6
+Mission Control,Unscheduled (A),span,1,,729
+Mission Control,Unscheduled (A),span,1,,f2429aaa-5-2
+Mission Control,Unscheduled (A),span,1,,32df189e-7-3
+Mission Control,Unscheduled (A),span,1,,97
+Mission Control,Unscheduled (A),span,1,,1b17b305-7-3
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-5
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-6
+Mission Control,Unscheduled (A),span,1,,b1e97b08-4-2
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-9
+Mission Control,Unscheduled (A),span,1,,d500ec63-7-3
+Mission Control,Unscheduled (A),span,1,,211
+Mission Control,Unscheduled (A),span,1,,dcbb0739-7-3
+Mission Control,Unscheduled (A),span,1,,e9d507b1-7-3
+Mission Control,Unscheduled (A),span,1,,b7c34b92-7-3
+Mission Control,Unscheduled (A),span,1,,35495ac9-7-3
+Mission Control,Unscheduled (A),span,1,,380aafa8-7-3
+Mission Control,Unscheduled (A),span,1,,87d31eb8-7-3
+Mission Control,Unscheduled (A),span,1,,e4dd1ad1-7-3
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-7
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-8
+Mission Control,Unscheduled (A),span,1,,45bed96a-9-4
+Mission Control,Unscheduled (A),span,1,,45bed96a-9-6
+Mission Control,Unscheduled (A),span,1,,67a7e270-8-4
+Mission Control,Unscheduled (A),span,1,,32df189e-7-4
+Mission Control,Unscheduled (A),span,1,,640e87c3-8-4
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-7
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-8
+Mission Control,Unscheduled (A),span,1,,d500ec63-7-4
+Mission Control,Unscheduled (A),span,1,,dcbb0739-7-4
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-10
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-11
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-12
+Mission Control,Unscheduled (A),span,1,,957
+Mission Control,Unscheduled (A),span,1,,735c8607-7-4
+Mission Control,Unscheduled (A),span,4,,3 h 30 min
+Mission Control,Unscheduled (A),span,1,,380aafa8-7-4
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-11
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-12
+Mission Control,Unscheduled (A),span,1,,dfe8c4e7-6-4
+Mission Control,Unscheduled (A),span,1,,50ecbfba-2-2
+Mission Control,Unscheduled (A),span,1,,0e4e5c6b-21-11
+Mission Control,Unscheduled (A),span,1,,32df189e-7-5
+Mission Control,Unscheduled (A),span,1,,1658030f-4-3
+Mission Control,Unscheduled (A),span,1,,b1e97b08-4-3
+Mission Control,Unscheduled (A),span,1,,0d06c893-7-5
+Mission Control,Unscheduled (A),span,1,,1b17b305-7-5
+Mission Control,Unscheduled (A),span,1,,d500ec63-7-5
+Mission Control,Unscheduled (A),span,1,,dcbb0739-7-5
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-10
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-9
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-13
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-14
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-15
+Mission Control,Unscheduled (A),span,1,,35495ac9-7-5
+Mission Control,Unscheduled (A),span,1,,521
+Mission Control,Unscheduled (A),span,1,,067e3ab7-7-5
+Mission Control,Unscheduled (A),span,1,,380aafa8-7-5
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-13
+Mission Control,Unscheduled (A),span,1,,32df189e-7-6
+Mission Control,Unscheduled (A),span,1,,45bed96a-9-8
+Mission Control,Unscheduled (A),span,1,,0d06c893-7-6
+Mission Control,Unscheduled (A),span,1,,e9d507b1-7-6
+Mission Control,Unscheduled (A),span,1,,067e3ab7-7-6
+Mission Control,Unscheduled (A),span,1,,e4dd1ad1-7-6
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-11
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-12
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-17
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-18
+Mission Control,Unscheduled (A),span,1,,735c8607-7-6
+Mission Control,Unscheduled (A),span,1,,67a7e270-8-7
+Mission Control,Unscheduled (A),span,1,,1658030f-4-4
+Mission Control,Unscheduled (A),span,1,,f2429aaa-5-5
+Mission Control,Unscheduled (A),span,1,,1b17b305-7-7
+Mission Control,Unscheduled (A),span,1,,b7c34b92-7-7
+Mission Control,Unscheduled (A),span,1,,d500ec63-7-7
+Mission Control,Unscheduled (A),span,1,,ca4cddb4-21-21
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-13
+Mission Control,Unscheduled (A),span,1,,74e34a9d-14-14
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-19
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-20
+Mission Control,Unscheduled (A),span,1,,38134fa6-21-21
+Mission Control,(page),svg-text,1,,October
+Mission Control,(page),svg-text,2,,Tue 02
+Mission Control,(page),svg-text,2,,Wed 03
+Mission Control,(page),svg-text,2,,Thu 04
+Mission Control,(page),svg-text,2,,Fri 05
+Mission Control,(page),svg-text,2,,Sat 06
+Mission Control,(page),svg-text,2,,Oct 07
+Mission Control,(page),svg-text,2,,Mon 08
+Mission Control,(page),svg-text,2,,DSS-14 gol
+Mission Control,(page),svg-text,2,,DSS-24 gol
+Mission Control,(page),svg-text,2,,DSS-25 gol
+Mission Control,(page),svg-text,2,,DSS-26 gol
+Mission Control,(page),svg-text,2,,DSS-34 can
+Mission Control,(page),svg-text,2,,DSS-35 can
+Mission Control,(page),svg-text,2,,DSS-36 can
+Mission Control,(page),svg-text,2,,DSS-43 can
+Mission Control,(page),svg-text,2,,DSS-54 mad
+Mission Control,(page),svg-text,2,,DSS-55 mad
+Mission Control,(page),svg-text,2,,DSS-63 mad
+Mission Control,(page),svg-text,2,,DSS-65 mad
+Mission Control (compare mode),(page),div,3,,WEEK (TEST FOLD)
+Mission Control (compare mode),(page),button,1,,W10
+Mission Control (compare mode),(page),button,1,,W20
+Mission Control (compare mode),(page),button,1,,W30
+Mission Control (compare mode),(page),button,1,,W40
+Mission Control (compare mode),(page),button,1,,W50
+Mission Control (compare mode),(page),label,10,config code: A6,METHOD A Heuristic Plain PPO Fixed BEE Adaptive BEE (A6)
+Mission Control (compare mode),(page),label,3,,TRAINING SEED 42
+Mission Control (compare mode),(page),label,7,,EVALUATION SEED 1001 2002 3003 4004 5005
+Mission Control (compare mode),(page),span,2,,Compare mode
+Mission Control (compare mode),(page),label,10,config code: A6,METHOD B Heuristic Plain PPO Fixed BEE Adaptive BEE (A6)
+Mission Control (compare mode),(page),p,9,,"Same week, training seed and evaluation seed as A."
+Mission Control (compare mode),(page),div,2,,TIMELINE LAYERS
+Mission Control (compare mode),(page),span,2,,Maintenance intervals
+Mission Control (compare mode),(page),span,2,,Visibility windows
+Mission Control (compare mode),(page),p,8,,The selected request's own windows are always outlined.
+Mission Control (compare mode),(page),span,1,,VIEW
+Mission Control (compare mode),(page),button,2,,Whole system
+Mission Control (compare mode),(page),button,1,,Goldstone
+Mission Control (compare mode),(page),button,1,,Canberra
+Mission Control (compare mode),(page),button,1,,Madrid
+Mission Control (compare mode),(page),button,3,,Follow active link
+Mission Control (compare mode),(page),span,3,,· 4 dishes
+Mission Control (compare mode),(page),div,2,,Mission 835
+Mission Control (compare mode),(page),div,2,,Mission 963
+Mission Control (compare mode),(page),div,2,,Mission 36
+Mission Control (compare mode),(page),div,2,,Mission 580
+Mission Control (compare mode),(page),div,6,,Mission 18 · not active now
+Mission Control (compare mode),(page),span,4,config code: A6,A: Adaptive BEE (A6)
+Mission Control (compare mode),(page),span,5,,Mon 01 Oct 06:00 UTC
+Mission Control (compare mode),(page),span,3,,Active links: 4
+Mission Control (compare mode),(page),span,1,,illustrative
+Mission Control (compare mode),(page),span,7,,Spacecraft positions illustrative; schedule data is real
+Mission Control (compare mode),(page),span,3,,"unscheduled, in window"
+Mission Control (compare mode),(page),div,2,,Mission 221
+Mission Control (compare mode),(page),div,2,,Mission 211
+Mission Control (compare mode),(page),div,2,,Mission 845
+Mission Control (compare mode),(page),div,2,,Mission 877
+Mission Control (compare mode),(page),span,3,,B: Plain PPO
+Mission Control (compare mode),(page),button,1,,Play
+Mission Control (compare mode),(page),label,9,,Speed 10 min/s 1 h/s 4 h/s 12 h/s
+Mission Control (compare mode),(page),span,8,,wheel: zoom · shift+drag: pan · space: play
+Mission Control (compare mode),Adaptive BEE (A6),h2,3,config code: A6,Adaptive BEE (A6)
+Mission Control (compare mode),Adaptive BEE (A6),span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Mission Control (compare mode),Adaptive BEE (A6),div,12,week key: W40_2018,W40_2018 · fold 4 · training seed 42 · evaluation seed 1001
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,DURATION FULFILLMENT
+Mission Control (compare mode),Adaptive BEE (A6),span,1,,0.5251
+Mission Control (compare mode),Adaptive BEE (A6),span,3,,W40 mean 0.5336
+Mission Control (compare mode),Adaptive BEE (A6),div,15,,"Cross-week mean 0.6176, fold SD 0.0576, n = 5 folds · W50 training-seed SD 0.0047"
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,MINIMUM SATISFACTION
+Mission Control (compare mode),Adaptive BEE (A6),span,1,,0.6607
+Mission Control (compare mode),Adaptive BEE (A6),span,3,,W40 mean 0.6565
+Mission Control (compare mode),Adaptive BEE (A6),div,10,,"Cross-week mean 0.7319, fold SD 0.0486, n = 5 folds"
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,FULL SATISFACTION
+Mission Control (compare mode),Adaptive BEE (A6),span,1,,0.5766
+Mission Control (compare mode),Adaptive BEE (A6),span,3,,W40 mean 0.5640
+Mission Control (compare mode),Adaptive BEE (A6),div,10,,"Cross-week mean 0.6650, fold SD 0.0579, n = 5 folds"
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,UNMET HOURS
+Mission Control (compare mode),Adaptive BEE (A6),span,1,,824.8
+Mission Control (compare mode),Adaptive BEE (A6),span,3,,W40 mean 809.9
+Mission Control (compare mode),Adaptive BEE (A6),div,10,,"Cross-week mean 548.7, fold SD 155.9, n = 5 folds"
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,MISSION FAIRNESS
+Mission Control (compare mode),Adaptive BEE (A6),span,1,,0.8742
+Mission Control (compare mode),Adaptive BEE (A6),span,3,,W40 mean 0.8630
+Mission Control (compare mode),Adaptive BEE (A6),div,10,,"Cross-week mean 0.9056, fold SD 0.0292, n = 5 folds"
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,Constraint violations
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,0 ✓
+Mission Control (compare mode),Adaptive BEE (A6),div,4,,Scheduled 220 of 333
+Mission Control (compare mode),Adaptive BEE (A6),span,1,,220
+Mission Control (compare mode),Adaptive BEE (A6),span,2,,of 333
+Mission Control (compare mode),Adaptive BEE (A6),div,2,,Unscheduled 113
+Mission Control (compare mode),Adaptive BEE (A6),span,1,,113
+Mission Control (compare mode),Plain PPO,h2,2,,Plain PPO
+Mission Control (compare mode),Plain PPO,span,1,gap or confirmation id: N2,N2
+Mission Control (compare mode),Plain PPO,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Mission Control (compare mode),Plain PPO,div,12,week key: W40_2018,W40_2018 · fold 4 · training seed 42 · evaluation seed 1001
+Mission Control (compare mode),Plain PPO,span,2,,DURATION FULFILLMENT
+Mission Control (compare mode),Plain PPO,span,1,,0.5271
+Mission Control (compare mode),Plain PPO,span,3,,W40 mean 0.5281
+Mission Control (compare mode),Plain PPO,div,15,,"Cross-week mean 0.6202, fold SD 0.0606, n = 5 folds · W50 training-seed SD 0.0088"
+Mission Control (compare mode),Plain PPO,span,2,,MINIMUM SATISFACTION
+Mission Control (compare mode),Plain PPO,span,1,,0.6577
+Mission Control (compare mode),Plain PPO,span,3,,W40 mean 0.6577
+Mission Control (compare mode),Plain PPO,div,10,,"Cross-week mean 0.7334, fold SD 0.0492, n = 5 folds"
+Mission Control (compare mode),Plain PPO,span,2,,FULL SATISFACTION
+Mission Control (compare mode),Plain PPO,span,1,,0.5556
+Mission Control (compare mode),Plain PPO,span,3,,W40 mean 0.5495
+Mission Control (compare mode),Plain PPO,div,10,,"Cross-week mean 0.6640, fold SD 0.0654, n = 5 folds"
+Mission Control (compare mode),Plain PPO,span,2,,UNMET HOURS
+Mission Control (compare mode),Plain PPO,span,1,,821.3
+Mission Control (compare mode),Plain PPO,span,3,,W40 mean 819.6
+Mission Control (compare mode),Plain PPO,div,10,,"Cross-week mean 545.3, fold SD 160.9, n = 5 folds"
+Mission Control (compare mode),Plain PPO,span,2,,MISSION FAIRNESS
+Mission Control (compare mode),Plain PPO,span,1,,0.8504
+Mission Control (compare mode),Plain PPO,span,3,,W40 mean 0.8657
+Mission Control (compare mode),Plain PPO,div,10,,"Cross-week mean 0.9064, fold SD 0.0257, n = 5 folds"
+Mission Control (compare mode),Plain PPO,span,2,,Constraint violations
+Mission Control (compare mode),Plain PPO,span,2,,0 ✓
+Mission Control (compare mode),Plain PPO,div,4,,Scheduled 219 of 333
+Mission Control (compare mode),Plain PPO,span,1,,219
+Mission Control (compare mode),Plain PPO,span,2,,of 333
+Mission Control (compare mode),Plain PPO,div,2,,Unscheduled 114
+Mission Control (compare mode),Plain PPO,span,1,,114
+Mission Control (compare mode),"Same week, same seeds",h2,4,,"Same week, same seeds"
+Mission Control (compare mode),"Same week, same seeds",div,2,,Both 174
+Mission Control (compare mode),"Same week, same seeds",span,1,,174
+Mission Control (compare mode),"Same week, same seeds",div,2,,Neither 68
+Mission Control (compare mode),"Same week, same seeds",span,1,,68
+Mission Control (compare mode),"Same week, same seeds",button,3,,Only A 46
+Mission Control (compare mode),"Same week, same seeds",span,1,,46
+Mission Control (compare mode),"Same week, same seeds",button,3,,Only B 45
+Mission Control (compare mode),"Same week, same seeds",span,1,,45
+Mission Control (compare mode),"Same week, same seeds",div,26,config code: A6,A = Adaptive BEE (A6); B = Plain PPO. Requests scheduled by only one run are outlined (dashed) in the timeline and drawn as dashed beams.
+Mission Control (compare mode),"Same week, same seeds",button,3,,521 · 067e3ab7-7-3
+Mission Control (compare mode),"Same week, same seeds",button,3,,253 · 0d06c893-7-4
+Mission Control (compare mode),"Same week, same seeds",button,3,,253 · 0d06c893-7-7
+Mission Control (compare mode),"Same week, same seeds",button,3,,996 · 10c40da1-4-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,996 · 10c40da1-4-3
+Mission Control (compare mode),"Same week, same seeds",button,3,,996 · 10c40da1-4-4
+Mission Control (compare mode),"Same week, same seeds",button,3,,424 · 15bdb339-2-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,97 · 1b17b305-7-1
+Mission Control (compare mode),"Same week, same seeds",button,3,,97 · 1b17b305-7-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,97 · 1b17b305-7-4
+Mission Control (compare mode),"Same week, same seeds",button,3,,884 · 24c0402c-5-3
+Mission Control (compare mode),"Same week, same seeds",button,3,,648 · 35495ac9-7-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,648 · 35495ac9-7-7
+Mission Control (compare mode),"Same week, same seeds",button,3,,762 · 37bff446-1-1
+Mission Control (compare mode),"Same week, same seeds",button,3,,963 · 380aafa8-7-1
+Mission Control (compare mode),"Same week, same seeds",button,3,,221 · 38134fa6-21-16
+Mission Control (compare mode),"Same week, same seeds",button,3,,221 · 38134fa6-21-17
+Mission Control (compare mode),"Same week, same seeds",button,3,,221 · 38134fa6-21-6
+Mission Control (compare mode),"Same week, same seeds",button,3,,845 · 43b0e91c-6-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,425 · 640e87c3-8-3
+Mission Control (compare mode),"Same week, same seeds",button,3,,425 · 640e87c3-8-5
+Mission Control (compare mode),"Same week, same seeds",button,3,,425 · 640e87c3-8-6
+Mission Control (compare mode),"Same week, same seeds",button,3,,762 · 67a7e270-8-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,762 · 67a7e270-8-5
+Mission Control (compare mode),"Same week, same seeds",button,3,,762 · 67a7e270-8-8
+Mission Control (compare mode),"Same week, same seeds",button,3,,957 · 735c8607-7-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,835 · 74e34a9d-14-3
+Mission Control (compare mode),"Same week, same seeds",button,3,,221 · 7e9838cd-2-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,253 · 87d31eb8-7-5
+Mission Control (compare mode),"Same week, same seeds",button,3,,253 · 87d31eb8-7-6
+Mission Control (compare mode),"Same week, same seeds",button,3,,762 · 9c6365a9-2-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,18 · b7c34b92-7-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,18 · b7c34b92-7-5
+Mission Control (compare mode),"Same week, same seeds",button,3,,18 · b7c34b92-7-6
+Mission Control (compare mode),"Same week, same seeds",button,3,,484 · ca4cddb4-21-14
+Mission Control (compare mode),"Same week, same seeds",button,3,,484 · ca4cddb4-21-16
+Mission Control (compare mode),"Same week, same seeds",button,3,,484 · ca4cddb4-21-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,484 · ca4cddb4-21-20
+Mission Control (compare mode),"Same week, same seeds",button,3,,484 · ca4cddb4-21-9
+Mission Control (compare mode),"Same week, same seeds",button,3,,18 · d500ec63-7-6
+Mission Control (compare mode),"Same week, same seeds",button,3,,405 · d9936c54-2-2
+Mission Control (compare mode),"Same week, same seeds",button,3,,211 · dcbb0739-7-6
+Mission Control (compare mode),"Same week, same seeds",button,3,,963 · e9d507b1-7-4
+Mission Control (compare mode),"Same week, same seeds",button,3,,963 · e9d507b1-7-7
+Mission Control (compare mode),"Same week, same seeds",button,3,,729 · f2429aaa-5-1
+Mission Control (compare mode),"Same week, same seeds",button,3,,405 · f91bd839-2-2
+Mission Control (compare mode),Request 3dbbf258-1-1,h2,2,,Request 3dbbf258-1-1
+Mission Control (compare mode),Request 3dbbf258-1-1,button,1,,Clear
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,1,,Mission
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,1,,18
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,1,,Requested
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,9,,1 h 00 min (minimum 1 h 00 min)
+Mission Control (compare mode),Request 3dbbf258-1-1,span,5,,(minimum 1 h 00 min)
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,2,,Time window
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,11,,Mon 01 Oct 00:00 UTC to Mon 08 Oct 12:00 UTC
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,2,,Antenna options
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,8,,"DSS-14, DSS-24, DSS-25, DSS-26, DSS-34, DSS-35, DSS-36, DSS-43"
+Mission Control (compare mode),Request 3dbbf258-1-1,span,3,config code: A6,Adaptive BEE (A6)
+Mission Control (compare mode),Request 3dbbf258-1-1,span,1,,scheduled
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,1,,Antenna
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,1,,DSS-43
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,1,,Start
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,5,,Mon 01 Oct 03:49 UTC
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,1,,End
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,5,,Mon 01 Oct 04:49 UTC
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,1,,Allocated
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,4,,1 h 00 min
+Mission Control (compare mode),Request 3dbbf258-1-1,dt,2,,Visibility used
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,11,,Mon 01 Oct 03:49 UTC to Mon 01 Oct 16:13 UTC
+Mission Control (compare mode),Request 3dbbf258-1-1,button,3,,Jump to start
+Mission Control (compare mode),Request 3dbbf258-1-1,span,2,,Plain PPO
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,1,,DSS-36
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,5,,Mon 01 Oct 04:13 UTC
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,5,,Mon 01 Oct 05:13 UTC
+Mission Control (compare mode),Request 3dbbf258-1-1,dd,11,,Mon 01 Oct 04:13 UTC to Mon 01 Oct 15:59 UTC
+Mission Control (compare mode),Unscheduled (A),h2,2,,Unscheduled (A)
+Mission Control (compare mode),Unscheduled (A),span,3,,113 of 333
+Mission Control (compare mode),Unscheduled (A),span,1,,253
+Mission Control (compare mode),Unscheduled (A),span,1,,0d06c893-7-1
+Mission Control (compare mode),Unscheduled (A),span,4,,8 h 00 min
+Mission Control (compare mode),Unscheduled (A),span,1,,996
+Mission Control (compare mode),Unscheduled (A),span,1,,10c40da1-4-1
+Mission Control (compare mode),Unscheduled (A),span,4,,4 h 00 min
+Mission Control (compare mode),Unscheduled (A),span,1,,884
+Mission Control (compare mode),Unscheduled (A),span,1,,24c0402c-5-1
+Mission Control (compare mode),Unscheduled (A),span,1,,576
+Mission Control (compare mode),Unscheduled (A),span,1,,32df189e-7-1
+Mission Control (compare mode),Unscheduled (A),span,4,,10 h 00 min
+Mission Control (compare mode),Unscheduled (A),span,1,,196
+Mission Control (compare mode),Unscheduled (A),span,1,,3602669c-1-1
+Mission Control (compare mode),Unscheduled (A),span,1,,228
+Mission Control (compare mode),Unscheduled (A),span,1,,45bed96a-9-2
+Mission Control (compare mode),Unscheduled (A),span,1,,762
+Mission Control (compare mode),Unscheduled (A),span,1,,67a7e270-8-1
+Mission Control (compare mode),Unscheduled (A),span,1,,835
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-1
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-2
+Mission Control (compare mode),Unscheduled (A),span,1,,593
+Mission Control (compare mode),Unscheduled (A),span,1,,8c5e400c-2-1
+Mission Control (compare mode),Unscheduled (A),span,4,,1 h 00 min
+Mission Control (compare mode),Unscheduled (A),span,1,,405
+Mission Control (compare mode),Unscheduled (A),span,1,,dd3c695b-3-1
+Mission Control (compare mode),Unscheduled (A),span,4,,3 h 18 min
+Mission Control (compare mode),Unscheduled (A),span,1,,425
+Mission Control (compare mode),Unscheduled (A),span,1,,dfe8c4e7-6-1
+Mission Control (compare mode),Unscheduled (A),span,1,,221
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-1
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-2
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-3
+Mission Control (compare mode),Unscheduled (A),span,1,,648
+Mission Control (compare mode),Unscheduled (A),span,1,,35495ac9-7-1
+Mission Control (compare mode),Unscheduled (A),span,1,,18
+Mission Control (compare mode),Unscheduled (A),span,1,,d500ec63-7-1
+Mission Control (compare mode),Unscheduled (A),span,1,,963
+Mission Control (compare mode),Unscheduled (A),span,1,,e9d507b1-7-1
+Mission Control (compare mode),Unscheduled (A),span,1,,e4dd1ad1-7-1
+Mission Control (compare mode),Unscheduled (A),span,1,,1658030f-4-1
+Mission Control (compare mode),Unscheduled (A),span,1,,b1e97b08-4-1
+Mission Control (compare mode),Unscheduled (A),span,1,,484
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-1
+Mission Control (compare mode),Unscheduled (A),span,1,,640e87c3-8-1
+Mission Control (compare mode),Unscheduled (A),span,1,,50ecbfba-2-1
+Mission Control (compare mode),Unscheduled (A),span,1,,d9936c54-2-1
+Mission Control (compare mode),Unscheduled (A),span,4,,7 h 18 min
+Mission Control (compare mode),Unscheduled (A),span,1,,877
+Mission Control (compare mode),Unscheduled (A),span,1,,9e70dbb9-2-1
+Mission Control (compare mode),Unscheduled (A),span,4,,5 h 00 min
+Mission Control (compare mode),Unscheduled (A),span,1,,32df189e-7-2
+Mission Control (compare mode),Unscheduled (A),span,1,,882
+Mission Control (compare mode),Unscheduled (A),span,1,,0e4e5c6b-21-1
+Mission Control (compare mode),Unscheduled (A),span,1,,0d06c893-7-2
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-4
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-4
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-5
+Mission Control (compare mode),Unscheduled (A),span,1,,d500ec63-7-2
+Mission Control (compare mode),Unscheduled (A),span,1,,e9d507b1-7-2
+Mission Control (compare mode),Unscheduled (A),span,1,,380aafa8-7-2
+Mission Control (compare mode),Unscheduled (A),span,1,,dfe8c4e7-6-2
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-4
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-6
+Mission Control (compare mode),Unscheduled (A),span,1,,729
+Mission Control (compare mode),Unscheduled (A),span,1,,f2429aaa-5-2
+Mission Control (compare mode),Unscheduled (A),span,1,,32df189e-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,97
+Mission Control (compare mode),Unscheduled (A),span,1,,1b17b305-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-5
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-6
+Mission Control (compare mode),Unscheduled (A),span,1,,b1e97b08-4-2
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-9
+Mission Control (compare mode),Unscheduled (A),span,1,,d500ec63-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,211
+Mission Control (compare mode),Unscheduled (A),span,1,,dcbb0739-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,e9d507b1-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,b7c34b92-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,35495ac9-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,380aafa8-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,87d31eb8-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,e4dd1ad1-7-3
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-7
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-8
+Mission Control (compare mode),Unscheduled (A),span,1,,45bed96a-9-4
+Mission Control (compare mode),Unscheduled (A),span,1,,45bed96a-9-6
+Mission Control (compare mode),Unscheduled (A),span,1,,67a7e270-8-4
+Mission Control (compare mode),Unscheduled (A),span,1,,32df189e-7-4
+Mission Control (compare mode),Unscheduled (A),span,1,,640e87c3-8-4
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-7
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-8
+Mission Control (compare mode),Unscheduled (A),span,1,,d500ec63-7-4
+Mission Control (compare mode),Unscheduled (A),span,1,,dcbb0739-7-4
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-10
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-11
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-12
+Mission Control (compare mode),Unscheduled (A),span,1,,957
+Mission Control (compare mode),Unscheduled (A),span,1,,735c8607-7-4
+Mission Control (compare mode),Unscheduled (A),span,4,,3 h 30 min
+Mission Control (compare mode),Unscheduled (A),span,1,,380aafa8-7-4
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-11
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-12
+Mission Control (compare mode),Unscheduled (A),span,1,,dfe8c4e7-6-4
+Mission Control (compare mode),Unscheduled (A),span,1,,50ecbfba-2-2
+Mission Control (compare mode),Unscheduled (A),span,1,,0e4e5c6b-21-11
+Mission Control (compare mode),Unscheduled (A),span,1,,32df189e-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,1658030f-4-3
+Mission Control (compare mode),Unscheduled (A),span,1,,b1e97b08-4-3
+Mission Control (compare mode),Unscheduled (A),span,1,,0d06c893-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,1b17b305-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,d500ec63-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,dcbb0739-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-10
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-9
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-13
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-14
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-15
+Mission Control (compare mode),Unscheduled (A),span,1,,35495ac9-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,521
+Mission Control (compare mode),Unscheduled (A),span,1,,067e3ab7-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,380aafa8-7-5
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-13
+Mission Control (compare mode),Unscheduled (A),span,1,,32df189e-7-6
+Mission Control (compare mode),Unscheduled (A),span,1,,45bed96a-9-8
+Mission Control (compare mode),Unscheduled (A),span,1,,0d06c893-7-6
+Mission Control (compare mode),Unscheduled (A),span,1,,e9d507b1-7-6
+Mission Control (compare mode),Unscheduled (A),span,1,,067e3ab7-7-6
+Mission Control (compare mode),Unscheduled (A),span,1,,e4dd1ad1-7-6
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-11
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-12
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-17
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-18
+Mission Control (compare mode),Unscheduled (A),span,1,,735c8607-7-6
+Mission Control (compare mode),Unscheduled (A),span,1,,67a7e270-8-7
+Mission Control (compare mode),Unscheduled (A),span,1,,1658030f-4-4
+Mission Control (compare mode),Unscheduled (A),span,1,,f2429aaa-5-5
+Mission Control (compare mode),Unscheduled (A),span,1,,1b17b305-7-7
+Mission Control (compare mode),Unscheduled (A),span,1,,b7c34b92-7-7
+Mission Control (compare mode),Unscheduled (A),span,1,,d500ec63-7-7
+Mission Control (compare mode),Unscheduled (A),span,1,,ca4cddb4-21-21
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-13
+Mission Control (compare mode),Unscheduled (A),span,1,,74e34a9d-14-14
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-19
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-20
+Mission Control (compare mode),Unscheduled (A),span,1,,38134fa6-21-21
+Mission Control (compare mode),Unscheduled (B),h2,2,,Unscheduled (B)
+Mission Control (compare mode),Unscheduled (B),span,3,,114 of 333
+Mission Control (compare mode),Unscheduled (B),span,1,,996
+Mission Control (compare mode),Unscheduled (B),span,1,,10c40da1-4-1
+Mission Control (compare mode),Unscheduled (B),span,4,,4 h 00 min
+Mission Control (compare mode),Unscheduled (B),span,1,,97
+Mission Control (compare mode),Unscheduled (B),span,1,,1b17b305-7-1
+Mission Control (compare mode),Unscheduled (B),span,1,,884
+Mission Control (compare mode),Unscheduled (B),span,1,,24c0402c-5-1
+Mission Control (compare mode),Unscheduled (B),span,4,,8 h 00 min
+Mission Control (compare mode),Unscheduled (B),span,1,,576
+Mission Control (compare mode),Unscheduled (B),span,1,,32df189e-7-1
+Mission Control (compare mode),Unscheduled (B),span,4,,10 h 00 min
+Mission Control (compare mode),Unscheduled (B),span,1,,196
+Mission Control (compare mode),Unscheduled (B),span,1,,3602669c-1-1
+Mission Control (compare mode),Unscheduled (B),span,1,,762
+Mission Control (compare mode),Unscheduled (B),span,1,,37bff446-1-1
+Mission Control (compare mode),Unscheduled (B),span,1,,67a7e270-8-1
+Mission Control (compare mode),Unscheduled (B),span,1,,835
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-1
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-2
+Mission Control (compare mode),Unscheduled (B),span,1,,593
+Mission Control (compare mode),Unscheduled (B),span,1,,8c5e400c-2-1
+Mission Control (compare mode),Unscheduled (B),span,4,,1 h 00 min
+Mission Control (compare mode),Unscheduled (B),span,1,,425
+Mission Control (compare mode),Unscheduled (B),span,1,,dfe8c4e7-6-1
+Mission Control (compare mode),Unscheduled (B),span,1,,221
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-1
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-3
+Mission Control (compare mode),Unscheduled (B),span,1,,18
+Mission Control (compare mode),Unscheduled (B),span,1,,d500ec63-7-1
+Mission Control (compare mode),Unscheduled (B),span,1,,963
+Mission Control (compare mode),Unscheduled (B),span,1,,e9d507b1-7-1
+Mission Control (compare mode),Unscheduled (B),span,1,,380aafa8-7-1
+Mission Control (compare mode),Unscheduled (B),span,1,,1658030f-4-1
+Mission Control (compare mode),Unscheduled (B),span,1,,b1e97b08-4-1
+Mission Control (compare mode),Unscheduled (B),span,1,,484
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-1
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-2
+Mission Control (compare mode),Unscheduled (B),span,1,,729
+Mission Control (compare mode),Unscheduled (B),span,1,,f2429aaa-5-1
+Mission Control (compare mode),Unscheduled (B),span,1,,640e87c3-8-1
+Mission Control (compare mode),Unscheduled (B),span,1,,50ecbfba-2-1
+Mission Control (compare mode),Unscheduled (B),span,1,,877
+Mission Control (compare mode),Unscheduled (B),span,1,,9e70dbb9-2-1
+Mission Control (compare mode),Unscheduled (B),span,4,,5 h 00 min
+Mission Control (compare mode),Unscheduled (B),span,1,,67a7e270-8-2
+Mission Control (compare mode),Unscheduled (B),span,1,,32df189e-7-2
+Mission Control (compare mode),Unscheduled (B),span,1,,253
+Mission Control (compare mode),Unscheduled (B),span,1,,0d06c893-7-2
+Mission Control (compare mode),Unscheduled (B),span,1,,1b17b305-7-2
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-3
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-4
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-6
+Mission Control (compare mode),Unscheduled (B),span,1,,648
+Mission Control (compare mode),Unscheduled (B),span,1,,35495ac9-7-2
+Mission Control (compare mode),Unscheduled (B),span,1,,e9d507b1-7-2
+Mission Control (compare mode),Unscheduled (B),span,1,,b7c34b92-7-2
+Mission Control (compare mode),Unscheduled (B),span,1,,957
+Mission Control (compare mode),Unscheduled (B),span,1,,735c8607-7-2
+Mission Control (compare mode),Unscheduled (B),span,4,,3 h 30 min
+Mission Control (compare mode),Unscheduled (B),span,1,,dfe8c4e7-6-2
+Mission Control (compare mode),Unscheduled (B),span,1,,845
+Mission Control (compare mode),Unscheduled (B),span,1,,43b0e91c-6-2
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-4
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-6
+Mission Control (compare mode),Unscheduled (B),span,1,,10c40da1-4-2
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-5
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-6
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-9
+Mission Control (compare mode),Unscheduled (B),span,1,,d500ec63-7-3
+Mission Control (compare mode),Unscheduled (B),span,1,,e9d507b1-7-3
+Mission Control (compare mode),Unscheduled (B),span,1,,b7c34b92-7-3
+Mission Control (compare mode),Unscheduled (B),span,1,,640e87c3-8-3
+Mission Control (compare mode),Unscheduled (B),span,1,,35495ac9-7-3
+Mission Control (compare mode),Unscheduled (B),span,1,,380aafa8-7-3
+Mission Control (compare mode),Unscheduled (B),span,1,,e4dd1ad1-7-3
+Mission Control (compare mode),Unscheduled (B),span,1,,521
+Mission Control (compare mode),Unscheduled (B),span,1,,067e3ab7-7-3
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-7
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-9
+Mission Control (compare mode),Unscheduled (B),span,1,,228
+Mission Control (compare mode),Unscheduled (B),span,1,,45bed96a-9-4
+Mission Control (compare mode),Unscheduled (B),span,1,,67a7e270-8-4
+Mission Control (compare mode),Unscheduled (B),span,1,,32df189e-7-4
+Mission Control (compare mode),Unscheduled (B),span,1,,24c0402c-5-3
+Mission Control (compare mode),Unscheduled (B),span,1,,0d06c893-7-4
+Mission Control (compare mode),Unscheduled (B),span,1,,1b17b305-7-4
+Mission Control (compare mode),Unscheduled (B),span,1,,640e87c3-8-4
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-8
+Mission Control (compare mode),Unscheduled (B),span,1,,e9d507b1-7-4
+Mission Control (compare mode),Unscheduled (B),span,1,,d500ec63-7-4
+Mission Control (compare mode),Unscheduled (B),span,1,,211
+Mission Control (compare mode),Unscheduled (B),span,1,,dcbb0739-7-4
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-10
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-12
+Mission Control (compare mode),Unscheduled (B),span,1,,dfe8c4e7-6-4
+Mission Control (compare mode),Unscheduled (B),span,1,,10c40da1-4-3
+Mission Control (compare mode),Unscheduled (B),span,1,,424
+Mission Control (compare mode),Unscheduled (B),span,1,,15bdb339-2-2
+Mission Control (compare mode),Unscheduled (B),span,1,,67a7e270-8-5
+Mission Control (compare mode),Unscheduled (B),span,1,,7e9838cd-2-2
+Mission Control (compare mode),Unscheduled (B),span,1,,9c6365a9-2-2
+Mission Control (compare mode),Unscheduled (B),span,1,,50ecbfba-2-2
+Mission Control (compare mode),Unscheduled (B),span,1,,882
+Mission Control (compare mode),Unscheduled (B),span,1,,0e4e5c6b-21-11
+Mission Control (compare mode),Unscheduled (B),span,1,,32df189e-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,405
+Mission Control (compare mode),Unscheduled (B),span,1,,d9936c54-2-2
+Mission Control (compare mode),Unscheduled (B),span,4,,7 h 18 min
+Mission Control (compare mode),Unscheduled (B),span,1,,f91bd839-2-2
+Mission Control (compare mode),Unscheduled (B),span,4,,6 h 18 min
+Mission Control (compare mode),Unscheduled (B),span,1,,640e87c3-8-5
+Mission Control (compare mode),Unscheduled (B),span,1,,0d06c893-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,1b17b305-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,b7c34b92-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-13
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-14
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-15
+Mission Control (compare mode),Unscheduled (B),span,1,,87d31eb8-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,35495ac9-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,067e3ab7-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,380aafa8-7-5
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-14
+Mission Control (compare mode),Unscheduled (B),span,1,,32df189e-7-6
+Mission Control (compare mode),Unscheduled (B),span,1,,640e87c3-8-6
+Mission Control (compare mode),Unscheduled (B),span,1,,0d06c893-7-6
+Mission Control (compare mode),Unscheduled (B),span,1,,b7c34b92-7-6
+Mission Control (compare mode),Unscheduled (B),span,1,,d500ec63-7-6
+Mission Control (compare mode),Unscheduled (B),span,1,,dcbb0739-7-6
+Mission Control (compare mode),Unscheduled (B),span,1,,87d31eb8-7-6
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-11
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-12
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-16
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-17
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-16
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-17
+Mission Control (compare mode),Unscheduled (B),span,1,,10c40da1-4-4
+Mission Control (compare mode),Unscheduled (B),span,1,,67a7e270-8-7
+Mission Control (compare mode),Unscheduled (B),span,1,,f2429aaa-5-5
+Mission Control (compare mode),Unscheduled (B),span,1,,0d06c893-7-7
+Mission Control (compare mode),Unscheduled (B),span,1,,e9d507b1-7-7
+Mission Control (compare mode),Unscheduled (B),span,1,,d500ec63-7-7
+Mission Control (compare mode),Unscheduled (B),span,1,,ca4cddb4-21-20
+Mission Control (compare mode),Unscheduled (B),span,1,,74e34a9d-14-14
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-19
+Mission Control (compare mode),Unscheduled (B),span,1,,38134fa6-21-20
+Mission Control (compare mode),Unscheduled (B),span,1,,35495ac9-7-7
+Mission Control (compare mode),Unscheduled (B),span,1,,67a7e270-8-8
+Mission Control (compare mode),(page),svg-text,1,,October
+Mission Control (compare mode),(page),svg-text,2,,Tue 02
+Mission Control (compare mode),(page),svg-text,2,,Wed 03
+Mission Control (compare mode),(page),svg-text,2,,Thu 04
+Mission Control (compare mode),(page),svg-text,2,,Fri 05
+Mission Control (compare mode),(page),svg-text,2,,Sat 06
+Mission Control (compare mode),(page),svg-text,2,,Oct 07
+Mission Control (compare mode),(page),svg-text,2,,Mon 08
+Mission Control (compare mode),(page),svg-text,2,,A DSS-14
+Mission Control (compare mode),(page),svg-text,2,,B DSS-14
+Mission Control (compare mode),(page),svg-text,2,,A DSS-24
+Mission Control (compare mode),(page),svg-text,2,,B DSS-24
+Mission Control (compare mode),(page),svg-text,2,,A DSS-25
+Mission Control (compare mode),(page),svg-text,2,,B DSS-25
+Mission Control (compare mode),(page),svg-text,2,,A DSS-26
+Mission Control (compare mode),(page),svg-text,2,,B DSS-26
+Mission Control (compare mode),(page),svg-text,2,,A DSS-34
+Mission Control (compare mode),(page),svg-text,2,,B DSS-34
+Mission Control (compare mode),(page),svg-text,2,,A DSS-35
+Mission Control (compare mode),(page),svg-text,2,,B DSS-35
+Mission Control (compare mode),(page),svg-text,2,,A DSS-36
+Mission Control (compare mode),(page),svg-text,2,,B DSS-36
+Mission Control (compare mode),(page),svg-text,2,,A DSS-43
+Mission Control (compare mode),(page),svg-text,2,,B DSS-43
+Mission Control (compare mode),(page),svg-text,2,,A DSS-54
+Mission Control (compare mode),(page),svg-text,2,,B DSS-54
+Mission Control (compare mode),(page),svg-text,2,,A DSS-55
+Mission Control (compare mode),(page),svg-text,2,,B DSS-55
+Mission Control (compare mode),(page),svg-text,2,,A DSS-63
+Mission Control (compare mode),(page),svg-text,2,,B DSS-63
+Mission Control (compare mode),(page),svg-text,2,,A DSS-65
+Mission Control (compare mode),(page),svg-text,2,,B DSS-65
+BEE Mechanism,BEE Mechanism Lab,h1,3,,BEE Mechanism Lab
+BEE Mechanism,BEE Mechanism Lab,p,21,,"How the bee-inspired features are computed for each request, on the exact equations from the team's code and on recorded data."
+BEE Mechanism,BEE Mechanism Lab,span,16,,The BEE features are inputs to the policy. The action mask is the shared feasibility mask.
+BEE Mechanism,BEE Mechanism Lab,span,12,"code or formula: np.array_equal(fixed_mask,; file name: shared/src/environment.py; snake_case name: array_equal; snake_case name: base_mask; snake_case name: fixed_mask","Source: shared/src/environment.py lines 247-299; fixed stream check assert np.array_equal(fixed_mask, base_mask) (cell 43)."
+BEE Mechanism,BEE Mechanism Lab,code,1,file name: shared/src/environment.py,shared/src/environment.py
+BEE Mechanism,BEE Mechanism Lab,code,3,"code or formula: np.array_equal(fixed_mask,; snake_case name: array_equal; snake_case name: base_mask; snake_case name: fixed_mask","assert np.array_equal(fixed_mask, base_mask)"
+BEE Mechanism,How BEE decides what the policy sees,h2,7,,How BEE decides what the policy sees
+BEE Mechanism,How BEE decides what the policy sees,p,44,,"BEE adds information to the observation; it does not remove actions. The set of allowed actions is the shared feasibility mask, identical for every method. BEE computes a stimulus and an activation for each request and passes them to the policy as extra inputs."
+BEE Mechanism,How BEE decides what the policy sees,h3,4,,What the policy sees
+BEE Mechanism,How BEE decides what the policy sees,span,4,internal label: recorded trace value,inputs: recorded trace values
+BEE Mechanism,How BEE decides what the policy sees,span,3,internal label: what-if θ,activation: what-if θ
+BEE Mechanism,How BEE decides what the policy sees,p,56,config code: A6,"Illustrative: requests chosen at different steps of one trained run (adaptive A6, W40, training seed 42, evaluation seed 1001). Each card is the request the policy chose at the step shown; they are not one moment. Moving θ changes each card's activation (fill and value). Every card was in the feasible set when it was chosen."
+BEE Mechanism,How BEE decides what the policy sees,strong,6,,Illustrative: requests chosen at different steps
+BEE Mechanism,How BEE decides what the policy sees,span,3,,Threshold θ (what-if)
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.50
+BEE Mechanism,How BEE decides what the policy sees,span,19,"code or formula: 1e-8),; code or formula: clip(s^2; code or formula: s^2; config code: A6","Range is the A6 clip range [0.1, 0.9]; activation = clip(s^2 / (s^2 + θ^2 + 1e-8), 0, 1)."
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.54
+BEE Mechanism,How BEE decides what the policy sees,span,1,,activation
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.541
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 0
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.60
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.616
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 20
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.62
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.633
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 40
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.51
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.507
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 60
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.59
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.598
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 80
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.40
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.410
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 100
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.52
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.523
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 119
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.57
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.573
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 139
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.19
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.242
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 159
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.64
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.672
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 179
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.47
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.470
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 199
+BEE Mechanism,How BEE decides what the policy sees,span,1,,0.37
+BEE Mechanism,How BEE decides what the policy sees,span,2,,s 0.384
+BEE Mechanism,How BEE decides what the policy sees,span,4,,allowed at step 219
+BEE Mechanism,How BEE decides what the policy sees,div,26,config code: A6,The panel above and the panel below come from different episodes (a trained A6 run and a random-policy diagnostic run). They are not a single state.
+BEE Mechanism,How BEE decides what the policy sees,strong,2,,different episodes
+BEE Mechanism,How BEE decides what the policy sees,h3,6,,What is allowed: a different episode
+BEE Mechanism,How BEE decides what the policy sees,span,2,,diagnostic episode
+BEE Mechanism,How BEE decides what the policy sees,p,61,config code: A1; config code: A6,"The shared feasibility mask: a request is allowed when it still has a feasible placement. This count comes from the diagnostic episode in the source file, identified from its generator code: a random-policy W40 episode under rule A1, environment seed 42, random actions with seed 0, 222 steps. It is not the trained A6 run above, and θ never changes it."
+BEE Mechanism,How BEE decides what the policy sees,strong,1,,random-policy
+BEE Mechanism,How BEE decides what the policy sees,span,5,,Step of the diagnostic episode
+BEE Mechanism,How BEE decides what the policy sees,div,7,,Step 0: 333 of 333 requests allowed
+BEE Mechanism,How BEE decides what the policy sees,span,1,,333
+BEE Mechanism,How BEE decides what the policy sees,p,6,file name: data/results/adaptive_threshold_diagnostic.csv; file name: notebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb; snake_case name: adaptive_threshold_diagnostic,"Generator: notebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb, cell 4. Data: data/results/adaptive_threshold_diagnostic.csv."
+BEE Mechanism,What-if sandbox,h2,2,,What-if sandbox
+BEE Mechanism,What-if sandbox,span,5,,"what-if, computed from the equations"
+BEE Mechanism,What-if sandbox,p,25,,"Choose input values and see the stimulus, threshold and activation each method's code would compute. These are what-if values computed from the equations, not results."
+BEE Mechanism,What-if sandbox,span,2,,Placement scarcity
+BEE Mechanism,What-if sandbox,span,1,,0.35
+BEE Mechanism,What-if sandbox,span,2,,Resource contention
+BEE Mechanism,What-if sandbox,span,1,,0.60
+BEE Mechanism,What-if sandbox,span,3,,Contention increase (adaptive)
+BEE Mechanism,What-if sandbox,span,1,,0.05
+BEE Mechanism,What-if sandbox,span,3,,Mission unmet ratio
+BEE Mechanism,What-if sandbox,span,1,,0.80
+BEE Mechanism,What-if sandbox,span,4,,Relative unmet pressure (adaptive)
+BEE Mechanism,What-if sandbox,span,1,,0.12
+BEE Mechanism,What-if sandbox,p,15,,Each method reads these inputs with its own definitions (see the notes below the table).
+BEE Mechanism,What-if sandbox,button,3,config code: F2,Fixed BEE (F2)
+BEE Mechanism,What-if sandbox,button,3,config code: A6,Adaptive BEE (A6)
+BEE Mechanism,What-if sandbox,button,3,config code: A3,Adaptive BEE (A3)
+BEE Mechanism,What-if sandbox,div,1,,STIMULUS
+BEE Mechanism,What-if sandbox,div,1,,0.5400
+BEE Mechanism,What-if sandbox,div,9,,"0.4·0.35 + 0.4·0.60 + 0.2·0.80, clipped to [0, 1]"
+BEE Mechanism,What-if sandbox,div,2,,THRESHOLD Θ
+BEE Mechanism,What-if sandbox,div,1,,0.4045
+BEE Mechanism,What-if sandbox,div,9,code or formula: clip(0.5,"clip(0.5 − 0.2·s − 0.15·Δc − 0.15·urel, 0.1, 0.9)"
+BEE Mechanism,What-if sandbox,sub,1,,rel
+BEE Mechanism,What-if sandbox,span,4,,● scarcity ≥ 0.3
+BEE Mechanism,What-if sandbox,span,5,,○ Δ contention ≥ 0.1
+BEE Mechanism,What-if sandbox,span,5,,● relative unmet ≥ 0.1
+BEE Mechanism,What-if sandbox,div,11,,"Selective gate: 2 of 3 indicators fire, needs 2: adaptation on"
+BEE Mechanism,What-if sandbox,strong,2,,adaptation on
+BEE Mechanism,What-if sandbox,div,1,,ACTIVATION
+BEE Mechanism,What-if sandbox,div,1,,0.6406
+BEE Mechanism,What-if sandbox,div,9,"code or formula: 1e-8),; code or formula: clip(s^k; code or formula: s^k","clip(s^k / (s^k + threshold^k + 1e-8), 0, 1)"
+BEE Mechanism,What-if sandbox,caption,6,,"Same inputs, all three methods (what-if)"
+BEE Mechanism,What-if sandbox,th,1,,METHOD
+BEE Mechanism,What-if sandbox,th,4,,"WEIGHTS (S, C, U)"
+BEE Mechanism,What-if sandbox,td,5,,0.5 / 0.3 / 0.2
+BEE Mechanism,What-if sandbox,td,1,,0.5150
+BEE Mechanism,What-if sandbox,td,1,,0.5000
+BEE Mechanism,What-if sandbox,td,1,,0.5148
+BEE Mechanism,What-if sandbox,td,5,,0.4 / 0.4 / 0.2
+BEE Mechanism,What-if sandbox,td,1,,0.4900
+BEE Mechanism,What-if sandbox,td,1,,0.5484
+BEE Mechanism,What-if sandbox,div,68,code or formula: 1e-8; config code: F2; gap or confirmation id: N4,"N4 Fixed vs adaptive is not like for like. Fixed BEE (F2) and adaptive BEE differ in stimulus weights, in the contention definition (static min-max over training weeks vs dynamic competitors / valid actions), in the scarcity definition and in the activation formula details (no 1e-8 term and no clipping in F2). Adaptive minus fixed BEE is therefore not an isolated effect of the threshold rule (see N4)."
+BEE Mechanism,What-if sandbox,span,1,gap or confirmation id: N4,N4
+BEE Mechanism,What-if sandbox,strong,8,,Fixed vs adaptive is not like for like.
+BEE Mechanism,What-if sandbox,summary,6,,Input definitions in each method's code
+BEE Mechanism,What-if sandbox,li,21,file name: notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb,"placement scarcity: 1 minus min(remaining feasible placements / number of visibility periods of the request, 1). notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb, cell 41, line 111"
+BEE Mechanism,What-if sandbox,span,2,,placement scarcity
+BEE Mechanism,What-if sandbox,span,5,file name: notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb,"notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb, cell 41, line 111"
+BEE Mechanism,What-if sandbox,li,41,file name: notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb; snake_case name: static_resource_contention,"resource contention: static: the request's static_resource_contention from the processed data, min-max normalised and clipped to [0, 1] (normalisation: min and max of static_resource_contention over the training weeks of the run (per fold in the cross-week runs)). notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb, cell 41, line 113"
+BEE Mechanism,What-if sandbox,span,2,,resource contention
+BEE Mechanism,What-if sandbox,span,5,file name: notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb,"notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb, cell 41, line 113"
+BEE Mechanism,What-if sandbox,li,30,file name: notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb,"mission unmet ratio: 1 minus (seconds allocated so far to the request's mission / seconds requested by that mission this week); not clipped before use. notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb, cell 41, line 117"
+BEE Mechanism,What-if sandbox,span,3,,mission unmet ratio
+BEE Mechanism,What-if sandbox,span,5,file name: notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb,"notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb, cell 41, line 117"
+BEE Mechanism,What-if sandbox,li,29,file name: notebooks/04_adaptive_bee/src/bee_fixed_environment.py; snake_case name: bee_fixed_environment,"placement scarcity: 1 minus (current number of feasible placement candidates / number of candidates when the request was first seen this episode), clipped to [0, 1]. notebooks/04_adaptive_bee/src/bee_fixed_environment.py, line 123"
+BEE Mechanism,What-if sandbox,span,3,file name: notebooks/04_adaptive_bee/src/bee_fixed_environment.py; snake_case name: bee_fixed_environment,"notebooks/04_adaptive_bee/src/bee_fixed_environment.py, line 123"
+BEE Mechanism,What-if sandbox,li,44,file name: notebooks/04_adaptive_bee/src/bee_fixed_environment.py; snake_case name: bee_fixed_environment,"resource contention: dynamic: number of other currently valid requests that share at least one candidate antenna, divided by (number of valid requests - 1), capped at 1 (normalisation: none beyond the division by (valid requests - 1); recomputed at every step). notebooks/04_adaptive_bee/src/bee_fixed_environment.py, line 107"
+BEE Mechanism,What-if sandbox,span,3,file name: notebooks/04_adaptive_bee/src/bee_fixed_environment.py; snake_case name: bee_fixed_environment,"notebooks/04_adaptive_bee/src/bee_fixed_environment.py, line 107"
+BEE Mechanism,What-if sandbox,li,28,file name: notebooks/04_adaptive_bee/src/bee_fixed_environment.py; snake_case name: bee_fixed_environment,"mission unmet ratio: 1 minus (seconds allocated so far to the request's mission / seconds requested by that mission this week), clipped to [0, 1]. notebooks/04_adaptive_bee/src/bee_fixed_environment.py, line 129"
+BEE Mechanism,What-if sandbox,span,3,file name: notebooks/04_adaptive_bee/src/bee_fixed_environment.py; snake_case name: bee_fixed_environment,"notebooks/04_adaptive_bee/src/bee_fixed_environment.py, line 129"
+BEE Mechanism,What-if sandbox,li,18,file name: notebooks/04_adaptive_bee/src/bee_adaptive_environment.py; snake_case name: bee_adaptive_environment,"contention increase: max(current contention - contention when the request was first seen this episode, 0). notebooks/04_adaptive_bee/src/bee_adaptive_environment.py, line 105"
+BEE Mechanism,What-if sandbox,span,2,,contention increase
+BEE Mechanism,What-if sandbox,span,3,file name: notebooks/04_adaptive_bee/src/bee_adaptive_environment.py; snake_case name: bee_adaptive_environment,"notebooks/04_adaptive_bee/src/bee_adaptive_environment.py, line 105"
+BEE Mechanism,What-if sandbox,li,19,file name: notebooks/04_adaptive_bee/src/bee_adaptive_environment.py; snake_case name: bee_adaptive_environment,"relative unmet pressure: max(mission unmet ratio - mean unmet ratio over missions with requested time, 0). notebooks/04_adaptive_bee/src/bee_adaptive_environment.py, line 107"
+BEE Mechanism,What-if sandbox,span,3,,relative unmet pressure
+BEE Mechanism,What-if sandbox,span,3,file name: notebooks/04_adaptive_bee/src/bee_adaptive_environment.py; snake_case name: bee_adaptive_environment,"notebooks/04_adaptive_bee/src/bee_adaptive_environment.py, line 107"
+BEE Mechanism,Replay a real step,h2,4,,Replay a real step
+BEE Mechanism,Replay a real step,span,3,internal label: recorded trace value,recorded trace value
+BEE Mechanism,Replay a real step,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+BEE Mechanism,Replay a real step,p,36,,Pick a cross-week run and a step from the exported threshold traces. The table shows the selected request's values exactly as recorded. The button recomputes the derived values from the recorded inputs with the browser equations.
+BEE Mechanism,Replay a real step,span,1,,CONFIGURATION
+BEE Mechanism,Replay a real step,span,8,,RUN (WEEK · TRAINING SEED · EVALUATION SEED)
+BEE Mechanism,Replay a real step,span,4,,Step (0 to 198)
+BEE Mechanism,Replay a real step,button,4,,Recompute from recorded inputs
+BEE Mechanism,Replay a real step,div,6,file name: data/schedules/adaptive_threshold_traces/a6_cross_week/a6_fold_1_w10_2018_train_42_eval_1001.parquet; snake_case name: adaptive_threshold_traces,"Request aa081202-5-2, action 110. Source: data/schedules/adaptive_threshold_traces/a6_cross_week/a6_fold_1_w10_2018_train_42_eval_1001.parquet"
+BEE Mechanism,Replay a real step,span,1,,aa081202-5-2
+BEE Mechanism,Replay a real step,code,1,file name: data/schedules/adaptive_threshold_traces/a6_cross_week/a6_fold_1_w10_2018_train_42_eval_1001.parquet; snake_case name: adaptive_threshold_traces,data/schedules/adaptive_threshold_traces/a6_cross_week/a6_fold_1_w10_2018_train_42_eval_1001.parquet
+BEE Mechanism,Replay a real step,th,1,,FIELD
+BEE Mechanism,Replay a real step,th,2,,RECORDED (EXACT)
+BEE Mechanism,Replay a real step,th,1,,RECOMPUTED
+BEE Mechanism,Replay a real step,th,1,,|DIFFERENCE|
+BEE Mechanism,Replay a real step,td,2,,placement scarcity
+BEE Mechanism,Replay a real step,span,1,,input
+BEE Mechanism,Replay a real step,td,2,,resource contention
+BEE Mechanism,Replay a real step,td,1,,0.296875
+BEE Mechanism,Replay a real step,td,3,,mission unmet ratio
+BEE Mechanism,Replay a real step,td,2,,initial contention
+BEE Mechanism,Replay a real step,td,3,,mean mission unmet
+BEE Mechanism,Replay a real step,td,2,,contention increase
+BEE Mechanism,Replay a real step,td,3,,relative unmet pressure
+BEE Mechanism,Replay a real step,td,2,,pressure count
+BEE Mechanism,Replay a real step,td,2,,adaptation enabled
+BEE Mechanism,Replay a real step,td,1,,false
+BEE Mechanism,Replay a real step,td,1,,stimulus
+BEE Mechanism,Replay a real step,td,1,,0.31875000000000003
+BEE Mechanism,Replay a real step,td,1,,threshold
+BEE Mechanism,Replay a real step,td,1,,0.5
+BEE Mechanism,Replay a real step,td,1,,activation
+BEE Mechanism,Replay a real step,td,1,,0.28896788423777603
+BEE Mechanism,What the traces show,h2,4,,What the traces show
+BEE Mechanism,What the traces show,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+BEE Mechanism,What the traces show,p,26,config code: A6; file name: thresholds.json; snake_case name: thresholds_summary,A6 cross-week traces record the threshold of the request chosen at every step. The counts below are exported from the 35 A6 traces (thresholds_summary in thresholds.json).
+BEE Mechanism,What the traces show,h3,9,config code: A6,"Selected thresholds (A6, all steps of all 35 runs)"
+BEE Mechanism,What the traces show,p,24,,"5,889 of 7,247 recorded selections (81.3%) are at the base threshold 0.5; the remaining 1,358 were adapted lower. Mean selected threshold 0.4691, minimum 0.2015."
+BEE Mechanism,What the traces show,span,1,,"5,889"
+BEE Mechanism,What the traces show,span,1,,"7,247"
+BEE Mechanism,What the traces show,span,1,,81.3%
+BEE Mechanism,What the traces show,span,1,,"1,358"
+BEE Mechanism,What the traces show,span,1,,0.4691
+BEE Mechanism,What the traces show,span,1,,0.2015
+BEE Mechanism,What the traces show,caption,4,file name: adaptive_threshold_results.csv; snake_case name: adaptive_threshold_results,"Per fold, from adaptive_threshold_results.csv"
+BEE Mechanism,What the traces show,th,2,,TEST WEEK
+BEE Mechanism,What the traces show,th,3,,MEAN SELECTED Θ
+BEE Mechanism,What the traces show,th,3,,MINIMUM SELECTED Θ
+BEE Mechanism,What the traces show,td,1,,W10
+BEE Mechanism,What the traces show,td,1,,0.4633
+BEE Mechanism,What the traces show,td,1,,0.2569
+BEE Mechanism,What the traces show,td,1,,W20
+BEE Mechanism,What the traces show,td,1,,0.4681
+BEE Mechanism,What the traces show,td,1,,0.2544
+BEE Mechanism,What the traces show,td,1,,W30
+BEE Mechanism,What the traces show,td,1,,0.4716
+BEE Mechanism,What the traces show,td,1,,0.2481
+BEE Mechanism,What the traces show,td,1,,W40
+BEE Mechanism,What the traces show,td,1,,0.4723
+BEE Mechanism,What the traces show,td,1,,0.2350
+BEE Mechanism,What the traces show,td,1,,W50
+BEE Mechanism,What the traces show,td,1,,0.4694
+BEE Mechanism,What the traces show,td,1,,0.2418
+BEE Mechanism,What the traces show,h3,9,,Diagnostic: the three adjustment terms per step (random-policy episode)
+BEE Mechanism,What the traces show,span,6,,"diagnostic episode, not a cross-week run"
+BEE Mechanism,What the traces show,p,55,config code: A1; config code: A6,"Means over the 222 steps: scarcity term 0.082, unmet term 0.0098, contention term 0.00016 (max 0.011). In this diagnostic the threshold moves mainly through the scarcity term; the contention term is about 0. The episode is a random-policy W40 run under rule A1 (same strengths as A6, no selective gate), not a trained A6 run."
+BEE Mechanism,What the traces show,span,1,,0.082
+BEE Mechanism,What the traces show,span,1,,0.0098
+BEE Mechanism,What the traces show,span,1,,0.00016
+BEE Mechanism,What the traces show,span,2,,scarcity term
+BEE Mechanism,What the traces show,span,2,,unmet term
+BEE Mechanism,What the traces show,span,2,,contention term
+BEE Mechanism,What the traces show,p,52,"code or formula: np.random.default_rng(0),; config code: A1; config code: A6; file name: notebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb; snake_case name: default_rng","Random-policy episode on W40 under rule A1 (all three terms on, not selective): environment seed 42, actions drawn uniformly from the valid requests with np.random.default_rng(0), 222 steps. Each term is the strength times the mean over all valid requests at that step. Not the trained A6 policy. Generated by notebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb, cell 4."
+BEE Mechanism,What the traces show,div,41,,"hypothesis, not testedContention is measured relative to each request's own contention when it was first seen, and the number of valid requests shrinks as the week fills up, which may keep the contention increase small. The traces do not test this."
+BEE Mechanism,What the traces show,span,3,,"hypothesis, not tested"
+BEE Mechanism,How BEE decides what the policy sees,svg-text,2,,stimulus s
+BEE Mechanism,How BEE decides what the policy sees,svg-text,1,,activation
+BEE Mechanism,How BEE decides what the policy sees,svg-text,3,,θ = 0.50
+BEE Mechanism,What the traces show,svg-text,6,,selected threshold (navy bar: exactly 0.5)
+BEE Mechanism,What the traces show,svg-text,1,,step
+Ablation,Ablation Lab,h1,2,,Ablation Lab
+Ablation,Ablation Lab,p,21,config code: A1; config code: A6,"The adaptive-threshold configuration study (A1 to A6) on the W40 validation week, and exactly what its evidence can and cannot support."
+Ablation,What this ablation can and cannot support,h2,7,,What this ablation can and cannot support
+Ablation,What this ablation can and cannot support,div,3,,It can support
+Ablation,What this ablation can and cannot support,li,13,,"Which configurations were shortlisted and which reached confirmation, under the declared staged rule."
+Ablation,What this ablation can and cannot support,li,18,config code: A3; config code: A6,"That A3 and A6 were tied at confirmation, and that A6 was chosen by the declared W40-only tie-break."
+Ablation,What this ablation can and cannot support,li,14,config code: A3,"How each configuration's recorded thresholds behaved (for example, A3 stays near the base threshold)."
+Ablation,What this ablation can and cannot support,div,3,,It cannot support
+Ablation,What this ablation can and cannot support,li,36,"config code: A3; config code: A4; config code: A6; stage label: confirmation (10,240); stage label: screening (1,024 steps); stage label: shortlist (5,120)","Component-level conclusions. Most configurations were run only at screening budget: all six at screening (1,024 steps), only A3, A4, A6 at shortlist (5,120), and only A3 and A6 at confirmation (10,240). No component-level conclusions are drawn."
+Ablation,What this ablation can and cannot support,li,23,config code: A3,A comparison with “no adaptation”: no adaptation-off arm was run at a matched budget. A3 is a proxy only (see the reference toggle).
+Ablation,What this ablation can and cannot support,li,18,,"Effects on other weeks: every stage used W40 only; the cross-week context below is a separate, suggestive comparison."
+Ablation,What this ablation can and cannot support,p,61,config code: A3; config code: A6,"Screening runs use 1,024 training steps, one training seed (42) and the W40 validation week. They support shortlisting only. Differences between configurations at this stage are not used to attribute effects to individual components. A3 and A6 were tied at confirmation; A6 was chosen by the declared tie-break rule. No configuration without adaptation was run at matched budget in this search."
+Ablation,Components and configurations,h2,3,,Components and configurations
+Ablation,Components and configurations,p,25,file name: ablation.json,"Component flags are read from ablation.json. Click a configuration column, or switch components on and off; combinations that were not run are marked as such."
+Ablation,Components and configurations,label,2,,Scarcity term
+Ablation,Components and configurations,label,2,,Contention term
+Ablation,Components and configurations,label,2,,Unmet-demand term
+Ablation,Components and configurations,label,5,,Selective gate (2 of 3)
+Ablation,Components and configurations,label,3,,Strength full lower
+Ablation,Components and configurations,span,4,config code: A6,This combination is A6
+Ablation,Components and configurations,th,1,,COMPONENT
+Ablation,Components and configurations,button,1,config code: A1,A1
+Ablation,Components and configurations,button,1,config code: A2,A2
+Ablation,Components and configurations,button,1,config code: A3,A3
+Ablation,Components and configurations,button,1,config code: A4,A4
+Ablation,Components and configurations,button,1,config code: A5,A5
+Ablation,Components and configurations,button,1,config code: A6,A6
+Ablation,Components and configurations,span,1,,on
+Ablation,Components and configurations,span,1,,off
+Ablation,Components and configurations,td,1,,Strength
+Ablation,Components and configurations,span,1,,full
+Ablation,Components and configurations,span,1,,lower
+Ablation,Components and configurations,td,5,,Label in the results file
+Ablation,Components and configurations,td,6,,scarcity + contention + unmet demand
+Ablation,Components and configurations,td,2,,scarcity only
+Ablation,Components and configurations,td,2,,contention only
+Ablation,Components and configurations,td,3,,unmet demand only
+Ablation,Components and configurations,td,3,,lower-strength full adaptation
+Ablation,Components and configurations,td,3,,selective full adaptation
+Ablation,Components and configurations,div,2,,Duration fulfillment
+Ablation,Components and configurations,span,3,"stage label: screening (1,024 steps)","screening (1,024 steps)"
+Ablation,Components and configurations,span,1,,0.5362
+Ablation,Components and configurations,span,1,,0.5359
+Ablation,Components and configurations,span,1,,0.5403
+Ablation,Components and configurations,span,1,,0.5363
+Ablation,Components and configurations,span,1,,0.5419
+Ablation,Components and configurations,span,2,"stage label: shortlist (5,120)","shortlist (5,120)"
+Ablation,Components and configurations,span,2,,not run
+Ablation,Components and configurations,span,1,,0.5383
+Ablation,Components and configurations,span,1,,0.5345
+Ablation,Components and configurations,span,1,,0.5428
+Ablation,Components and configurations,span,2,"stage label: confirmation (10,240)","confirmation (10,240)"
+Ablation,Components and configurations,span,1,,0.5370
+Ablation,Components and configurations,span,1,,0.5369
+Ablation,A6: selective full adaptation,h2,4,config code: A6,A6: selective full adaptation
+Ablation,A6: selective full adaptation,p,23,file name: ablation.json,"Metrics for each stage this configuration reached, with differences against the chosen reference at the same stage. All differences are read from ablation.json."
+Ablation,A6: selective full adaptation,span,1,,REFERENCE
+Ablation,A6: selective full adaptation,button,1,config code: A6,A6
+Ablation,A6: selective full adaptation,button,1,config code: A3,A3
+Ablation,A6: selective full adaptation,span,7,config code: A6,"A6, the selected configuration (selective full adaptation)"
+Ablation,A6: selective full adaptation,span,1,,Screening
+Ablation,A6: selective full adaptation,span,3,"stage label: screening (1,024 steps)","screening (1,024 steps)"
+Ablation,A6: selective full adaptation,div,7,,"5 runs, training seeds 42, 1,024 steps"
+Ablation,A6: selective full adaptation,span,1,,42
+Ablation,A6: selective full adaptation,span,1,,"1,024"
+Ablation,A6: selective full adaptation,th,1,,METRIC
+Ablation,A6: selective full adaptation,th,1,,VALUE
+Ablation,A6: selective full adaptation,th,2,config code: A6,VS A6
+Ablation,A6: selective full adaptation,td,2,,Duration fulfillment
+Ablation,A6: selective full adaptation,span,1,,0.5419
+Ablation,A6: selective full adaptation,span,1,,reference
+Ablation,A6: selective full adaptation,td,2,,Minimum satisfaction
+Ablation,A6: selective full adaptation,span,1,,0.6661
+Ablation,A6: selective full adaptation,td,2,,Full satisfaction
+Ablation,A6: selective full adaptation,span,1,,0.5640
+Ablation,A6: selective full adaptation,td,2,,Mission fairness
+Ablation,A6: selective full adaptation,span,1,,0.8682
+Ablation,A6: selective full adaptation,td,4,,Fulfillment SD (across runs)
+Ablation,A6: selective full adaptation,span,1,,0.0066
+Ablation,A6: selective full adaptation,td,2,,Runtime (s)
+Ablation,A6: selective full adaptation,span,1,,25.56
+Ablation,A6: selective full adaptation,td,2,,Constraint violations
+Ablation,A6: selective full adaptation,span,1,,n/a
+Ablation,A6: selective full adaptation,span,1,,Shortlist
+Ablation,A6: selective full adaptation,span,2,"stage label: shortlist (5,120)","shortlist (5,120)"
+Ablation,A6: selective full adaptation,div,7,,"5 runs, training seeds 42, 5,120 steps"
+Ablation,A6: selective full adaptation,span,1,,"5,120"
+Ablation,A6: selective full adaptation,span,1,,0.5428
+Ablation,A6: selective full adaptation,span,1,,0.6637
+Ablation,A6: selective full adaptation,span,1,,0.5616
+Ablation,A6: selective full adaptation,span,1,,0.8610
+Ablation,A6: selective full adaptation,span,1,,0.0133
+Ablation,A6: selective full adaptation,span,1,,25.43
+Ablation,A6: selective full adaptation,span,1,,Confirmation
+Ablation,A6: selective full adaptation,span,2,"stage label: confirmation (10,240)","confirmation (10,240)"
+Ablation,A6: selective full adaptation,div,9,,"15 runs, training seeds 42, 123, 456, 10,240 steps"
+Ablation,A6: selective full adaptation,span,1,,15
+Ablation,A6: selective full adaptation,span,1,,123
+Ablation,A6: selective full adaptation,span,1,,456
+Ablation,A6: selective full adaptation,span,1,,"10,240"
+Ablation,A6: selective full adaptation,span,1,,0.5369
+Ablation,A6: selective full adaptation,span,1,,0.6585
+Ablation,A6: selective full adaptation,span,1,,0.5536
+Ablation,A6: selective full adaptation,span,1,,0.8591
+Ablation,A6: selective full adaptation,span,1,,0.0150
+Ablation,A6: selective full adaptation,span,1,,25.08
+Ablation,A6: selective full adaptation,p,25,,Scale: fulfillment SD across runs is shown for each stage; differences between configurations smaller than that SD are within run-to-run spread. No significance is claimed.
+Ablation,A3 and A6 at confirmation,h2,5,config code: A3; config code: A6,A3 and A6 at confirmation
+Ablation,A3 and A6 at confirmation,span,2,"stage label: confirmation (10,240)","confirmation (10,240)"
+Ablation,A3 and A6 at confirmation,div,3,config code: A3,A3 DURATION FULFILLMENT
+Ablation,A3 and A6 at confirmation,span,1,,0.536951
+Ablation,A3 and A6 at confirmation,div,3,config code: A6,A6 DURATION FULFILLMENT
+Ablation,A3 and A6 at confirmation,span,1,,0.536927
+Ablation,A3 and A6 at confirmation,div,1,,GAP
+Ablation,A3 and A6 at confirmation,span,1,,0.000024
+Ablation,A3 and A6 at confirmation,div,3,,LARGER ACROSS-SEED SD
+Ablation,A3 and A6 at confirmation,span,1,,0.004858
+Ablation,A3 and A6 at confirmation,p,37,config code: A3; config code: A6,"Tied. The gap between A3 and A6 (0.000024) is below the larger across-seed SD (0.004858), so the declared W40-only tie-break decided: A6 was chosen because its thresholds adapt further below the base threshold (larger mean threshold reduction)."
+Ablation,A3 and A6 at confirmation,strong,2,,tied .
+Ablation,A3 and A6 at confirmation,p,22,,"Declared rule: If the fulfillment gap is below the larger across-seed standard deviation, select the finalist with the larger mean threshold reduction."
+Ablation,Threshold behaviour,h2,2,,Threshold behaviour
+Ablation,Threshold behaviour,p,25,config code: A3; config code: A6,Mean selected threshold per configuration and stage (W40 runs). A3 adapts only on contention increase and stays at about the base threshold; A6 lowers it.
+Ablation,Threshold behaviour,span,3,"stage label: screening (1,024 steps)","screening (1,024 steps)"
+Ablation,Threshold behaviour,span,2,"stage label: shortlist (5,120)","shortlist (5,120)"
+Ablation,Threshold behaviour,span,2,"stage label: confirmation (10,240)","confirmation (10,240)"
+Ablation,Threshold behaviour,th,1,,CONFIG
+Ablation,Threshold behaviour,th,1,,STAGE
+Ablation,Threshold behaviour,th,2,,MEAN Θ
+Ablation,Threshold behaviour,th,2,,MIN Θ
+Ablation,Threshold behaviour,td,1,config code: A1,A1
+Ablation,Threshold behaviour,span,1,,0.4066
+Ablation,Threshold behaviour,span,1,,0.2326
+Ablation,Threshold behaviour,td,1,config code: A2,A2
+Ablation,Threshold behaviour,span,1,,0.4169
+Ablation,Threshold behaviour,span,1,,0.3024
+Ablation,Threshold behaviour,td,1,config code: A3,A3
+Ablation,Threshold behaviour,span,1,,0.4995
+Ablation,Threshold behaviour,span,1,,0.4446
+Ablation,Threshold behaviour,span,1,,0.4994
+Ablation,Threshold behaviour,span,1,,0.4482
+Ablation,Threshold behaviour,td,1,config code: A4,A4
+Ablation,Threshold behaviour,span,1,,0.4869
+Ablation,Threshold behaviour,span,1,,0.3667
+Ablation,Threshold behaviour,span,1,,0.4871
+Ablation,Threshold behaviour,span,1,,0.3731
+Ablation,Threshold behaviour,td,1,config code: A5,A5
+Ablation,Threshold behaviour,span,1,,0.4521
+Ablation,Threshold behaviour,span,1,,0.3303
+Ablation,Threshold behaviour,td,1,config code: A6,A6
+Ablation,Threshold behaviour,span,1,,0.4690
+Ablation,Threshold behaviour,span,1,,0.2347
+Ablation,Threshold behaviour,span,1,,0.4712
+Ablation,Threshold behaviour,span,1,,0.2464
+Ablation,Threshold behaviour,span,1,,0.4687
+Ablation,Threshold behaviour,span,1,,0.2245
+Ablation,Threshold behaviour,div,13,"config code: A3; stage label: full cross-week (25,088)","full cross-week (25,088) A3 first pass, cross-week mean selected threshold 0.4995 (base 0.50)."
+Ablation,Threshold behaviour,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Ablation,Threshold behaviour,span,1,,0.50
+Ablation,Threshold behaviour,div,31,config code: A1; file name: thresholds.json,"diagnostic: random-policy W40 episode, rule A1 Contention term mean 0.00016 (max 0.011) against a scarcity term mean of 0.082. The contention term is close to zero by construction (see thresholds.json diagnostic)."
+Ablation,Threshold behaviour,span,6,config code: A1,"diagnostic: random-policy W40 episode, rule A1"
+Ablation,Threshold behaviour,span,1,,0.00016
+Ablation,Threshold behaviour,span,1,,0.011
+Ablation,Threshold behaviour,span,1,,0.082
+Ablation,Cross-week context: A6 against the first-pass A3,h2,7,config code: A3; config code: A6,Cross-week context: A6 against the first-pass A3
+Ablation,Cross-week context: A6 against the first-pass A3,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Ablation,Cross-week context: A6 against the first-pass A3,span,5,,"suggestive, n = 5 folds"
+Ablation,Cross-week context: A6 against the first-pass A3,p,30,file name: paired.json,"Suggestive only: n = 5 folds, one trained model per fold on folds 1-4 (three on W50). Values from paired.json, averaged over evaluation seeds and then training seeds per fold."
+Ablation,Cross-week context: A6 against the first-pass A3,p,38,config code: A3; config code: A6,"A6 duration fulfillment is lower than the first-pass A3 in 4 of 5 folds; mean difference lower by 0.0088. Bootstrap interval over folds -0.0171 to -0.0016 (n = 5 folds, indicative only (10,000 resamples of folds, seed 20180))."
+Ablation,Cross-week context: A6 against the first-pass A3,span,3,,lower by 0.0088
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,-0.0171
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,-0.0016
+Ablation,Cross-week context: A6 against the first-pass A3,p,7,config code: A3; config code: A6,"Cross-week means: A6 0.6176, first-pass A3 0.6263."
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6176
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6263
+Ablation,Cross-week context: A6 against the first-pass A3,th,2,,TEST WEEK
+Ablation,Cross-week context: A6 against the first-pass A3,th,1,config code: A6,A6
+Ablation,Cross-week context: A6 against the first-pass A3,th,2,config code: A3,FIRST-PASS A3
+Ablation,Cross-week context: A6 against the first-pass A3,th,3,config code: A3; config code: A6,A6 MINUS A3
+Ablation,Cross-week context: A6 against the first-pass A3,td,1,,W10
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6534
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6783
+Ablation,Cross-week context: A6 against the first-pass A3,span,3,,lower by 0.0249
+Ablation,Cross-week context: A6 against the first-pass A3,td,1,,W20
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6813
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6793
+Ablation,Cross-week context: A6 against the first-pass A3,span,3,,higher by 0.0020
+Ablation,Cross-week context: A6 against the first-pass A3,td,1,,W30
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6291
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.6393
+Ablation,Cross-week context: A6 against the first-pass A3,span,3,,lower by 0.0102
+Ablation,Cross-week context: A6 against the first-pass A3,td,1,,W40
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.5336
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.5373
+Ablation,Cross-week context: A6 against the first-pass A3,span,3,,lower by 0.0037
+Ablation,Cross-week context: A6 against the first-pass A3,td,1,,W50
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.5904
+Ablation,Cross-week context: A6 against the first-pass A3,span,1,,0.5974
+Ablation,Cross-week context: A6 against the first-pass A3,span,3,,lower by 0.0070
+Ablation,Threshold behaviour,svg-text,3,,base threshold 0.5
+Ablation,Threshold behaviour,svg-text,1,config code: A1,A1
+Ablation,Threshold behaviour,svg-text,1,config code: A2,A2
+Ablation,Threshold behaviour,svg-text,1,config code: A3,A3
+Ablation,Threshold behaviour,svg-text,1,config code: A4,A4
+Ablation,Threshold behaviour,svg-text,1,config code: A5,A5
+Ablation,Threshold behaviour,svg-text,1,config code: A6,A6
+Ablation,Threshold behaviour,svg-text,4,,axis starts at 0.30
+Ablation,Cross-week context: A6 against the first-pass A3,svg-text,1,,W10
+Ablation,Cross-week context: A6 against the first-pass A3,svg-text,1,,W20
+Ablation,Cross-week context: A6 against the first-pass A3,svg-text,1,,W30
+Ablation,Cross-week context: A6 against the first-pass A3,svg-text,1,,W40
+Ablation,Cross-week context: A6 against the first-pass A3,svg-text,1,,W50
+Ablation,Cross-week context: A6 against the first-pass A3,svg-text,9,config code: A3; config code: A6,bars: A6 minus A3 per fold · dash-dot: mean
+Ablation,Cross-week context: A6 against the first-pass A3,svg-text,9,,"shaded: bootstrap interval (n = 5 folds, indicative only)"
+Results,Results Arena,h1,2,,Results Arena
+Results,Results Arena,p,27,,"Cross-week results for every method: five test weeks (folds), averaged over evaluation seeds, then training seeds, then folds. Every number is read from the exported result files."
+Results,Cross-week table,h2,2,,Cross-week table
+Results,Cross-week table,label,13,,Metric Duration fulfillment Minimum satisfaction Full satisfaction Unmet hours Mission fairness Runtime (s)
+Results,Cross-week table,button,2,,Download CSV
+Results,Cross-week table,div,50,,"Mean of duration fulfillment per test week, the overall mean over the five folds, the SD across folds, and the SD across W50 seeds (training seeds for the PPO-based methods, evaluation seeds for heuristics) as the comparison scale. Higher is better for this metric. Click a column header to sort."
+Results,Cross-week table,p,19,internal label: heuristic (no training),"What the table shows: for duration fulfillment, Heuristic: earliest window-end has the highest overall value (0.6798). heuristic (no training)"
+Results,Cross-week table,strong,4,,What the table shows:
+Results,Cross-week table,span,3,,Heuristic: earliest window-end
+Results,Cross-week table,span,1,,0.6798
+Results,Cross-week table,span,3,internal label: heuristic (no training),heuristic (no training)
+Results,Cross-week table,button,1,,METHOD
+Results,Cross-week table,button,1,,W10
+Results,Cross-week table,button,1,,W20
+Results,Cross-week table,button,1,,W30
+Results,Cross-week table,button,1,,W40
+Results,Cross-week table,button,1,,W50
+Results,Cross-week table,button,2,,OVERALL ▼
+Results,Cross-week table,button,2,,FOLD SD
+Results,Cross-week table,button,3,,W50 SEED SD
+Results,Cross-week table,th,1,,EVIDENCE
+Results,Cross-week table,span,1,gap or confirmation id: N3,N3
+Results,Cross-week table,span,1,,0.7286
+Results,Cross-week table,span,1,,0.7326
+Results,Cross-week table,span,1,,0.6999
+Results,Cross-week table,span,1,,0.5888
+Results,Cross-week table,span,1,,0.6491
+Results,Cross-week table,span,1,,0.0608
+Results,Cross-week table,span,1,,0.0032
+Results,Cross-week table,span,4,config code: H4,Heuristic: weighted composite H4
+Results,Cross-week table,span,1,,0.7125
+Results,Cross-week table,span,1,,0.7348
+Results,Cross-week table,span,1,,0.6729
+Results,Cross-week table,span,1,,0.5633
+Results,Cross-week table,span,1,,0.6425
+Results,Cross-week table,span,1,,0.6652
+Results,Cross-week table,span,1,,0.0672
+Results,Cross-week table,span,1,,0.0010
+Results,Cross-week table,span,3,,Heuristic: least flexible
+Results,Cross-week table,span,1,,0.7080
+Results,Cross-week table,span,1,,0.7181
+Results,Cross-week table,span,1,,0.6536
+Results,Cross-week table,span,1,,0.5481
+Results,Cross-week table,span,1,,0.6056
+Results,Cross-week table,span,1,,0.6467
+Results,Cross-week table,span,1,,0.0713
+Results,Cross-week table,span,1,,0.0040
+Results,Cross-week table,span,3,config code: A3,First-pass A3 (secondary)
+Results,Cross-week table,span,1,,0.6783
+Results,Cross-week table,span,1,,0.6793
+Results,Cross-week table,span,1,,0.6393
+Results,Cross-week table,span,1,,0.5373
+Results,Cross-week table,span,1,,0.5974
+Results,Cross-week table,span,1,,0.6263
+Results,Cross-week table,span,1,,0.0601
+Results,Cross-week table,span,1,,0.0048
+Results,Cross-week table,span,3,,secondary: first pass
+Results,Cross-week table,span,3,config code: F2,Fixed BEE (F2)
+Results,Cross-week table,span,1,gap or confirmation id: N1,N1
+Results,Cross-week table,span,1,,0.6754
+Results,Cross-week table,span,1,,0.6818
+Results,Cross-week table,span,1,,0.6279
+Results,Cross-week table,span,1,,0.5327
+Results,Cross-week table,span,1,,0.5951
+Results,Cross-week table,span,1,,0.6226
+Results,Cross-week table,span,1,,0.0615
+Results,Cross-week table,span,1,,0.0073
+Results,Cross-week table,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Results,Cross-week table,span,3,,Heuristic: random feasible
+Results,Cross-week table,span,1,,0.6611
+Results,Cross-week table,span,1,,0.6792
+Results,Cross-week table,span,1,,0.6327
+Results,Cross-week table,span,1,,0.5443
+Results,Cross-week table,span,1,,0.5906
+Results,Cross-week table,span,1,,0.6216
+Results,Cross-week table,span,1,,0.0546
+Results,Cross-week table,span,1,,0.0142
+Results,Cross-week table,span,2,,Plain PPO
+Results,Cross-week table,span,1,gap or confirmation id: N2,N2
+Results,Cross-week table,span,1,,0.6556
+Results,Cross-week table,span,1,,0.6804
+Results,Cross-week table,span,1,,0.6441
+Results,Cross-week table,span,1,,0.5281
+Results,Cross-week table,span,1,,0.5928
+Results,Cross-week table,span,1,,0.6202
+Results,Cross-week table,span,1,,0.0606
+Results,Cross-week table,span,1,,0.0088
+Results,Cross-week table,span,3,config code: A6,Adaptive BEE (A6)
+Results,Cross-week table,span,1,,0.6534
+Results,Cross-week table,span,1,,0.6813
+Results,Cross-week table,span,1,,0.6291
+Results,Cross-week table,span,1,,0.5336
+Results,Cross-week table,span,1,,0.5904
+Results,Cross-week table,span,1,,0.6176
+Results,Cross-week table,span,1,,0.0576
+Results,Cross-week table,span,1,,0.0047
+Results,Cross-week table,span,3,,Heuristic: shortest duration
+Results,Cross-week table,span,1,,0.5604
+Results,Cross-week table,span,1,,0.5852
+Results,Cross-week table,span,1,,0.5613
+Results,Cross-week table,span,1,,0.4248
+Results,Cross-week table,span,1,,0.4711
+Results,Cross-week table,span,1,,0.5206
+Results,Cross-week table,span,1,,0.0690
+Results,Cross-week table,span,1,,0.0093
+Results,Cross-week table,td,8,,"Fixed BEE, all training seeds on every fold"
+Results,Cross-week table,span,1,,0.6687
+Results,Cross-week table,span,1,,0.6770
+Results,Cross-week table,span,1,,0.6321
+Results,Cross-week table,span,1,,0.5379
+Results,Cross-week table,span,1,,0.6222
+Results,Cross-week table,span,1,,0.0572
+Results,Cross-week table,span,1,internal label: supplementary,supplementary
+Results,Cross-week table,p,48,config code: A3; config code: A6; internal label: supplementary,"Protocol rows use training seed 42 on folds 1-4 and seeds 42, 123 and 456 on W50. The supplementary fixed BEE row uses all three seeds on every fold and is not part of the protocol comparison. First-pass A3 is shown for the A3 vs A6 comparison only."
+Results,"By week, every fold visible",h2,5,,"By week, every fold visible"
+Results,"By week, every fold visible",label,13,,Metric Duration fulfillment Minimum satisfaction Full satisfaction Unmet hours Mission fairness Runtime (s)
+Results,"By week, every fold visible",button,1,,SVG
+Results,"By week, every fold visible",button,1,,PNG
+Results,"By week, every fold visible",div,50,,"Each marker is one fold (test week) of one method, connected in the method's dash pattern. At W50 the thin whisker and small hollow markers show the spread across training seeds (evaluation seeds for heuristics): the reference scale for differences. The Overall column is the mean of the five folds."
+Results,"By week, every fold visible",label,3,,Heuristic: random feasible
+Results,"By week, every fold visible",label,3,,Heuristic: earliest window-end
+Results,"By week, every fold visible",label,3,,Heuristic: shortest duration
+Results,"By week, every fold visible",label,3,,Heuristic: least flexible
+Results,"By week, every fold visible",label,4,config code: H4,Heuristic: weighted composite H4
+Results,"By week, every fold visible",label,2,,Plain PPO
+Results,"By week, every fold visible",label,3,config code: F2,Fixed BEE (F2)
+Results,"By week, every fold visible",label,3,config code: A6,Adaptive BEE (A6)
+Results,"By week, every fold visible",label,3,config code: A3,First-pass A3 (secondary)
+Results,Paired comparisons,h2,2,,Paired comparisons
+Results,Paired comparisons,label,13,,Metric Duration fulfillment Minimum satisfaction Full satisfaction Unmet hours Mission fairness Runtime (s)
+Results,Paired comparisons,button,1,,CSV
+Results,Paired comparisons,button,1,,SVG
+Results,Paired comparisons,button,1,,PNG
+Results,Paired comparisons,div,55,,"Per-fold differences (first method minus second), after averaging over evaluation seeds and then training seeds; folds 1-4 use training seed 42 and W50 uses 42, 123 and 456. Dots: the five folds. Dashed line: mean. Black bar: bootstrap interval over folds (n = 5 folds, indicative only). Shaded band: the W50 seed spread, for scale."
+Results,Paired comparisons,span,3,config code: A6,Adaptive BEE (A6)
+Results,Paired comparisons,span,1,,minus
+Results,Paired comparisons,span,2,,Plain PPO
+Results,Paired comparisons,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Results,Paired comparisons,div,18,,Mean difference lower by 0.0026; first method higher in 2 of 5 folds; per-fold range −0.0150 to +0.0056.
+Results,Paired comparisons,span,3,,lower by 0.0026
+Results,Paired comparisons,span,1,,−0.0150
+Results,Paired comparisons,span,1,,+0.0056
+Results,Paired comparisons,div,11,,"Bootstrap interval −0.0093 to +0.0025 (n = 5 folds, indicative only)."
+Results,Paired comparisons,span,1,,−0.0093
+Results,Paired comparisons,span,1,,+0.0025
+Results,Paired comparisons,div,12,,"Scale (shaded): ±0.0088, the larger W50 seed SD of the two methods."
+Results,Paired comparisons,span,1,,0.0088
+Results,Paired comparisons,span,2,,W10 −0.0022
+Results,Paired comparisons,span,1,,−0.0022
+Results,Paired comparisons,span,2,,W20 +0.0009
+Results,Paired comparisons,span,1,,+0.0009
+Results,Paired comparisons,span,2,,W30 −0.0150
+Results,Paired comparisons,span,2,,W40 +0.0056
+Results,Paired comparisons,span,2,,W50 −0.0024
+Results,Paired comparisons,span,1,,−0.0024
+Results,Paired comparisons,span,3,config code: F2,Fixed BEE (F2)
+Results,Paired comparisons,div,18,,Mean difference lower by 0.0050; first method higher in 2 of 5 folds; per-fold range −0.0220 to +0.0012.
+Results,Paired comparisons,span,3,,lower by 0.0050
+Results,Paired comparisons,span,1,,−0.0220
+Results,Paired comparisons,span,1,,+0.0012
+Results,Paired comparisons,div,11,,"Bootstrap interval −0.0139 to +0.0007 (n = 5 folds, indicative only)."
+Results,Paired comparisons,span,1,,−0.0139
+Results,Paired comparisons,span,1,,+0.0007
+Results,Paired comparisons,div,12,,"Scale (shaded): ±0.0073, the larger W50 seed SD of the two methods."
+Results,Paired comparisons,span,1,,0.0073
+Results,Paired comparisons,span,2,,W10 −0.0220
+Results,Paired comparisons,span,2,,W20 −0.0005
+Results,Paired comparisons,span,1,,−0.0005
+Results,Paired comparisons,span,2,,W30 +0.0012
+Results,Paired comparisons,span,2,,W40 +0.0009
+Results,Paired comparisons,span,2,,W50 −0.0047
+Results,Paired comparisons,span,1,,−0.0047
+Results,Paired comparisons,div,27,gap or confirmation id: N4,"N4 Not an isolated effect of the threshold rule: fixed BEE and adaptive BEE also differ in stimulus weights, contention definition and activation details (awaiting owner confirmation)."
+Results,Paired comparisons,span,1,gap or confirmation id: N4,N4
+Results,Paired comparisons,div,18,,Mean difference higher by 0.0024; first method higher in 4 of 5 folds; per-fold range −0.0162 to +0.0198.
+Results,Paired comparisons,span,3,,higher by 0.0024
+Results,Paired comparisons,span,1,,−0.0162
+Results,Paired comparisons,span,1,,+0.0198
+Results,Paired comparisons,div,11,,"Bootstrap interval −0.0085 to +0.0126 (n = 5 folds, indicative only)."
+Results,Paired comparisons,span,1,,−0.0085
+Results,Paired comparisons,span,1,,+0.0126
+Results,Paired comparisons,span,2,,W10 +0.0198
+Results,Paired comparisons,span,2,,W20 +0.0014
+Results,Paired comparisons,span,1,,+0.0014
+Results,Paired comparisons,span,2,,W30 −0.0162
+Results,Paired comparisons,span,2,,W40 +0.0046
+Results,Paired comparisons,span,1,,+0.0046
+Results,Paired comparisons,span,2,,W50 +0.0022
+Results,Paired comparisons,span,1,,+0.0022
+Results,Paired comparisons,span,3,config code: A3,First-pass A3 (secondary)
+Results,Paired comparisons,span,2,internal label: supplementary,"supplementary, suggestive"
+Results,Paired comparisons,div,18,,Mean difference lower by 0.0088; first method higher in 1 of 5 folds; per-fold range −0.0249 to +0.0020.
+Results,Paired comparisons,span,3,,lower by 0.0088
+Results,Paired comparisons,span,1,,−0.0249
+Results,Paired comparisons,span,1,,+0.0020
+Results,Paired comparisons,div,11,,"Bootstrap interval −0.0171 to −0.0016 (n = 5 folds, indicative only)."
+Results,Paired comparisons,span,1,,−0.0171
+Results,Paired comparisons,span,1,,−0.0016
+Results,Paired comparisons,div,12,,"Scale (shaded): ±0.0048, the larger W50 seed SD of the two methods."
+Results,Paired comparisons,span,1,,0.0048
+Results,Paired comparisons,span,2,,W10 −0.0249
+Results,Paired comparisons,span,2,,W20 +0.0020
+Results,Paired comparisons,span,2,,W30 −0.0102
+Results,Paired comparisons,span,1,,−0.0102
+Results,Paired comparisons,span,2,,W40 −0.0037
+Results,Paired comparisons,span,1,,−0.0037
+Results,Paired comparisons,span,2,,W50 −0.0070
+Results,Paired comparisons,span,1,,−0.0070
+Results,Paired comparisons,label,13,internal label: supplementary,Show PPO-based methods minus each heuristic rule (supplementary; compared on evaluation seeds only)
+Results,What these results show,h2,4,,What these results show
+Results,What these results show,div,18,file name: paired.json; file name: results_summary.json; snake_case name: results_summary,Every sentence below is filled from results_summary.json and paired.json when the page loads; no number is typed in.
+Results,What these results show,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+Results,What these results show,span,3,internal label: heuristic (no training),heuristic (no training)
+Results,What these results show,li,18,,"Overall duration fulfillment is highest for Heuristic: earliest window-end (0.6798), higher than each of the three PPO-based methods."
+Results,What these results show,span,1,,0.6798
+Results,What these results show,li,33,config code: A6; config code: F2,"The three PPO-based methods have overall duration fulfillment Adaptive BEE (A6) 0.6176, Plain PPO 0.6202 and Fixed BEE (F2) 0.6226; their W50 seed SDs are 0.0088, 0.0073 and 0.0047 (n = 5 folds)."
+Results,What these results show,span,1,,0.6176
+Results,What these results show,span,1,,0.6202
+Results,What these results show,span,1,,0.6226
+Results,What these results show,span,1,,0.0088
+Results,What these results show,span,1,,0.0073
+Results,What these results show,span,1,,0.0047
+Results,What these results show,li,19,,"The random feasible rule has overall duration fulfillment 0.6216, between the lowest and highest of the three PPO-based methods."
+Results,What these results show,span,1,,0.6216
+Results,What these results show,li,29,config code: A6,"Adaptive BEE (A6) minus Plain PPO: mean difference lower by 0.0026, first method higher in 2 of 5 folds; within the W50 seed spread (±0.0088, n = 5 folds)."
+Results,What these results show,span,3,,lower by 0.0026
+Results,What these results show,li,30,config code: A6; config code: F2,"Adaptive BEE (A6) minus Fixed BEE (F2): mean difference lower by 0.0050, first method higher in 2 of 5 folds; within the W50 seed spread (±0.0073, n = 5 folds)."
+Results,What these results show,span,3,,lower by 0.0050
+Results,What these results show,li,29,config code: F2,"Fixed BEE (F2) minus Plain PPO: mean difference higher by 0.0024, first method higher in 4 of 5 folds; within the W50 seed spread (±0.0088, n = 5 folds)."
+Results,What these results show,span,3,,higher by 0.0024
+Results,What these results show,li,41,config code: A3; config code: A6,"Adaptive BEE (A6) minus First-pass A3 (secondary): mean difference lower by 0.0088, first method higher in 1 of 5 folds; larger than the W50 seed spread (±0.0048, n = 5 folds). Suggestive only: one trained model per fold on folds 1-4."
+Results,What these results show,span,3,,lower by 0.0088
+Results,What these results show,span,1,,0.0048
+Results,What these results show,div,32,,"hypothesis, not testedUnder the shared 25,088-step budget the PPO-based policies may not have trained long enough to separate from each other or from simple rules. The study did not test longer training."
+Results,What these results show,span,3,,"hypothesis, not tested"
+Results,What these results show,h3,4,,What this cannot show
+Results,What these results show,li,21,,"No ranking among the PPO-based methods: their differences are of the size of the seed spread, with n = 5 folds."
+Results,What these results show,li,27,gap or confirmation id: N4,"Adaptive minus fixed BEE is not an isolated effect of the threshold rule N4: the two streams also differ in stimulus weights, contention definition and activation details."
+Results,What these results show,span,1,gap or confirmation id: N4,N4
+Results,What these results show,li,18,,Seed coverage differs: one training seed on folds 1-4 and three on W50; heuristics have evaluation seeds only.
+Results,"By week, every fold visible",svg-text,1,,W10
+Results,"By week, every fold visible",svg-text,1,,W20
+Results,"By week, every fold visible",svg-text,1,,W30
+Results,"By week, every fold visible",svg-text,1,,W40
+Results,"By week, every fold visible",svg-text,1,,W50
+Results,"By week, every fold visible",svg-text,1,,Overall
+Results,"By week, every fold visible",svg-text,2,,Duration fulfillment
+Results,"By week, every fold visible",svg-text,2,,random feasible
+Results,"By week, every fold visible",svg-text,2,,earliest window-end
+Results,"By week, every fold visible",svg-text,2,,Plain PPO
+Results,"By week, every fold visible",svg-text,3,config code: F2,Fixed BEE (F2)
+Results,"By week, every fold visible",svg-text,3,config code: A6,Adaptive BEE (A6)
+Results,Paired comparisons,svg-text,1,,W10
+Results,Paired comparisons,svg-text,1,,W20
+Results,Paired comparisons,svg-text,1,,W30
+Results,Paired comparisons,svg-text,1,,W40
+Results,Paired comparisons,svg-text,1,,W50
+Results,Paired comparisons,svg-text,1,,W10
+Results,Paired comparisons,svg-text,1,,W20
+Results,Paired comparisons,svg-text,1,,W30
+Results,Paired comparisons,svg-text,1,,W40
+Results,Paired comparisons,svg-text,1,,W50
+Results,Paired comparisons,svg-text,1,,W10
+Results,Paired comparisons,svg-text,1,,W20
+Results,Paired comparisons,svg-text,1,,W30
+Results,Paired comparisons,svg-text,1,,W40
+Results,Paired comparisons,svg-text,1,,W50
+Results,Paired comparisons,svg-text,1,,W10
+Results,Paired comparisons,svg-text,1,,W20
+Results,Paired comparisons,svg-text,1,,W30
+Results,Paired comparisons,svg-text,1,,W40
+Results,Paired comparisons,svg-text,1,,W50
+Protocol,Protocol and reproducibility,h1,3,,Protocol and reproducibility
+Protocol,Protocol and reproducibility,p,24,,"How the study was run, where every number comes from, and how to rebuild the lab. Items still awaiting their owner's confirmation are marked."
+Protocol,Selection rule,h2,2,,Selection rule
+Protocol,Selection rule,span,2,internal label: configuration record,configuration record
+Protocol,Selection rule,p,21,,Each method's configuration is selected on the validation week W40 only and frozen before cross-week testing on the five test weeks.
+Protocol,Selection rule,li,13,config code: H4; gap or confirmation id: N3; snake_case name: shared_v1,Heuristics: H4 selected on W40 by episode reward. Package version recorded: shared_v1 N3
+Protocol,Selection rule,code,1,snake_case name: shared_v1,shared_v1
+Protocol,Selection rule,span,1,gap or confirmation id: N3,N3
+Protocol,Selection rule,li,14,gap or confirmation id: N2,Plain PPO: validated on W40. Training seeds recorded in its configuration file: 42 N2
+Protocol,Selection rule,span,1,,42
+Protocol,Selection rule,span,1,gap or confirmation id: N2,N2
+Protocol,Selection rule,li,16,config code: F2; gap or confirmation id: N1,Fixed BEE: F2 selected. Recorded selection basis: “validation performance followed by five-fold cross-week robustness evaluation” N1
+Protocol,Selection rule,span,1,gap or confirmation id: N1,N1
+Protocol,Selection rule,li,49,config code: A3; config code: A6,"Adaptive BEE: A6 selected on W40, ranking by duration fulfillment, then minimum satisfaction rate, then full satisfaction rate, then mission fairness, then runtime seconds. Declared tie-break: “If the fulfillment gap is below the larger across-seed standard deviation, select the finalist with the larger mean threshold reduction.” First-pass selection: A3."
+Protocol,"Shared PPO configuration, reward and budget",h2,6,,"Shared PPO configuration, reward and budget"
+Protocol,"Shared PPO configuration, reward and budget",span,2,internal label: configuration record,configuration record
+Protocol,"Shared PPO configuration, reward and budget",caption,7,,PPO parameters (shared by every PPO-based method)
+Protocol,"Shared PPO configuration, reward and budget",td,2,,learning rate
+Protocol,"Shared PPO configuration, reward and budget",span,1,,0.0003
+Protocol,"Shared PPO configuration, reward and budget",td,2,,n steps
+Protocol,"Shared PPO configuration, reward and budget",span,1,,256
+Protocol,"Shared PPO configuration, reward and budget",td,2,,batch size
+Protocol,"Shared PPO configuration, reward and budget",span,1,,64
+Protocol,"Shared PPO configuration, reward and budget",td,2,,n epochs
+Protocol,"Shared PPO configuration, reward and budget",span,1,,10
+Protocol,"Shared PPO configuration, reward and budget",td,1,,gamma
+Protocol,"Shared PPO configuration, reward and budget",span,1,,0.99
+Protocol,"Shared PPO configuration, reward and budget",td,2,,gae lambda
+Protocol,"Shared PPO configuration, reward and budget",span,1,,0.95
+Protocol,"Shared PPO configuration, reward and budget",td,2,,clip range
+Protocol,"Shared PPO configuration, reward and budget",span,1,,0.2
+Protocol,"Shared PPO configuration, reward and budget",td,2,,ent coef
+Protocol,"Shared PPO configuration, reward and budget",span,1,,0.01
+Protocol,"Shared PPO configuration, reward and budget",td,2,,vf coef
+Protocol,"Shared PPO configuration, reward and budget",span,1,,0.5
+Protocol,"Shared PPO configuration, reward and budget",td,3,,max grad norm
+Protocol,"Shared PPO configuration, reward and budget",p,9,,Reward: allocated/requested + 0.5 if minimum duration is satisfied
+Protocol,"Shared PPO configuration, reward and budget",code,8,,allocated/requested + 0.5 if minimum duration is satisfied
+Protocol,"Shared PPO configuration, reward and budget",caption,4,,Training budget per method
+Protocol,"Shared PPO configuration, reward and budget",th,1,,METHOD
+Protocol,"Shared PPO configuration, reward and budget",th,1,,REQUESTED
+Protocol,"Shared PPO configuration, reward and budget",th,1,,ACTUAL
+Protocol,"Shared PPO configuration, reward and budget",th,1,,SOURCE
+Protocol,"Shared PPO configuration, reward and budget",td,2,,Plain PPO
+Protocol,"Shared PPO configuration, reward and budget",span,1,,"25,000"
+Protocol,"Shared PPO configuration, reward and budget",span,1,,"25,088"
+Protocol,"Shared PPO configuration, reward and budget",td,4,file name: data/derived/model_timesteps.csv; snake_case name: model_timesteps,model zip metadata (data/derived/model_timesteps.csv)
+Protocol,"Shared PPO configuration, reward and budget",td,3,config code: F2,Fixed BEE (F2)
+Protocol,"Shared PPO configuration, reward and budget",td,3,config code: A6,Adaptive BEE (A6)
+Protocol,"Shared PPO configuration, reward and budget",td,1,file name: data/results/adaptive_training_runs.csv; snake_case name: adaptive_training_runs,data/results/adaptive_training_runs.csv
+Protocol,"Shared PPO configuration, reward and budget",td,1,,Heuristics
+Protocol,"Shared PPO configuration, reward and budget",td,2,,no training
+Protocol,"Seeds, coverage and aggregation",h2,4,,"Seeds, coverage and aggregation"
+Protocol,"Seeds, coverage and aggregation",span,2,internal label: configuration record,configuration record
+Protocol,"Seeds, coverage and aggregation",li,11,,"Evaluation seeds (every method, every week): 1001, 2002, 3003, 4004, 5005."
+Protocol,"Seeds, coverage and aggregation",span,1,,1001
+Protocol,"Seeds, coverage and aggregation",span,1,,2002
+Protocol,"Seeds, coverage and aggregation",span,1,,3003
+Protocol,"Seeds, coverage and aggregation",span,1,,4004
+Protocol,"Seeds, coverage and aggregation",span,1,,5005
+Protocol,"Seeds, coverage and aggregation",li,45,internal label: supplementary,"Training seeds in the protocol comparison: folds 1-4 use 42; W50 uses 42, 123, 456 for plain PPO, fixed BEE and adaptive BEE. Fixed BEE also has the W50 seeds on folds 1-4; those runs are shown as supplementary only. Heuristics have no training seed."
+Protocol,"Seeds, coverage and aggregation",span,1,,42
+Protocol,"Seeds, coverage and aggregation",span,1,,123
+Protocol,"Seeds, coverage and aggregation",span,1,,456
+Protocol,"Seeds, coverage and aggregation",li,9,,"Aggregation order: evaluation seeds, then training seeds, then folds."
+Protocol,"Seeds, coverage and aggregation",caption,5,file name: requests.parquet,Requests per week (from requests.parquet)
+Protocol,"Seeds, coverage and aggregation",th,1,,W10
+Protocol,"Seeds, coverage and aggregation",th,1,,W20
+Protocol,"Seeds, coverage and aggregation",th,1,,W30
+Protocol,"Seeds, coverage and aggregation",th,1,,W40
+Protocol,"Seeds, coverage and aggregation",th,1,,W50
+Protocol,"Seeds, coverage and aggregation",span,1,,257
+Protocol,"Seeds, coverage and aggregation",span,1,,294
+Protocol,"Seeds, coverage and aggregation",span,1,,293
+Protocol,"Seeds, coverage and aggregation",span,1,,333
+Protocol,"Seeds, coverage and aggregation",span,1,,275
+Protocol,Data sources,h2,2,,Data sources
+Protocol,Data sources,span,2,,positions illustrative
+Protocol,Data sources,li,21,,"Deep Space Network schedule data: requests, visibility windows, antennas and maintenance for weeks W10, W20, W30, W40 and W50 of 2018."
+Protocol,Data sources,li,27,,"There is no orbital data. Spacecraft positions in Mission Control are illustrative; schedule times, antennas and missions are real data. DSN complex locations are public reference coordinates."
+Protocol,Data sources,li,22,file name: docs/BEE_MECHANISM_NOTES.md,The BEE features are inputs to the policy. The action mask is the shared feasibility mask. See docs/BEE_MECHANISM_NOTES.md for the code lines.
+Protocol,Data sources,code,1,file name: docs/BEE_MECHANISM_NOTES.md,docs/BEE_MECHANISM_NOTES.md
+Protocol,Data sources,li,8,file name: notebooks/01_heuristics/01_baselines_and_heuristics.ipynbnotebooks/02_maskable_ppo/02_plain_maskable_ppo.ipynbnotebooks/03_fixed_bee/03_fixed_threshold_bee.ipynbnotebooks/04_adaptive_bee/04_adaptive_threshold_bee_through_section13.ipynbnotebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb; gap or confirmation id: G1,"Notebooks: notebooks/01_heuristics/01_baselines_and_heuristics.ipynbnotebooks/02_maskable_ppo/02_plain_maskable_ppo.ipynbnotebooks/03_fixed_bee/03_fixed_threshold_bee.ipynbnotebooks/04_adaptive_bee/04_adaptive_threshold_bee_through_section13.ipynbnotebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb (executed outputs not saved, gap G1)"
+Protocol,Data sources,code,1,file name: notebooks/01_heuristics/01_baselines_and_heuristics.ipynb,notebooks/01_heuristics/01_baselines_and_heuristics.ipynb
+Protocol,Data sources,code,1,file name: notebooks/02_maskable_ppo/02_plain_maskable_ppo.ipynb,notebooks/02_maskable_ppo/02_plain_maskable_ppo.ipynb
+Protocol,Data sources,code,1,file name: notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb,notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb
+Protocol,Data sources,code,1,file name: notebooks/04_adaptive_bee/04_adaptive_threshold_bee_through_section13.ipynb,notebooks/04_adaptive_bee/04_adaptive_threshold_bee_through_section13.ipynb
+Protocol,Data sources,code,7,file name: notebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb; gap or confirmation id: G1,"notebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb (executed outputs not saved, gap G1)"
+Protocol,Awaiting owner confirmation,h2,3,,Awaiting owner confirmation
+Protocol,Awaiting owner confirmation,span,3,,awaiting owner confirmation
+Protocol,Awaiting owner confirmation,p,25,,Recorded in the source files but not yet confirmed by their owners. None of these is presented as a verified fact anywhere in the lab.
+Protocol,Awaiting owner confirmation,th,1,,ITEM
+Protocol,Awaiting owner confirmation,th,1,,OWNER
+Protocol,Awaiting owner confirmation,th,3,,WHAT NEEDS CONFIRMING
+Protocol,Awaiting owner confirmation,td,7,gap or confirmation id: N1,N1 Fixed BEE W40-only selection and freeze
+Protocol,Awaiting owner confirmation,span,1,gap or confirmation id: N1,N1
+Protocol,Awaiting owner confirmation,td,5,,[Member 3 name] (member 3)
+Protocol,Awaiting owner confirmation,td,28,config code: F2; file name: fixed_bee_configuration.json; gap or confirmation id: C11; snake_case name: fixed_bee_configuration,"That F2 was selected on W40 only and frozen before cross-week testing. fixed_bee_configuration.json gives the selection basis as ""validation performance followed by five-fold cross-week robustness evaluation"" (see C11)."
+Protocol,Awaiting owner confirmation,code,1,file name: fixed_bee_configuration.json; snake_case name: fixed_bee_configuration,fixed_bee_configuration.json
+Protocol,Awaiting owner confirmation,td,5,gap or confirmation id: N2,N2 Plain PPO configuration seeds
+Protocol,Awaiting owner confirmation,span,1,gap or confirmation id: N2,N2
+Protocol,Awaiting owner confirmation,td,5,,[Member 2 name] (member 2)
+Protocol,Awaiting owner confirmation,td,29,file name: plain_ppo_configuration.json; gap or confirmation id: C12; gap or confirmation id: R1; internal label: configuration record; snake_case name: plain_ppo_configuration; snake_case name: training_seeds,plain_ppo_configuration.json lists training_seeds: [42]; the W50 seeds 123/456 runs exist (R1). Confirm the configuration record should list 42/123/456 and that the extra runs used an unchanged configuration (see C12).
+Protocol,Awaiting owner confirmation,code,1,file name: plain_ppo_configuration.json; snake_case name: plain_ppo_configuration,plain_ppo_configuration.json
+Protocol,Awaiting owner confirmation,code,2,snake_case name: training_seeds,training_seeds: [42]
+Protocol,Awaiting owner confirmation,td,4,gap or confirmation id: N3,N3 Heuristics package version
+Protocol,Awaiting owner confirmation,span,1,gap or confirmation id: N3,N3
+Protocol,Awaiting owner confirmation,td,5,,[Member 1 name] (member 1)
+Protocol,Awaiting owner confirmation,td,22,file name: heuristics_configuration.json; gap or confirmation id: C8; snake_case name: heuristics_configuration; snake_case name: package_version; snake_case name: shared_v1; snake_case name: shared_v2,"heuristics_configuration.json says package_version: shared_v1. Confirm the cross-week results were produced with shared_v2, or that the v1/v2 identical-trace check covers them (see C8)."
+Protocol,Awaiting owner confirmation,code,1,file name: heuristics_configuration.json; snake_case name: heuristics_configuration,heuristics_configuration.json
+Protocol,Awaiting owner confirmation,code,2,snake_case name: package_version; snake_case name: shared_v1,package_version: shared_v1
+Protocol,Awaiting owner confirmation,code,1,snake_case name: shared_v2,shared_v2
+Protocol,Awaiting owner confirmation,td,9,gap or confirmation id: N4,N4 Fixed BEE and adaptive BEE feature definitions differ
+Protocol,Awaiting owner confirmation,span,1,gap or confirmation id: N4,N4
+Protocol,Awaiting owner confirmation,td,11,,[Member 3 name] (member 3) and [Member 4 name] (member 4)
+Protocol,Awaiting owner confirmation,td,62,config code: F2; file name: docs/BEE_MECHANISM_NOTES.md,"Fixed BEE (F2) and adaptive BEE differ in stimulus weights (0.5/0.3/0.2 vs 0.4/0.4/0.2), in the contention definition (static min-max over training weeks vs dynamic competitors / valid actions) and in the activation formula details. Please confirm whether the brief intended shared definitions. Until then, adaptive minus fixed BEE is not an isolated effect of the threshold rule. Details with source lines: docs/BEE_MECHANISM_NOTES.md."
+Protocol,Awaiting owner confirmation,p,10,,Owner names are placeholders from config/team.ts (not yet filled in).
+Protocol,Open data gaps,h2,3,,Open data gaps
+Protocol,Open data gaps,span,2,,pending data
+Protocol,Open data gaps,li,50,config code: A6; file name: 04_adaptive_bee_section_14_revision.ipynb; file name: 04_adaptive_threshold_bee_through_section13.ipynb; file name: MIGRATION.md; gap or confirmation id: G1,"G1 Adaptive BEE: executed section 14 outputs not saved: Two notebooks copied from outside incoming/ (sources and md5s in MIGRATION.md): 04_adaptive_threshold_bee_through_section13.ipynb (sections 1-13, executed) and 04_adaptive_bee_section_14_revision.ipynb (sections 14.1-14.11, the revision that produced A6, no executed outputs). The A6 result files in data/results/ are the source of truth for the lab."
+Protocol,Open data gaps,strong,1,gap or confirmation id: G1,G1
+Protocol,Open data gaps,code,1,,incoming/
+Protocol,Open data gaps,code,1,file name: 04_adaptive_threshold_bee_through_section13.ipynb,04_adaptive_threshold_bee_through_section13.ipynb
+Protocol,Open data gaps,code,1,file name: 04_adaptive_bee_section_14_revision.ipynb,04_adaptive_bee_section_14_revision.ipynb
+Protocol,Open data gaps,strong,3,,no executed outputs
+Protocol,Open data gaps,code,1,,data/results/
+Protocol,Open data gaps,li,29,gap or confirmation id: G3; snake_case name: episode_reward; snake_case name: runtime_seconds,G3 Fixed BEE per-evaluation-seed runtime and episode reward: Not recoverable from schedules. Per-run runtime_seconds is null; summaries use the reported model-level runtime. episode_reward is not exported for any method.
+Protocol,Open data gaps,strong,1,gap or confirmation id: G3,G3
+Protocol,Open data gaps,code,1,snake_case name: runtime_seconds,runtime_seconds
+Protocol,Open data gaps,code,1,snake_case name: episode_reward,episode_reward
+Protocol,Open data gaps,li,15,file name: adaptive_paired_model_comparison.csv; gap or confirmation id: G4; snake_case name: adaptive_paired_model_comparison,G4 Paired model comparison file is empty: adaptive_paired_model_comparison.csv (and its archived copy) are 1-byte files.
+Protocol,Open data gaps,strong,1,gap or confirmation id: G4,G4
+Protocol,Open data gaps,code,1,file name: adaptive_paired_model_comparison.csv; snake_case name: adaptive_paired_model_comparison,adaptive_paired_model_comparison.csv
+Protocol,Open data gaps,li,9,gap or confirmation id: G5,G5 Team names and affiliation: Not in the data.
+Protocol,Open data gaps,strong,1,gap or confirmation id: G5,G5
+Protocol,Data downloads,h2,2,,Data downloads
+Protocol,Data downloads,a,1,file name: methods.json,methods.json
+Protocol,Data downloads,span,5,,"method ids, names and descriptions"
+Protocol,Data downloads,a,1,file name: results_runs.json; snake_case name: results_runs,results_runs.json
+Protocol,Data downloads,span,7,,one row per run with every metric
+Protocol,Data downloads,a,1,file name: results_summary.json; snake_case name: results_summary,results_summary.json
+Protocol,Data downloads,span,6,,"aggregates per method, week and overall"
+Protocol,Data downloads,a,1,file name: paired.json,paired.json
+Protocol,Data downloads,span,8,,"paired differences per fold, bootstrap intervals, seed spreads"
+Protocol,Data downloads,a,1,file name: ablation.json,ablation.json
+Protocol,Data downloads,span,6,config code: A1; config code: A6; internal label: evidence stage,A1-A6 configuration study with evidence stages
+Protocol,Data downloads,a,1,file name: thresholds.json,thresholds.json
+Protocol,Data downloads,span,6,,"adaptive threshold traces, summary and diagnostic"
+Protocol,Data downloads,a,1,file name: bee_params.json; snake_case name: bee_params,bee_params.json
+Protocol,Data downloads,span,8,,BEE feature definitions and parameters with source lines
+Protocol,Data downloads,a,1,file name: protocol.json,protocol.json
+Protocol,Data downloads,span,4,,this page's protocol values
+Protocol,Data downloads,a,1,file name: gaps.json,gaps.json
+Protocol,Data downloads,span,7,,open gaps and items awaiting owner confirmation
+Protocol,Data downloads,a,1,file name: complexes.json,complexes.json
+Protocol,Data downloads,span,7,,DSN complexes and antennas (public reference locations)
+Protocol,Data downloads,a,1,file name: missions.json,missions.json
+Protocol,Data downloads,span,4,,mission ids and colours
+Protocol,Data downloads,a,1,file name: schedules/index.json,schedules/index.json
+Protocol,Data downloads,span,5,,index of the exported schedules
+Protocol,Rebuild the lab,h2,3,,Rebuild the lab
+Protocol,Rebuild the lab,li,5,file name: scripts/export_data.py; snake_case name: export_data,Export the data: python scripts/export_data.py
+Protocol,Rebuild the lab,code,2,file name: scripts/export_data.py; snake_case name: export_data,python scripts/export_data.py
+Protocol,Rebuild the lab,li,5,file name: scripts/verify_export.py; snake_case name: verify_export,Verify the export: python scripts/verify_export.py
+Protocol,Rebuild the lab,code,2,file name: scripts/verify_export.py; snake_case name: verify_export,python scripts/verify_export.py
+Protocol,Rebuild the lab,li,12,,Build the site: cd web && npm install && npm run build
+Protocol,Rebuild the lab,code,9,,cd web && npm install && npm run build
+Protocol,Rebuild the lab,li,8,,Publish the folder web/dist on any static host.
+How to read this (panel),panel,h2,5,,How to read this lab
+How to read this (panel),panel,h3,2,,This page
+How to read this (panel),panel,li,17,,"Pick a week, a method and seeds. The 3D view and the timeline show the same run."
+How to read this (panel),panel,li,42,,Beams link a DSN complex to a spacecraft while one of its requests is being served. An array draws one beam per complex it uses (for example DSS-34_DSS-35 draws one beam from Canberra; DSS-25_DSS-34 draws one from Goldstone and one from Canberra).
+How to read this (panel),panel,li,31,,"Spacecraft positions are illustrative. Times, antennas, missions and which requests were scheduled are real data. Earth’s rotation follows the schedule time; the lighting is only there to make the globe readable."
+How to read this (panel),panel,li,12,,Unscheduled requests are listed on the right; they never draw a beam.
+How to read this (panel),panel,li,20,,"Compare mode shows two methods on the same week and seeds, and marks requests that only one of them scheduled."
+How to read this (panel),panel,h3,3,,Reading the numbers
+How to read this (panel),panel,li,17,,Every number comes from the team's result files through the export script. Missing data shows as pending.
+How to read this (panel),panel,li,15,,"Averages are taken over evaluation seeds, then training seeds, then the five test weeks (folds)."
+How to read this (panel),panel,li,26,,"Differences are written as “higher” or “lower by X” and always shown next to a scale: the seed-to-seed spread on W50, or n = 5 folds."
+How to read this (panel),panel,li,36,,"Under the shared 25,088-step budget, the three PPO-based methods are within seed spread of each other and of the random feasible rule; the earliest window-end rule scores higher overall. The lab reports this as it is."
+How to read this (panel),panel,li,12,,"Explanations for the results appear only under the label “hypothesis, not tested”."
+How to read this (panel),panel,h3,2,,Evidence badges
+How to read this (panel),panel,span,3,"stage label: full cross-week (25,088)","full cross-week (25,088)"
+How to read this (panel),panel,span,3,internal label: recomputed from schedules,recomputed from schedules
+How to read this (panel),panel,span,1,internal label: supplementary,supplementary
+How to read this (panel),panel,span,3,internal label: heuristic (no training),heuristic (no training)
+How to read this (panel),panel,span,3,"stage label: screening (1,024 steps)","screening (1,024 steps)"
+How to read this (panel),panel,span,2,"stage label: shortlist (5,120)","shortlist (5,120)"
+How to read this (panel),panel,span,2,"stage label: confirmation (10,240)","confirmation (10,240)"
+How to read this (panel),panel,span,2,,pending data
+How to read this (panel),panel,span,1,,illustrative
+How to read this (panel),panel,span,3,,awaiting owner confirmation
+How to read this (panel),panel,h3,2,,Method colours
+How to read this (panel),panel,li,3,,"Heuristic schedulers(square, dotted)"
+How to read this (panel),panel,li,4,,"Plain Maskable PPO(circle, solid)"
+How to read this (panel),panel,li,4,,"Fixed-threshold BEE(triangle, long dash)"
+How to read this (panel),panel,li,4,config code: A6,"Adaptive-threshold BEE (A6)(diamond, dash-dot)"
+How to read this (panel),panel,li,7,,Heuristic rules use shades of one family:
