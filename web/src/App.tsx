@@ -3,13 +3,13 @@ import { Navigate, Outlet, createHashRouter, RouterProvider, Link } from "react-
 import { Nav } from "./components/Nav";
 import { HowToRead } from "./components/HowToRead";
 import { Loading } from "./components/States";
-import { Logo } from "./components/Logo";
-import { PROJECT_TITLE } from "./config/team";
 
 const MissionControl = lazy(() => import("./pages/mission-control/MissionControl"));
 const BeeLab = lazy(() => import("./pages/bee-lab/BeeLab"));
 const AblationLab = lazy(() => import("./pages/ablation/AblationLab"));
 const ResultsArena = lazy(() => import("./pages/results/ResultsArena"));
+const Protocol = lazy(() => import("./pages/protocol/Protocol"));
+const Landing = lazy(() => import("./pages/landing/Landing"));
 
 function Shell() {
   return (
@@ -37,34 +37,17 @@ function NotBuilt({ title }: { title: string }) {
   );
 }
 
-function LandingPlaceholder() {
-  return (
-    <div className="mx-auto flex max-w-3xl flex-col items-center p-12 text-center">
-      <Logo size="lg" />
-      <h1 className="mt-6 text-2xl font-semibold leading-snug">{PROJECT_TITLE}</h1>
-      <div className="mt-6 flex gap-3">
-        <Link className="btn" to="/tour">
-          Start the tour
-        </Link>
-        <Link className="btn btn-on" to="/mission-control">
-          Open the lab
-        </Link>
-      </div>
-    </div>
-  );
-}
-
 const router = createHashRouter([
   {
     element: <Shell />,
     children: [
-      { path: "/", element: <LandingPlaceholder /> },
+      { path: "/", element: <Landing /> },
       { path: "/mission-control", element: <MissionControl /> },
       { path: "/bee-lab", element: <BeeLab /> },
       { path: "/ablation", element: <AblationLab /> },
       { path: "/results", element: <ResultsArena /> },
       { path: "/tour", element: <NotBuilt title="Guided Tour" /> },
-      { path: "/protocol", element: <NotBuilt title="Protocol and Reproducibility" /> },
+      { path: "/protocol", element: <Protocol /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },
