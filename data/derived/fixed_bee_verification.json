@@ -1,0 +1,17 @@
+{
+  "status": "matched",
+  "tolerance": 1e-06,
+  "runs_recomputed": 75,
+  "model_level_rows_compared": 15,
+  "values_compared": 96,
+  "max_abs_diff": 1.1368683772161603e-13,
+  "overall_duration_fulfillment_recomputed": 0.6221540208698711,
+  "overall_duration_fulfillment_reported": 0.6221540208698711,
+  "violations_total": 0,
+  "method": "shared_v2 validator.validate_schedule and BEEGroundStationEnv.get_episode_metrics, unmodified",
+  "not_recomputable": [
+    "runtime_seconds",
+    "episode_reward"
+  ],
+  "failures": []
+}
