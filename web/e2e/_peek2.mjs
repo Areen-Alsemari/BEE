@@ -1,0 +1,10 @@
+import { chromium } from "playwright";
+const [,, hash, out, w, h] = process.argv;
+const b = await chromium.launch({ args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
+const p = await b.newPage({ viewport: { width: Number(w), height: Number(h) } });
+const logs = [];
+p.on("console", (m) => logs.push(`${m.type()}: ${m.text()}`)); p.on("pageerror", (e) => logs.push(`pageerror: ${e}`));
+await p.goto(`http://localhost:4173/#${hash}`, { waitUntil: "networkidle" }); await p.waitForTimeout(2000);
+await p.screenshot({ path: out, fullPage: true });
+console.log(logs.join("\n") || "no console messages");
+await b.close();

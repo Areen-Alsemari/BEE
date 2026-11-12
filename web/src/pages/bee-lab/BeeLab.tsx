@@ -219,16 +219,13 @@ function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: 
                   const a = activation(p, r.stimulus, theta);
                   return (
                     <motion.div key={r.step} layout className="flex flex-col items-center rounded-md border border-line bg-surface p-1.5 text-center" data-card={r.track_id}>
-                      <Hex size={66} fill={METHOD_COLORS.adaptive_bee} opacity={a} stroke={BRAND.navy} label={`Request ${r.track_id}, activation ${fmt(a, 3)}`}>
-                        <text x={33} y={31} textAnchor="middle" fontSize={12} fontWeight={600} fill={a > 0.55 ? "#ffffff" : BRAND.fg} className="num">
-                          {fmt(a, 2)}
-                        </text>
-                        <text x={33} y={45} textAnchor="middle" fontSize={9} fill={a > 0.55 ? "#ffffff" : "#4a5675"}>
-                          activation
-                        </text>
-                      </Hex>
-                      <span className="num mt-0.5 text-xs text-fg-2" title={r.track_id}>
-                        s = {fmt(r.stimulus, 3)}
+                      <Hex size={56} fill={METHOD_COLORS.adaptive_bee} opacity={a} stroke={BRAND.navy} label={`Request ${r.track_id}, activation ${fmt(a, 3)}`} />
+                      <span className="num mt-0.5 whitespace-nowrap text-sm font-semibold text-fg" data-activation={a}>
+                        {fmt(a, 2)}
+                      </span>
+                      <span className="whitespace-nowrap text-[11px] text-fg-2">activation</span>
+                      <span className="num whitespace-nowrap text-[11px] text-muted" title={r.track_id}>
+                        s {fmt(r.stimulus, 3)}
                       </span>
                       <span className="text-[11px] font-medium text-ok-fg">allowed</span>
                     </motion.div>

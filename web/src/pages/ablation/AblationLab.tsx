@@ -338,7 +338,7 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
       </Section>
 
       <Section id="tie" title="A3 and A6 at confirmation" badge={<StageBadge stage="confirmation" ab={ab} />} scope>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]" data-num-scope data-testid="tie">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]" data-testid="tie">
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-lg border border-line bg-sunken p-3">
               <div className="text-xs uppercase tracking-wider text-muted">A3 duration fulfillment</div>
@@ -384,7 +384,7 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
           </span>
         }
       >
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" data-num-scope data-testid="crossweek">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" data-testid="crossweek">
           <PerFoldBars pm={dm} trace={P} />
           <div className="text-sm">
             <p>
