@@ -571,7 +571,7 @@ function ThresholdBehaviour({ ab, thr, a3ref, refIdx }: { ab: Ablation; thr: Thr
             ).
           </div>
           <div className="rounded-md border border-line bg-sunken p-3" data-testid="contention-diag" data-num-scope>
-            <EvidenceBadge kind="cross_week" label="diagnostic, one W40 A6 episode" /> Contention term mean{" "}
+            <EvidenceBadge kind="recorded" label={`diagnostic: random-policy ${dg.episode.week.slice(0, 3)} episode, rule ${dg.episode.rule}`} /> Contention term mean{" "}
             <Num v={dg.term_means.contention_term} trace="thresholds.json:diagnostic/term_means/contention_term" format={sig2} className="font-semibold" /> (max{" "}
             <Num v={dg.term_max.contention_term} trace="thresholds.json:diagnostic/term_max/contention_term" format={sig2} />) against a scarcity term mean of{" "}
             <Num v={dg.term_means.scarcity_term} trace="thresholds.json:diagnostic/term_means/scarcity_term" format={sig2} />. {ab.contention_note}

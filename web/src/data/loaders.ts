@@ -262,16 +262,37 @@ export interface Trace {
   source_file: string;
   rows: TraceRow[];
 }
+export interface ThresholdSummary {
+  runs: number;
+  selections: number;
+  base_threshold: number;
+  at_base: number;
+  below_base: number;
+  share_at_base: number;
+  mean_threshold: number;
+  minimum_threshold: number;
+  bin_edges: number[];
+  bin_counts_below_base: number[];
+  bins_note: string;
+}
 export interface Thresholds {
   traces: Trace[];
-  diagnostic: { source_file: string; note: string; rows: Record<string, number>[]; term_means: Record<string, number>; term_max: Record<string, number> };
+  thresholds_summary: Record<"adaptive_bee" | "adaptive_a3_first_pass", ThresholdSummary>;
+  diagnostic: {
+    source_file: string;
+    note: string;
+    episode: { week: string; rule: string; policy: string; environment_seed: number; action_rng_seed: number; steps: number; trained_policy: boolean; generator: Record<string, { file: string; cell: number; line: number; text: string }> };
+    rows: Record<string, number>[];
+    term_means: Record<string, number>;
+    term_max: Record<string, number>;
+  };
   selected_threshold_by_fold: Record<string, Record<string, number | string>[]>;
 }
 
 export const loadThresholds = () =>
   cached("thresholds.json", async () => {
     const d = (await fetchJson("thresholds.json")) as ThresholdsFile & Record<string, unknown>;
-    expectFields("thresholds.json", d, { traces: "array", diagnostic: "object", selected_threshold_by_fold: "object" });
+    expectFields("thresholds.json", d, { traces: "array", diagnostic: "object", selected_threshold_by_fold: "object", thresholds_summary: "object" });
     const traces = (d.traces as Record<string, unknown>[]).map((t, i) => {
       expectFields("thresholds.json", t, { method: "string", fold: "number", columns: "array", rows: "array", source_file: "string" }, `traces[${i}].`);
       const idx = columnIndex("thresholds.json", t.columns, TRACE_FIELDS);
@@ -286,12 +307,15 @@ export const loadThresholds = () =>
       } as Trace;
     });
     const dg = d.diagnostic as { columns: string[]; rows: number[][]; [k: string]: unknown };
-    expectFields("thresholds.json", dg, { columns: "array", rows: "array", term_means: "object", term_max: "object" }, "diagnostic.");
+    expectFields("thresholds.json", dg, { columns: "array", rows: "array", term_means: "object", term_max: "object", episode: "object", note: "string" }, "diagnostic.");
+    for (const k of ["adaptive_bee", "adaptive_a3_first_pass"])
+      expectFields("thresholds.json", (d.thresholds_summary as Record<string, unknown>)[k], { selections: "number", at_base: "number", share_at_base: "number", bin_edges: "array", bin_counts_below_base: "array" }, `thresholds_summary.${k}.`);
     columnIndex("thresholds.json", dg.columns, ["step", "valid_requests", "scarcity_term", "contention_term", "unmet_term", "mean_threshold", "minimum_threshold"] as const);
     return {
       traces,
       diagnostic: { ...(dg as object), rows: dg.rows.map((r) => Object.fromEntries(dg.columns.map((c, i) => [c, r[i]]))) },
       selected_threshold_by_fold: d.selected_threshold_by_fold,
+      thresholds_summary: d.thresholds_summary,
     } as Thresholds;
   });
 

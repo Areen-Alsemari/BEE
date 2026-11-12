@@ -170,28 +170,7 @@ function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: 
       title="How BEE decides what the policy sees"
       kicker="BEE adds information to the observation; it does not remove actions. The set of allowed actions is the shared feasibility mask, identical for every method. BEE computes a stimulus and an activation for each request and passes them to the policy as extra inputs."
     >
-      <div className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)]">
-        <div className="rounded-lg border border-line bg-sunken p-4" data-testid="panel-allowed">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-semibold text-fg">What is allowed</h3>
-            <EvidenceBadge kind="recorded" />
-          </div>
-          <p className="mt-1 text-sm text-fg-2">
-            The shared feasibility mask: a request is allowed when it still has a feasible placement. The threshold slider on the right never changes this panel.
-          </p>
-          <Slider label="Recorded step" value={dstep} min={0} max={diag.length - 1} step={1} onChange={setDstep} testId="allowed-step" />
-          <div className="mt-2 text-sm">
-            Step <span className="num">{d.step}</span>: <span className="num font-semibold" data-testid="allowed-count">{d.valid_requests}</span> of{" "}
-            <span className="num">{total}</span> requests allowed
-          </div>
-          <div className="mt-2 flex flex-wrap gap-[2px]" aria-hidden>
-            {d3.range(total).map((i) => (
-              <span key={i} className="inline-block h-[7px] w-[7px]" style={{ background: i < d.valid_requests ? BRAND.blue : "#d5dbe6", clipPath: "polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)" }} />
-            ))}
-          </div>
-          <p className="mt-2 text-xs text-muted">{thr.diagnostic.note} Source: {thr.diagnostic.source_file}.</p>
-        </div>
-
+      <div className="space-y-4">
         <div className="rounded-lg border border-line bg-surface p-4" data-testid="panel-sees">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-semibold text-fg">What the policy sees</h3>
@@ -199,8 +178,9 @@ function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: 
             <EvidenceBadge kind="whatif" label="activation: what-if θ" />
           </div>
           <p className="mt-1 text-sm text-fg-2">
-            Twelve requests recorded in the W40 A6 run (training seed 42, evaluation seed 1001), each at the step it was chosen. Moving θ changes each card&apos;s
-            activation (fill and value). Every card stays in the feasible set.
+            <strong>Illustrative: requests chosen at different steps</strong> of one trained run (adaptive A6, W40, training seed {trace.training_seed}, evaluation seed{" "}
+            {trace.evaluation_seed}). Each card is the request the policy chose at the step shown; they are not one moment. Moving θ changes each card&apos;s activation
+            (fill and value). Every card was in the feasible set when it was chosen.
           </p>
           <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
             <div>
@@ -227,7 +207,7 @@ function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: 
                       <span className="num whitespace-nowrap text-[11px] text-muted" title={r.track_id}>
                         s {fmt(r.stimulus, 3)}
                       </span>
-                      <span className="text-[11px] font-medium text-ok-fg">allowed</span>
+                      <span className="text-[11px] font-medium text-ok-fg">allowed at step {r.step}</span>
                     </motion.div>
                   );
                 })}
@@ -235,6 +215,38 @@ function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: 
             </div>
             <ActivationCurve p={p} theta={theta} points={cards.map((r) => ({ s: r.stimulus, label: r.track_id }))} />
           </div>
+        </div>
+              <div className="rounded-md border border-warn-fg/40 bg-warn-bg px-3 py-2 text-sm text-fg" data-testid="episodes-note">
+          The panel above and the panel below come from <strong>different episodes</strong> (a trained A6 run and a random-policy diagnostic run). They are not a single state.
+        </div>
+        <div className="rounded-lg border border-line bg-sunken p-4" data-testid="panel-allowed">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-semibold text-fg">What is allowed: a different episode</h3>
+            <EvidenceBadge kind="recorded" label="diagnostic episode" />
+          </div>
+          <p className="mt-1 text-sm text-fg-2">
+            The shared feasibility mask: a request is allowed when it still has a feasible placement. This count comes from the diagnostic episode in the source
+            file, identified from its generator code: a <strong>random-policy</strong> {thr.diagnostic.episode.week.slice(0, 3)} episode under rule {thr.diagnostic.episode.rule}, environment seed{" "}
+            {thr.diagnostic.episode.environment_seed}, random actions with seed {thr.diagnostic.episode.action_rng_seed}, {thr.diagnostic.episode.steps} steps. It is not the trained A6 run above, and θ
+            never changes it.
+          </p>
+          <div className="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-[320px_minmax(0,1fr)]">
+            <div>
+              <Slider label="Step of the diagnostic episode" value={dstep} min={0} max={diag.length - 1} step={1} onChange={setDstep} testId="allowed-step" />
+              <div className="mt-2 text-sm">
+                Step <span className="num">{d.step}</span>: <span className="num font-semibold" data-testid="allowed-count">{d.valid_requests}</span> of{" "}
+                <span className="num">{total}</span> requests allowed
+              </div>
+            </div>
+            <div className="flex flex-wrap content-start gap-[2px]" aria-hidden>
+              {d3.range(total).map((i) => (
+                <span key={i} className="inline-block h-[8px] w-[8px]" style={{ background: i < d.valid_requests ? BRAND.blue : "#d5dbe6", clipPath: "polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)" }} />
+              ))}
+            </div>
+          </div>
+          <p className="mt-2 text-xs text-muted">
+            Generator: {thr.diagnostic.episode.generator.random_policy.file}, cell {thr.diagnostic.episode.generator.random_policy.cell}. Data: {thr.diagnostic.source_file}.
+          </p>
         </div>
       </div>
     </Section>
@@ -524,10 +536,9 @@ function Replay({ params, thr }: { params: BeeParamsFile; thr: Thresholds }) {
 function TracesShow({ params, thr }: { params: BeeParamsFile; thr: Thresholds }) {
   const p = params.methods.adaptive_A6;
   const base = p.threshold.kind === "adaptive" ? p.threshold.base_threshold.value : 0.5;
-  const a6 = thr.traces.filter((t) => t.method === "adaptive_bee");
-  const all = a6.flatMap((t) => t.rows.map((r) => r.threshold));
-  const atBase = all.filter((v) => v === base).length;
-  const bins = d3.bin().domain([0.1, base]).thresholds(d3.range(0.1, base, 0.025))(all.filter((v) => v < base));
+  const ts = thr.thresholds_summary.adaptive_bee;
+  const atBase = ts.at_base;
+  const bins = ts.bin_counts_below_base.map((n, i) => ({ x0: ts.bin_edges[i], x1: ts.bin_edges[i + 1], length: n }));
   const W = 560;
   const H = 230;
   const m = { l: 48, r: 12, t: 12, b: 36 };
@@ -548,16 +559,19 @@ function TracesShow({ params, thr }: { params: BeeParamsFile; thr: Thresholds })
     <Section
       id="traces"
       title="What the traces show"
-      kicker="A6 cross-week traces record the threshold of the request chosen at every step. Counts below are taken from the 35 exported A6 traces."
+      kicker="A6 cross-week traces record the threshold of the request chosen at every step. The counts below are exported from the 35 A6 traces (thresholds_summary in thresholds.json)."
       badge={<EvidenceBadge kind="cross_week" />}
     >
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <div>
-          <h3 className="font-semibold text-fg">Selected thresholds (A6, all steps of all 35 runs)</h3>
+          <h3 className="font-semibold text-fg">Selected thresholds (A6, all steps of all {ts.runs} runs)</h3>
           <p className="mt-1 text-sm text-fg-2" data-testid="share-at-base">
-            <span className="num font-semibold">{atBase.toLocaleString()}</span> of <span className="num">{all.length.toLocaleString()}</span> recorded selections (
-            <span className="num">{((100 * atBase) / all.length).toFixed(1)}%</span>) are at the base threshold {base}; the remaining{" "}
-            <span className="num">{(all.length - atBase).toLocaleString()}</span> were adapted lower.
+            <span className="num font-semibold" data-trace="thresholds.json:thresholds_summary/adaptive_bee/at_base" data-value={ts.at_base}>{ts.at_base.toLocaleString()}</span> of{" "}
+            <span className="num" data-trace="thresholds.json:thresholds_summary/adaptive_bee/selections" data-value={ts.selections}>{ts.selections.toLocaleString()}</span> recorded selections (
+            <span className="num" data-trace="thresholds.json:thresholds_summary/adaptive_bee/share_at_base" data-value={ts.share_at_base}>{(100 * ts.share_at_base).toFixed(1)}%</span>) are at the base
+            threshold {base}; the remaining <span className="num" data-trace="thresholds.json:thresholds_summary/adaptive_bee/below_base" data-value={ts.below_base}>{ts.below_base.toLocaleString()}</span> were
+            adapted lower. Mean selected threshold <span className="num" data-trace="thresholds.json:thresholds_summary/adaptive_bee/mean_threshold" data-value={ts.mean_threshold}>{fmt(ts.mean_threshold)}</span>,
+            minimum <span className="num" data-trace="thresholds.json:thresholds_summary/adaptive_bee/minimum_threshold" data-value={ts.minimum_threshold}>{fmt(ts.minimum_threshold)}</span>.
           </p>
           <svg width={W} height={H} role="img" aria-label="Histogram of selected thresholds" className="mt-2 max-w-full">
             {y.ticks(4).map((t) => (
@@ -569,8 +583,8 @@ function TracesShow({ params, thr }: { params: BeeParamsFile; thr: Thresholds })
               </g>
             ))}
             {bins.map((b, i) => (
-              <rect key={i} x={x(b.x0!) + 1} y={y(b.length)} width={Math.max(1, x(b.x1!) - x(b.x0!) - 2)} height={y(0) - y(b.length)} fill={METHOD_COLORS.adaptive_bee} opacity={0.75}>
-                <title>{`${b.x0?.toFixed(3)}-${b.x1?.toFixed(3)}: ${b.length}`}</title>
+              <rect key={i} x={x(b.x0) + 1} y={y(b.length)} width={Math.max(1, x(b.x1) - x(b.x0) - 2)} height={y(0) - y(b.length)} fill={METHOD_COLORS.adaptive_bee} opacity={0.75}>
+                <title>{`${b.x0.toFixed(3)}-${b.x1.toFixed(3)}: ${b.length}`}</title>
               </rect>
             ))}
             <rect x={x(base) + 1} y={y(atBase)} width={x(base + 0.025) - x(base) - 2} height={y(0) - y(atBase)} fill={BRAND.navy}>
@@ -606,14 +620,18 @@ function TracesShow({ params, thr }: { params: BeeParamsFile; thr: Thresholds })
           </table>
         </div>
         <div>
-          <h3 className="font-semibold text-fg">Diagnostic: the three adjustment terms per step</h3>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-semibold text-fg">Diagnostic: the three adjustment terms per step (random-policy episode)</h3>
+            <EvidenceBadge kind="recorded" label="diagnostic episode, not a cross-week run" />
+          </div>
           <p className="mt-1 text-sm text-fg-2" data-testid="diag-facts">
             Means over the {dg.rows.length} steps: scarcity term <span className="num font-semibold">{sig(dg.term_means.scarcity_term)}</span>, unmet term{" "}
             <span className="num font-semibold">{sig(dg.term_means.unmet_term)}</span>, contention term{" "}
             <span className="num font-semibold" data-testid="contention-mean">
               {sig(dg.term_means.contention_term)}
             </span>{" "}
-            (max {sig(dg.term_max.contention_term)}). In this diagnostic the threshold moves mainly through the scarcity term; the contention term is about 0.
+            (max {sig(dg.term_max.contention_term)}). In this diagnostic the threshold moves mainly through the scarcity term; the contention term is about 0. The episode
+            is a random-policy {dg.episode.week.slice(0, 3)} run under rule {dg.episode.rule} (same strengths as A6, no selective gate), not a trained A6 run.
           </p>
           <svg width={dW} height={H} role="img" aria-label="Scarcity, unmet and contention terms by step" className="mt-2 max-w-full">
             {dy.ticks(4).map((t) => (
