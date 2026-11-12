@@ -10,7 +10,8 @@ export type EvidenceKind =
   | "illustrative"
   | "needs_confirmation"
   | "whatif"
-  | "recorded";
+  | "recorded"
+  | "config";
 
 const STYLE: Record<EvidenceKind, { label: string; cls: string; title: string }> = {
   screening: {
@@ -63,6 +64,11 @@ const STYLE: Record<EvidenceKind, { label: string; cls: string; title: string }>
     label: "what-if, computed from the equations",
     cls: "border-slate-400 bg-slate-50 text-slate-800 border-dashed",
     title: "Computed in your browser from the equations in the code, with inputs you choose. Not a result of the study.",
+  },
+  config: {
+    label: "configuration record",
+    cls: "border-indigo-300 bg-indigo-50 text-indigo-900",
+    title: "Value from the exported configuration and protocol files, not a result.",
   },
   recorded: {
     label: "recorded trace value",
