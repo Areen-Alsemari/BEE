@@ -40,3 +40,4 @@ data/raw/maintenance.csv
 *.tsbuildinfo
 web/test-results/
 web/playwright-report/
+.claude/
