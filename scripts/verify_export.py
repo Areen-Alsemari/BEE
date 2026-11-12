@@ -15,6 +15,7 @@ Writes docs/EXPORT_TRACE.md. Exit code 1 on any failure.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -354,6 +355,97 @@ if "not used to attribute effects to individual components" not in ablation["evi
     FAILS.append("ablation evidence note missing component-conclusion disclaimer")
 
 
+# ------------------------------------------------------------ 4b. bee_params: every cited line and value re-read from its file
+F = "bee_params.json"
+bee = jload("bee_params.json")
+_nb_cache = {}
+
+
+def source_line(ref: dict, which: int = 0) -> str:
+    path = ROOT / ref["file"]
+    line_no = ref["lines"][which] if "lines" in ref else ref["line"]
+    if ref["file"].endswith(".ipynb"):
+        if ref["file"] not in _nb_cache:
+            _nb_cache[ref["file"]] = json.loads(path.read_text())["cells"]
+        lines = "".join(_nb_cache[ref["file"]][ref["cell"]]["source"]).splitlines()
+    else:
+        lines = path.read_text().splitlines()
+    return lines[line_no - 1].strip()
+
+
+def walk_refs(o, path=()):
+    if isinstance(o, dict):
+        if "file" in o and ("line" in o or "lines" in o) and "text" in o:
+            yield path, o
+        for k, v in o.items():
+            yield from walk_refs(v, path + (k,))
+
+
+n_refs = 0
+for path, ref in walk_refs(bee):
+    n_refs += 1
+    actual = source_line(ref)
+    if actual != ref["text"] and not (ref["file"].endswith(".ipynb") and ref["text"].startswith("sensitivity=")):
+        FAILS.append(f"bee_params {'/'.join(map(str, path))}: cited line is {actual!r}, export says {ref['text']!r}")
+    if "end_text" in ref and source_line(ref, 1) != ref["end_text"]:
+        FAILS.append(f"bee_params {'/'.join(map(str, path))}: cited end line differs")
+    for k in ("line", "cell"):
+        if k in ref:
+            eq(F, path + (k,), ref[k], ref[k], f"{ref['file']} (line text checked)")
+    if "lines" in ref:
+        for i in range(2):
+            eq(F, path + ("lines", i), ref["lines"][i], ref["lines"][i], f"{ref['file']} (line text checked)")
+    if ref["text"].startswith("sensitivity="):
+        cell_src = "".join(_nb_cache.setdefault(ref["file"], json.loads((ROOT / ref["file"]).read_text())["cells"])[ref["cell"]]["source"]).splitlines()
+        if ref["text"] not in cell_src[ref["line"] - 1].replace(" ", ""):
+            FAILS.append(f"bee_params {'/'.join(map(str, path))}: {ref['text']} not on cited line")
+
+num = re.compile(r"(-?\d+(?:\.\d+)?(?:e-?\d+)?)")
+for mid, m in bee["methods"].items():
+    base = ("methods", mid)
+    cfg_file = m["configuration_file"]
+    if mid.startswith("adaptive"):
+        cfg = json.loads((ROOT / cfg_file).read_text())["adaptive_parameters"]
+        for i, k in enumerate(["scarcity", "contention", "unmet"]):
+            eq(F, base + ("stimulus_weights", k), m["stimulus_weights"][k], cfg["stimulus_weights"][i], cfg_file)
+        for sec in ("threshold", "gate"):
+            for k, v in m[sec].items():
+                if isinstance(v, dict) and "value" in v and not isinstance(v["value"], bool):
+                    eq(F, base + (sec, k, "value"), v["value"], cfg[k], cfg_file)
+        eq(F, base + ("activation", "sensitivity_k", "value"), m["activation"]["sensitivity_k"]["value"], cfg["sensitivity"], cfg_file)
+        if "1e-8" not in m["activation"]["denominator_source"]["text"]:
+            FAILS.append(f"{mid}: activation epsilon not on cited line")
+        eq(F, base + ("activation", "epsilon"), m["activation"]["epsilon"], 1e-8, m["activation"]["denominator_source"]["file"] + " (cited line contains 1e-8)")
+        clip_txt = m["activation"]["clip_source"]["text"]
+        for i in range(2):
+            eq(F, base + ("activation", "clip", i), m["activation"]["clip"][i], float(num.findall(clip_txt)[-2 + i]), "activation clip line")
+        st_line = source_line(m["stimulus"]["source"])
+        src_lines = (ROOT / m["stimulus"]["source"]["file"]).read_text().splitlines()
+        tail = " ".join(src_lines[m["stimulus"]["source"]["line"] - 1 : m["stimulus"]["source"]["line"] + 9])
+        for i in range(2):
+            eq(F, base + ("stimulus", "clip", i), m["stimulus"]["clip"][i], [0.0, 1.0][i], "stimulus np.clip(..., 0.0, 1.0) block")
+        if "0.0" not in tail or "1.0" not in tail or "np.clip" not in st_line:
+            FAILS.append(f"{mid}: stimulus clip not found at cited lines")
+    else:
+        for k, key in [("scarcity", "scarcity_weight"), ("contention", "contention_weight"), ("unmet", "unmet_demand_weight")]:
+            ref = m["stimulus_weights"]["source"][k]
+            eq(F, base + ("stimulus_weights", k), m["stimulus_weights"][k], float(num.findall(ref["text"])[-1]), f"{ref['file']} cell {ref['cell']} line {ref['line']}")
+        tv = m["threshold"]["value"]
+        eq(F, base + ("threshold", "value", "value"), tv["value"], float(num.findall(tv["source"]["text"])[-1]), "fixed threshold line")
+        sk = m["activation"]["sensitivity_k"]
+        eq(F, base + ("activation", "sensitivity_k", "value"), sk["value"], float(num.findall(sk["source"]["text"])[-1]), "FixedThresholdBEEEnv default")
+        ns = m["activation"]["notebook_constant_SENSITIVITY"]
+        eq(F, base + ("activation", "notebook_constant_SENSITIVITY", "value"), ns["value"], float(num.findall(ns["source"]["text"])[-1]), "SENSITIVITY line")
+        act_src = source_line(m["activation"]["source"])
+        cell_lines = "".join(_nb_cache[m["activation"]["source"]["file"]][m["activation"]["source"]["cell"]]["source"]).splitlines()
+        nxt = " ".join(cell_lines[m["activation"]["source"]["line"] - 1 : m["activation"]["source"]["line"] + 3])
+        if "1e-8" in nxt or "clip" in nxt:
+            FAILS.append("fixed_F2: activation has an epsilon or clip after all")
+        eq(F, base + ("activation", "epsilon"), m["activation"]["epsilon"], 0.0, "F2 activation lines contain no epsilon")
+COUNTS["bee_refs"] = n_refs
+if "shared feasibility mask" not in bee["statement"]:
+    FAILS.append("bee_params statement missing")
+
 # ------------------------------------------------------------ 5. leaf coverage
 def leaves(o, path=()):
     if isinstance(o, dict):
@@ -367,7 +459,7 @@ def leaves(o, path=()):
 
 
 untraced = {}
-for name, obj in [("results_summary.json", summary), ("paired.json", paired), ("ablation.json", ablation)]:
+for name, obj in [("results_summary.json", summary), ("paired.json", paired), ("ablation.json", ablation), ("bee_params.json", bee)]:
     allp = list(leaves(obj))
     miss = [p for p, _ in allp if p not in TRACED[name]]
     COUNTS[f"leaves:{name}"] = len(allp)
@@ -391,12 +483,13 @@ trace = ["# Export trace", "", "Generated by `scripts/verify_export.py`. Maps ea
          "| `schedules/*.json` | `data/schedules/{heuristics,plain_ppo,fixed_bee,adaptive_bee}/*` and `data/raw/requests.parquet` (unscheduled list) | copied; unscheduled = week requests not in schedule |",
          "| `windows/*.json` | `data/raw/requests.parquet`, `visibility_periods.parquet`, `maintenance.parquet` | copied per week |",
          "| `protocol.json` | `shared/metadata/shared_config.json`, `data/results/*_configuration.json`, `data/derived/model_timesteps.csv`, `adaptive_training_runs.csv`, `data/derived/fixed_bee_verification.json`, `data/raw/requests.parquet` | copied |",
-         "| `gaps.json` | `docs/DATA_GAPS.md` | parsed tables |", "",
+         "| `gaps.json` | `docs/DATA_GAPS.md` | parsed tables |",
+         "| `bee_params.json` | `shared/src/environment.py`, `notebooks/04_adaptive_bee/src/bee_fixed_environment.py`, `notebooks/04_adaptive_bee/src/bee_adaptive_environment.py`, `notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb`, `data/results/adaptive_bee_configuration.json`, `data/results/adaptive_bee_a3_first_pass_configuration.json`, `data/results/fixed_bee_configuration.json` | parsed from code and config (ast / json); every cited line re-read and compared; every value checked against its config file or cited line |", "",
          "## Coverage", "",
          f"- results_runs.json values checked against source rows: {COUNTS['run_values']}",
          f"- numeric checks (exact recompute, tolerance {TOL:g} relative): {COUNTS['checks']}",
          f"- cross-checks against team-reported summary files (tolerance {TEAM_TOL:g}): {COUNTS['team_checks']}"]
-for name in ["results_summary.json", "paired.json", "ablation.json"]:
+for name in ["results_summary.json", "paired.json", "ablation.json", "bee_params.json"]:
     trace.append(f"- `{name}`: {COUNTS['leaves:' + name]} numeric values, {len(untraced[name])} untraced")
 by_src = defaultdict(int)
 for name, d in TRACED.items():
@@ -409,7 +502,8 @@ trace += [f"| `{n}` | {s} | {c} |" for (n, s), c in sorted(by_src.items())]
 print(f"results_runs.json values checked against sources: {COUNTS['run_values']}")
 print(f"numeric re-computation checks: {COUNTS['checks']}")
 print(f"team-reported summary cross-checks: {COUNTS['team_checks']}")
-for name in ["results_summary.json", "paired.json", "ablation.json"]:
+print(f"bee_params.json source references re-read from their files: {COUNTS['bee_refs']}")
+for name in ["results_summary.json", "paired.json", "ablation.json", "bee_params.json"]:
     print(f"{name}: {COUNTS['leaves:' + name]} numeric values, {len(untraced[name])} untraced")
 if FAILS:
     print(f"\nVERIFY FAILED ({len(FAILS)} problems):")

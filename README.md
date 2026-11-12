@@ -8,13 +8,19 @@ Deep Space Network (DSN) ground-station scheduling and its ablation study:
 1. **Heuristic schedulers**: random feasible, earliest window-end, shortest duration,
    least flexible, weighted composite (H4)
 2. **Plain Maskable PPO**
-3. **Fixed-threshold BEE**: PPO with a bee-inspired request-filtering mask
-4. **Adaptive-threshold BEE**: the threshold responds to scarcity, contention and unmet demand
+3. **Fixed-threshold BEE**: PPO whose observation adds bee-inspired features for each request
+   (stimulus, a fixed threshold and the resulting activation)
+4. **Adaptive-threshold BEE**: as fixed BEE, but the threshold in those features responds to
+   scarcity, contention increase and unmet pressure
+
+For every method the action mask is the same shared feasibility mask: BEE adds information to the
+policy's observation and does not remove actions. See `docs/BEE_MECHANISM_NOTES.md` for the exact
+code lines.
 
 The protocol is a 5-fold cross-week evaluation over weeks W10, W20, W30, W40 and W50 of 2018.
 Configurations are selected on W40 only and frozen before cross-week testing. All methods share
 the PPO configuration, reward and training budget, and are evaluated on the same seeds. The lab
-reports results as they are, including where adaptive thresholds show no improvement.
+reports results as they are, including where adaptive thresholds show no gain over the other methods.
 See `docs/DATA_GAPS.md` for what the data can and cannot support.
 
 The site is static: Python scripts export the team's result files to JSON and the frontend

@@ -436,14 +436,14 @@ methods = {
              {"id": "least_flexible", "name": "Least-flexible first"},
              {"id": "weighted_composite_H4", "name": "Weighted composite (H4)"}]},
         {"id": "plain_ppo", "name": "Plain Maskable PPO", "color_key": "plain_ppo", "primary": True,
-         "description": "Maskable PPO policy over feasible requests, without bee-inspired features."},
+         "description": "Maskable PPO over the shared feasibility mask, without bee-inspired observation features."},
         {"id": "fixed_bee", "name": "Fixed-threshold BEE", "color_key": "fixed_bee", "primary": True, "variant": "F2",
-         "description": "Maskable PPO with a bee-inspired mask that filters requests whose activation falls below a fixed threshold."},
+         "description": "Maskable PPO whose observation adds bee-inspired features for each request (stimulus, a fixed threshold and the resulting activation). The action mask is the shared feasibility mask."},
         {"id": "adaptive_bee", "name": "Adaptive-threshold BEE (A6)", "color_key": "adaptive_bee", "primary": True, "variant": "A6",
-         "description": "BEE with a threshold that moves with scarcity, contention and unmet pressure, gated to adapt only when at least two pressure indicators fire."},
+         "description": "Like fixed BEE, but the threshold in the observation features moves with scarcity, contention increase and unmet pressure, and adapts only when at least two pressure indicators fire. The action mask is the shared feasibility mask."},
         {"id": "adaptive_a3_first_pass", "name": "Adaptive BEE first pass (A3)", "color_key": "adaptive_a3_first_pass",
          "primary": False, "variant": "A3",
-         "description": "Earlier selected adaptive rule, superseded by A6 after the declared tie-break; shown for the A3 vs A6 comparison only."},
+         "description": "Earlier selected adaptive rule (contention-only threshold adaptation), superseded by A6 after the declared tie-break; shown for the A3 vs A6 comparison only. The action mask is the shared feasibility mask."},
     ],
 }
 write("methods.json", methods)
@@ -725,6 +725,22 @@ write("protocol.json", {
     },
 })
 
+
+# BEE feature definitions and parameters, read from the code and configuration files
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import bee_params  # noqa: E402
+
+try:
+    bee = bee_params.build()
+except bee_params.SourceError as e:
+    fail(f"bee_params: {e}")
+check(bee["methods"]["fixed_F2"]["selected_configuration"]["value"] == "F2", "bee_params: fixed BEE selected configuration is F2 (fixed_bee_configuration.json)")
+for mid in ["adaptive_A6", "adaptive_A3"]:
+    ok = all(bee["methods"][mid]["code_defaults_match_config"].values())
+    check(ok, f"bee_params: {mid} configuration agrees with BEEAdaptiveThresholdEnv defaults where they overlap")
+check(not any(w in json.dumps(methods).lower() for w in ["filter", "removes actions"]), "methods.json: no filtering wording about BEE")
+write("bee_params.json", bee)
+(ROOT / "docs/BEE_MECHANISM_NOTES.md").write_text(bee_params.notes_markdown(bee))
 
 # gaps
 def md_table(md: str, heading: str) -> list[dict]:

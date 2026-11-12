@@ -26,6 +26,7 @@ present them as "awaiting owner confirmation", never as verified facts.
 | N1 | Fixed BEE W40-only selection and freeze | Shahad (member 3) | That F2 was selected on W40 only and frozen before cross-week testing. `fixed_bee_configuration.json` gives the selection basis as "validation performance followed by five-fold cross-week robustness evaluation" (see C11). |
 | N2 | Plain PPO configuration seeds | Sara (member 2) | `plain_ppo_configuration.json` lists `training_seeds: [42]`; the W50 seeds 123/456 runs exist (R1). Confirm the configuration record should list 42/123/456 and that the extra runs used an unchanged configuration (see C12). |
 | N3 | Heuristics package version | Aroob (member 1) | `heuristics_configuration.json` says `package_version: shared_v1`. Confirm the cross-week results were produced with `shared_v2`, or that the v1/v2 identical-trace check covers them (see C8). |
+| N4 | Fixed BEE and adaptive BEE feature definitions differ | Shahad (member 3) and member 4 | Fixed BEE (F2) and adaptive BEE differ in stimulus weights (0.5/0.3/0.2 vs 0.4/0.4/0.2), in the contention definition (static min-max over training weeks vs dynamic competitors / valid actions) and in the activation formula details. Please confirm whether the brief intended shared definitions. Until then, adaptive minus fixed BEE is not an isolated effect of the threshold rule. Details with source lines: docs/BEE_MECHANISM_NOTES.md. |
 
 ## Resolved
 
