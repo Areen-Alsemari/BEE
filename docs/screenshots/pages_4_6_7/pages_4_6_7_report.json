@@ -1,0 +1,1078 @@
+{
+  "checks": [
+    {
+      "name": "1440x900 results: axe WCAG 2.1 AA",
+      "ok": true,
+      "detail": "0 violations"
+    },
+    {
+      "name": "1440x900 results: no banned comparison words",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "results: 123 traced numbers equal the JSON",
+      "ok": true,
+      "detail": "123 cells; "
+    },
+    {
+      "name": "results: displayed text matches each value",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "results: every traced number has a badge in its scope",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1440x900 landing: axe WCAG 2.1 AA",
+      "ok": true,
+      "detail": "0 violations"
+    },
+    {
+      "name": "1440x900 landing: no banned comparison words",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "landing: 16 traced numbers equal the JSON",
+      "ok": true,
+      "detail": "16 cells; "
+    },
+    {
+      "name": "landing: displayed text matches each value",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "landing: every traced number has a badge in its scope",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1440x900 protocol: axe WCAG 2.1 AA",
+      "ok": true,
+      "detail": "0 violations"
+    },
+    {
+      "name": "1440x900 protocol: no banned comparison words",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "protocol: 29 traced numbers equal the JSON",
+      "ok": true,
+      "detail": "29 cells; "
+    },
+    {
+      "name": "protocol: displayed text matches each value",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "protocol: every traced number has a badge in its scope",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "results (all metrics, sorts, heuristic pairs): 903 traced numbers equal the JSON",
+      "ok": true,
+      "detail": "903 cells; "
+    },
+    {
+      "name": "results (all metrics, sorts, heuristic pairs): displayed text matches each value",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "results (all metrics, sorts, heuristic pairs): every traced number has a badge in its scope",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "templates: every decimal number is a traced data value",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "templates: fold counts in sentences equal paired.json",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "templates: allowed vocabulary only",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "results: N4 note beside adaptive minus fixed BEE",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "results: CSV, SVG and PNG downloads",
+      "ok": true,
+      "detail": "cross_week_runtime_seconds.csv, by_week_duration_fulfillment.svg, paired_duration_fulfillment.png"
+    },
+    {
+      "name": "landing: Start the tour disabled with 'coming next'",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "landing: full project title",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bee lab (d) share and counts: 6 traced numbers equal the JSON",
+      "ok": true,
+      "detail": "6 cells; "
+    },
+    {
+      "name": "bee lab (d) share and counts: displayed text matches each value",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bee lab (d) share and counts: every traced number has a badge in its scope",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "bee lab (a): episodes note present and panels separated",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1920x1080 results: axe WCAG 2.1 AA",
+      "ok": true,
+      "detail": "0 violations"
+    },
+    {
+      "name": "1920x1080 results: no banned comparison words",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1920x1080 landing: axe WCAG 2.1 AA",
+      "ok": true,
+      "detail": "0 violations"
+    },
+    {
+      "name": "1920x1080 landing: no banned comparison words",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1920x1080 protocol: axe WCAG 2.1 AA",
+      "ok": true,
+      "detail": "0 violations"
+    },
+    {
+      "name": "1920x1080 protocol: no banned comparison words",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console: no errors or warnings",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "report": {
+    "trace": {
+      "results": {
+        "cells": 123,
+        "wrong": [],
+        "text": [],
+        "unbadged": [],
+        "sample": [
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/overall/mean/duration_fulfillment",
+            "value": 0.6797907653595325,
+            "text": "0.6798",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W10/mean/duration_fulfillment",
+            "value": 0.728600083927822,
+            "text": "0.7286",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W20/mean/duration_fulfillment",
+            "value": 0.7325932772445392,
+            "text": "0.7326",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W30/mean/duration_fulfillment",
+            "value": 0.6999070279295688,
+            "text": "0.6999",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W40/mean/duration_fulfillment",
+            "value": 0.5887741757995688,
+            "text": "0.5888",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W50/mean/duration_fulfillment",
+            "value": 0.6490792618961633,
+            "text": "0.6491",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/overall/fold_sd/duration_fulfillment",
+            "value": 0.06083242326334107,
+            "text": "0.0608",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fearliest_window_end/metrics/duration_fulfillment/sd",
+            "value": 0.0032496383657598326,
+            "text": "0.0032",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W10/mean/duration_fulfillment",
+            "value": 0.7125268802163472,
+            "text": "0.7125",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W20/mean/duration_fulfillment",
+            "value": 0.7348359995260102,
+            "text": "0.7348",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W30/mean/duration_fulfillment",
+            "value": 0.6728718882817244,
+            "text": "0.6729",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W40/mean/duration_fulfillment",
+            "value": 0.5632759767886732,
+            "text": "0.5633",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W50/mean/duration_fulfillment",
+            "value": 0.6424570069992604,
+            "text": "0.6425",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/overall/mean/duration_fulfillment",
+            "value": 0.665193550362403,
+            "text": "0.6652",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/overall/fold_sd/duration_fulfillment",
+            "value": 0.06718186868685604,
+            "text": "0.0672",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fweighted_composite_H4/metrics/duration_fulfillment/sd",
+            "value": 0.000979403954534574,
+            "text": "0.0010",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W10/mean/duration_fulfillment",
+            "value": 0.7079847064857556,
+            "text": "0.7080",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W20/mean/duration_fulfillment",
+            "value": 0.718063080143777,
+            "text": "0.7181",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W30/mean/duration_fulfillment",
+            "value": 0.6536495142683667,
+            "text": "0.6536",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W40/mean/duration_fulfillment",
+            "value": 0.5480840099038407,
+            "text": "0.5481",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W50/mean/duration_fulfillment",
+            "value": 0.6056322980618756,
+            "text": "0.6056",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/overall/mean/duration_fulfillment",
+            "value": 0.6466827217727231,
+            "text": "0.6467",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/overall/fold_sd/duration_fulfillment",
+            "value": 0.07125389174925346,
+            "text": "0.0713",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fleast_flexible/metrics/duration_fulfillment/sd",
+            "value": 0.0040352538052786085,
+            "text": "0.0040",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/adaptive_a3_first_pass/per_week/W10/mean/duration_fulfillment",
+            "value": 0.6783376696041404,
+            "text": "0.6783",
+            "badged": true
+          }
+        ]
+      },
+      "landing": {
+        "cells": 16,
+        "wrong": [],
+        "text": [],
+        "unbadged": [],
+        "sample": [
+          {
+            "trace": "results_summary.json:series/heuristics%2Frandom_feasible/overall/mean/duration_fulfillment",
+            "value": 0.6215875581436476,
+            "text": "0.6216",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Frandom_feasible/metrics/duration_fulfillment/sd",
+            "value": 0.014167913494347067,
+            "text": "0.0142",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/overall/mean/duration_fulfillment",
+            "value": 0.6797907653595325,
+            "text": "0.6798",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fearliest_window_end/metrics/duration_fulfillment/sd",
+            "value": 0.0032496383657598326,
+            "text": "0.0032",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fshortest_duration/overall/mean/duration_fulfillment",
+            "value": 0.5205543436026716,
+            "text": "0.5206",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fshortest_duration/metrics/duration_fulfillment/sd",
+            "value": 0.009317129878043135,
+            "text": "0.0093",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/overall/mean/duration_fulfillment",
+            "value": 0.6466827217727231,
+            "text": "0.6467",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fleast_flexible/metrics/duration_fulfillment/sd",
+            "value": 0.0040352538052786085,
+            "text": "0.0040",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/overall/mean/duration_fulfillment",
+            "value": 0.665193550362403,
+            "text": "0.6652",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fweighted_composite_H4/metrics/duration_fulfillment/sd",
+            "value": 0.000979403954534574,
+            "text": "0.0010",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/plain_ppo/overall/mean/duration_fulfillment",
+            "value": 0.6201910463731372,
+            "text": "0.6202",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/plain_ppo/metrics/duration_fulfillment/sd",
+            "value": 0.0087617554547443,
+            "text": "0.0088",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/fixed_bee/overall/mean/duration_fulfillment",
+            "value": 0.622573646304112,
+            "text": "0.6226",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/fixed_bee/metrics/duration_fulfillment/sd",
+            "value": 0.007258789090703163,
+            "text": "0.0073",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/adaptive_bee/overall/mean/duration_fulfillment",
+            "value": 0.6175709020644762,
+            "text": "0.6176",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/adaptive_bee/metrics/duration_fulfillment/sd",
+            "value": 0.004682322954336685,
+            "text": "0.0047",
+            "badged": true
+          }
+        ]
+      },
+      "protocol": {
+        "cells": 29,
+        "wrong": [],
+        "text": [],
+        "unbadged": [],
+        "sample": [
+          {
+            "trace": "protocol.json:selection/plain_ppo/training_seeds_recorded/0",
+            "value": 42,
+            "text": "42",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/learning_rate",
+            "value": 0.0003,
+            "text": "0.0003",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/n_steps",
+            "value": 256,
+            "text": "256",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/batch_size",
+            "value": 64,
+            "text": "64",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/n_epochs",
+            "value": 10,
+            "text": "10",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/gamma",
+            "value": 0.99,
+            "text": "0.99",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/gae_lambda",
+            "value": 0.95,
+            "text": "0.95",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/clip_range",
+            "value": 0.2,
+            "text": "0.2",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/ent_coef",
+            "value": 0.01,
+            "text": "0.01",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/vf_coef",
+            "value": 0.5,
+            "text": "0.5",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:ppo_parameters/max_grad_norm",
+            "value": 0.5,
+            "text": "0.5",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:timesteps/requested",
+            "value": 25000,
+            "text": "25,000",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:timesteps/plain_ppo/actual/0",
+            "value": 25088,
+            "text": "25,088",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:timesteps/fixed_bee/actual/0",
+            "value": 25088,
+            "text": "25,088",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:timesteps/adaptive_bee/actual/0",
+            "value": 25088,
+            "text": "25,088",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:evaluation_seeds/0",
+            "value": 1001,
+            "text": "1001",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:evaluation_seeds/1",
+            "value": 2002,
+            "text": "2002",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:evaluation_seeds/2",
+            "value": 3003,
+            "text": "3003",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:evaluation_seeds/3",
+            "value": 4004,
+            "text": "4004",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:evaluation_seeds/4",
+            "value": 5005,
+            "text": "5005",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:training_seeds/folds_1_4/0",
+            "value": 42,
+            "text": "42",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:training_seeds/W50/0",
+            "value": 42,
+            "text": "42",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:training_seeds/W50/1",
+            "value": 123,
+            "text": "123",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:training_seeds/W50/2",
+            "value": 456,
+            "text": "456",
+            "badged": true
+          },
+          {
+            "trace": "protocol.json:weekly_request_totals/W10",
+            "value": 257,
+            "text": "257",
+            "badged": true
+          }
+        ]
+      },
+      "results_all_states": {
+        "cells": 903,
+        "wrong": [],
+        "text": [],
+        "unbadged": [],
+        "sample": [
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/overall/mean/duration_fulfillment",
+            "value": 0.6797907653595325,
+            "text": "0.6798",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W10/mean/duration_fulfillment",
+            "value": 0.728600083927822,
+            "text": "0.7286",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W20/mean/duration_fulfillment",
+            "value": 0.7325932772445392,
+            "text": "0.7326",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W30/mean/duration_fulfillment",
+            "value": 0.6999070279295688,
+            "text": "0.6999",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W40/mean/duration_fulfillment",
+            "value": 0.5887741757995688,
+            "text": "0.5888",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/per_week/W50/mean/duration_fulfillment",
+            "value": 0.6490792618961633,
+            "text": "0.6491",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fearliest_window_end/overall/fold_sd/duration_fulfillment",
+            "value": 0.06083242326334107,
+            "text": "0.0608",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fearliest_window_end/metrics/duration_fulfillment/sd",
+            "value": 0.0032496383657598326,
+            "text": "0.0032",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W10/mean/duration_fulfillment",
+            "value": 0.7125268802163472,
+            "text": "0.7125",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W20/mean/duration_fulfillment",
+            "value": 0.7348359995260102,
+            "text": "0.7348",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W30/mean/duration_fulfillment",
+            "value": 0.6728718882817244,
+            "text": "0.6729",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W40/mean/duration_fulfillment",
+            "value": 0.5632759767886732,
+            "text": "0.5633",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/per_week/W50/mean/duration_fulfillment",
+            "value": 0.6424570069992604,
+            "text": "0.6425",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/overall/mean/duration_fulfillment",
+            "value": 0.665193550362403,
+            "text": "0.6652",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fweighted_composite_H4/overall/fold_sd/duration_fulfillment",
+            "value": 0.06718186868685604,
+            "text": "0.0672",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fweighted_composite_H4/metrics/duration_fulfillment/sd",
+            "value": 0.000979403954534574,
+            "text": "0.0010",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W10/mean/duration_fulfillment",
+            "value": 0.7079847064857556,
+            "text": "0.7080",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W20/mean/duration_fulfillment",
+            "value": 0.718063080143777,
+            "text": "0.7181",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W30/mean/duration_fulfillment",
+            "value": 0.6536495142683667,
+            "text": "0.6536",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W40/mean/duration_fulfillment",
+            "value": 0.5480840099038407,
+            "text": "0.5481",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/per_week/W50/mean/duration_fulfillment",
+            "value": 0.6056322980618756,
+            "text": "0.6056",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/overall/mean/duration_fulfillment",
+            "value": 0.6466827217727231,
+            "text": "0.6467",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/heuristics%2Fleast_flexible/overall/fold_sd/duration_fulfillment",
+            "value": 0.07125389174925346,
+            "text": "0.0713",
+            "badged": true
+          },
+          {
+            "trace": "paired.json:w50_seed_spread_by_metric/heuristics%2Fleast_flexible/metrics/duration_fulfillment/sd",
+            "value": 0.0040352538052786085,
+            "text": "0.0040",
+            "badged": true
+          },
+          {
+            "trace": "results_summary.json:series/plain_ppo/per_week/W10/mean/duration_fulfillment",
+            "value": 0.6555874947545111,
+            "text": "0.6556",
+            "badged": true
+          }
+        ]
+      },
+      "bee_lab_d": {
+        "cells": 6,
+        "wrong": [],
+        "text": [],
+        "unbadged": [],
+        "sample": [
+          {
+            "trace": "thresholds.json:thresholds_summary/adaptive_bee/at_base",
+            "value": 5889,
+            "text": "5,889",
+            "badged": true
+          },
+          {
+            "trace": "thresholds.json:thresholds_summary/adaptive_bee/selections",
+            "value": 7247,
+            "text": "7,247",
+            "badged": true
+          },
+          {
+            "trace": "thresholds.json:thresholds_summary/adaptive_bee/share_at_base",
+            "value": 0.8126121153580792,
+            "text": "81.3%",
+            "badged": true
+          },
+          {
+            "trace": "thresholds.json:thresholds_summary/adaptive_bee/below_base",
+            "value": 1358,
+            "text": "1,358",
+            "badged": true
+          },
+          {
+            "trace": "thresholds.json:thresholds_summary/adaptive_bee/mean_threshold",
+            "value": 0.46914408926842227,
+            "text": "0.4691",
+            "badged": true
+          },
+          {
+            "trace": "thresholds.json:thresholds_summary/adaptive_bee/minimum_threshold",
+            "value": 0.20149771128191638,
+            "text": "0.2015",
+            "badged": true
+          }
+        ]
+      }
+    },
+    "axe": {
+      "1440x900:results": [],
+      "1440x900:landing": [],
+      "1440x900:protocol": [],
+      "1920x1080:results": [],
+      "1920x1080:landing": [],
+      "1920x1080:protocol": []
+    },
+    "templates": {
+      "sentences": [
+        {
+          "id": "heuristic",
+          "text": "Overall duration fulfillment is highest for Heuristic: earliest window-end (0.6798), higher than each of the three PPO-based methods.",
+          "residual": "Overall duration fulfillment is highest for Heuristic: earliest window-end (), higher than each of the three PPO-based methods.",
+          "traced": [
+            [
+              "results_summary.json:series/heuristics%2Fearliest_window_end/overall/mean/duration_fulfillment",
+              0.6797907653595325,
+              "0.6798"
+            ]
+          ]
+        },
+        {
+          "id": "ppo",
+          "text": "The three PPO-based methods have overall duration fulfillment Adaptive BEE (A6) 0.6176, Plain PPO 0.6202 and Fixed BEE (F2) 0.6226; their W50 seed SDs are 0.0088, 0.0073 and 0.0047 (n = 5 folds).",
+          "residual": "The three PPO-based methods have overall duration fulfillment Adaptive BEE (A6) , Plain PPO  and Fixed BEE (F2) ; their W50 seed SDs are ,  and  (n = 5 folds).",
+          "traced": [
+            [
+              "results_summary.json:series/adaptive_bee/overall/mean/duration_fulfillment",
+              0.6175709020644762,
+              "0.6176"
+            ],
+            [
+              "results_summary.json:series/plain_ppo/overall/mean/duration_fulfillment",
+              0.6201910463731372,
+              "0.6202"
+            ],
+            [
+              "results_summary.json:series/fixed_bee/overall/mean/duration_fulfillment",
+              0.622573646304112,
+              "0.6226"
+            ],
+            [
+              "paired.json:w50_seed_spread_by_metric/plain_ppo/metrics/duration_fulfillment/sd",
+              0.0087617554547443,
+              "0.0088"
+            ],
+            [
+              "paired.json:w50_seed_spread_by_metric/fixed_bee/metrics/duration_fulfillment/sd",
+              0.007258789090703163,
+              "0.0073"
+            ],
+            [
+              "paired.json:w50_seed_spread_by_metric/adaptive_bee/metrics/duration_fulfillment/sd",
+              0.004682322954336685,
+              "0.0047"
+            ]
+          ]
+        },
+        {
+          "id": "random",
+          "text": "The random feasible rule has overall duration fulfillment 0.6216, between the lowest and highest of the three PPO-based methods.",
+          "residual": "The random feasible rule has overall duration fulfillment , between the lowest and highest of the three PPO-based methods.",
+          "traced": [
+            [
+              "results_summary.json:series/heuristics%2Frandom_feasible/overall/mean/duration_fulfillment",
+              0.6215875581436476,
+              "0.6216"
+            ]
+          ]
+        },
+        {
+          "id": "pair-pairs-0",
+          "text": "Adaptive BEE (A6) minus Plain PPO: mean difference lower by 0.0026, first method higher in 2 of 5 folds; within the W50 seed spread (±0.0088, n = 5 folds).",
+          "residual": "Adaptive BEE (A6) minus Plain PPO: mean difference , first method higher in 2 of 5 folds; within the W50 seed spread (±, n = 5 folds).",
+          "traced": [
+            [
+              "paired.json:pairs/0/metrics/duration_fulfillment/mean_difference",
+              -0.0026201443086608877,
+              "lower by 0.0026"
+            ],
+            [
+              "paired.json:pairs/0/scale/metrics/duration_fulfillment/band_half_width",
+              0.0087617554547443,
+              "0.0088"
+            ]
+          ]
+        },
+        {
+          "id": "pair-pairs-1",
+          "text": "Adaptive BEE (A6) minus Fixed BEE (F2): mean difference lower by 0.0050, first method higher in 2 of 5 folds; within the W50 seed spread (±0.0073, n = 5 folds).",
+          "residual": "Adaptive BEE (A6) minus Fixed BEE (F2): mean difference , first method higher in 2 of 5 folds; within the W50 seed spread (±, n = 5 folds).",
+          "traced": [
+            [
+              "paired.json:pairs/1/metrics/duration_fulfillment/mean_difference",
+              -0.00500274423963587,
+              "lower by 0.0050"
+            ],
+            [
+              "paired.json:pairs/1/scale/metrics/duration_fulfillment/band_half_width",
+              0.007258789090703163,
+              "0.0073"
+            ]
+          ]
+        },
+        {
+          "id": "pair-pairs-2",
+          "text": "Fixed BEE (F2) minus Plain PPO: mean difference higher by 0.0024, first method higher in 4 of 5 folds; within the W50 seed spread (±0.0088, n = 5 folds).",
+          "residual": "Fixed BEE (F2) minus Plain PPO: mean difference , first method higher in 4 of 5 folds; within the W50 seed spread (±, n = 5 folds).",
+          "traced": [
+            [
+              "paired.json:pairs/2/metrics/duration_fulfillment/mean_difference",
+              0.0023825999309749824,
+              "higher by 0.0024"
+            ],
+            [
+              "paired.json:pairs/2/scale/metrics/duration_fulfillment/band_half_width",
+              0.0087617554547443,
+              "0.0088"
+            ]
+          ]
+        },
+        {
+          "id": "pair-supplementary_pairs-0",
+          "text": "Adaptive BEE (A6) minus First-pass A3 (secondary): mean difference lower by 0.0088, first method higher in 1 of 5 folds; larger than the W50 seed spread (±0.0048, n = 5 folds). Suggestive only: one trained model per fold on folds 1-4.",
+          "residual": "Adaptive BEE (A6) minus First-pass A3 (secondary): mean difference , first method higher in 1 of 5 folds; larger than the W50 seed spread (±, n = 5 folds). Suggestive only: one trained model per fold on folds 1-4.",
+          "traced": [
+            [
+              "paired.json:supplementary_pairs/0/metrics/duration_fulfillment/mean_difference",
+              -0.0087538319480857,
+              "lower by 0.0088"
+            ],
+            [
+              "paired.json:supplementary_pairs/0/scale/metrics/duration_fulfillment/band_half_width",
+              0.004757485894511448,
+              "0.0048"
+            ]
+          ]
+        }
+      ],
+      "residualNumbers": [],
+      "allowedResidual": [
+        {
+          "s": "ppo",
+          "n": "6"
+        },
+        {
+          "s": "ppo",
+          "n": "2"
+        },
+        {
+          "s": "ppo",
+          "n": "50"
+        },
+        {
+          "s": "ppo",
+          "n": "5"
+        },
+        {
+          "s": "pair-pairs-0",
+          "n": "6"
+        },
+        {
+          "s": "pair-pairs-0",
+          "n": "2"
+        },
+        {
+          "s": "pair-pairs-0",
+          "n": "5"
+        },
+        {
+          "s": "pair-pairs-0",
+          "n": "50"
+        },
+        {
+          "s": "pair-pairs-0",
+          "n": "5"
+        },
+        {
+          "s": "pair-pairs-1",
+          "n": "6"
+        },
+        {
+          "s": "pair-pairs-1",
+          "n": "2"
+        },
+        {
+          "s": "pair-pairs-1",
+          "n": "2"
+        },
+        {
+          "s": "pair-pairs-1",
+          "n": "5"
+        },
+        {
+          "s": "pair-pairs-1",
+          "n": "50"
+        },
+        {
+          "s": "pair-pairs-1",
+          "n": "5"
+        },
+        {
+          "s": "pair-pairs-2",
+          "n": "2"
+        },
+        {
+          "s": "pair-pairs-2",
+          "n": "4"
+        },
+        {
+          "s": "pair-pairs-2",
+          "n": "5"
+        },
+        {
+          "s": "pair-pairs-2",
+          "n": "50"
+        },
+        {
+          "s": "pair-pairs-2",
+          "n": "5"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "6"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "3"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "1"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "5"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "50"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "5"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "1"
+        },
+        {
+          "s": "pair-supplementary_pairs-0",
+          "n": "4"
+        }
+      ]
+    }
+  },
+  "console": [
+    {
+      "tag": "1440x900",
+      "type": "log",
+      "text": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "tag": "1920x1080",
+      "type": "log",
+      "text": "THREE.WebGLRenderer: Context Lost."
+    }
+  ]
+}
