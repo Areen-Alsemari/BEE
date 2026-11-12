@@ -50,7 +50,7 @@ copy(M2 / "02_plain_maskable_ppo.ipynb", ROOT / "notebooks/02_maskable_ppo/02_pl
 copy(M3 / "03_fixed_threshold_bee.ipynb", ROOT / "notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb", "notebook")
 nb4 = M4 / "04_adaptive_threshold_bee.ipynb"
 if nb4.is_file():
-    copy(nb4, ROOT / "notebooks/04_adaptive_bee/04_adaptive_threshold_bee.ipynb", "notebook")
+    copy(nb4, ROOT / "notebooks/04_adaptive_bee/04_adaptive_threshold_bee_through_section13.ipynb", "notebook")
 for py in sorted((M4 / "src").glob("*.py")):
     copy(py, ROOT / "notebooks/04_adaptive_bee/src" / py.name, "adaptive/fixed BEE environment source")
 for md in [(M1 / "baseline_report_section.md", "01_heuristics"), (M2 / "plain_ppo_report_section.md", "02_maskable_ppo"),
