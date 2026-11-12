@@ -1,0 +1,39 @@
+# Source drop from team members: never tracked
+incoming/
+
+# Models and checkpoints
+*.zip
+*.ckpt
+*.pt
+*.pth
+models/
+**/checkpoints/
+**/checkpoints/*.json
+
+# Training logs
+tensorboard/
+**/tensorboard/
+events.out.tfevents.*
+
+# Node / build
+node_modules/
+dist/
+.vite/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Large raw data not needed by the lab
+data/raw/problems.json
+data/raw/maintenance.csv
+
+# Original logo drop; the tracked copy lives in web/public/brand/
+/BEE.png
