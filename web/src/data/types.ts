@@ -127,8 +127,14 @@ export interface Pair {
   label: string;
   unit: string;
   metrics: Record<string, PairMetric>;
+  scale: { definition: string; metrics: Record<string, { first_w50_sd: number; second_w50_sd: number; band_half_width: number }> };
+}
+export interface SeedSpread {
+  kind: string;
+  metrics: Record<string, { per_training_seed?: Record<string, number>; per_evaluation_seed?: Record<string, number>; sd: number; range: number }>;
 }
 export interface PairedFile {
+  w50_seed_spread_by_metric: Record<string, SeedSpread>;
   unit: string;
   pairs: Pair[];
   supplementary_pairs: Pair[];

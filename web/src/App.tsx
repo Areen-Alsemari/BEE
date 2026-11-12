@@ -9,6 +9,7 @@ import { PROJECT_TITLE } from "./config/team";
 const MissionControl = lazy(() => import("./pages/mission-control/MissionControl"));
 const BeeLab = lazy(() => import("./pages/bee-lab/BeeLab"));
 const AblationLab = lazy(() => import("./pages/ablation/AblationLab"));
+const ResultsArena = lazy(() => import("./pages/results/ResultsArena"));
 
 function Shell() {
   return (
@@ -61,7 +62,7 @@ const router = createHashRouter([
       { path: "/mission-control", element: <MissionControl /> },
       { path: "/bee-lab", element: <BeeLab /> },
       { path: "/ablation", element: <AblationLab /> },
-      { path: "/results", element: <NotBuilt title="Results Arena" /> },
+      { path: "/results", element: <ResultsArena /> },
       { path: "/tour", element: <NotBuilt title="Guided Tour" /> },
       { path: "/protocol", element: <NotBuilt title="Protocol and Reproducibility" /> },
       { path: "*", element: <Navigate to="/" replace /> },
