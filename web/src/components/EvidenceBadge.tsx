@@ -8,7 +8,9 @@ export type EvidenceKind =
   | "pending"
   | "heuristic"
   | "illustrative"
-  | "needs_confirmation";
+  | "needs_confirmation"
+  | "whatif"
+  | "recorded";
 
 const STYLE: Record<EvidenceKind, { label: string; cls: string; title: string }> = {
   screening: {
@@ -56,6 +58,16 @@ const STYLE: Record<EvidenceKind, { label: string; cls: string; title: string }>
     label: "illustrative",
     cls: "border-violet-300 bg-violet-50 text-violet-900",
     title: "Visual placement only; not derived from data.",
+  },
+  whatif: {
+    label: "what-if, computed from the equations",
+    cls: "border-slate-400 bg-slate-50 text-slate-800 border-dashed",
+    title: "Computed in your browser from the equations in the code, with inputs you choose. Not a result of the study.",
+  },
+  recorded: {
+    label: "recorded trace value",
+    cls: "border-emerald-300 bg-emerald-50 text-emerald-900",
+    title: "Value exactly as recorded in the exported threshold trace of a cross-week run.",
   },
   needs_confirmation: {
     label: "awaiting owner confirmation",

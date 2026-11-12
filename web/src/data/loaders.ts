@@ -1,6 +1,7 @@
 /** Typed, cached, validated loaders for public/data. Each file is fetched once and only when needed. */
 import { useEffect, useState } from "react";
 import { DataError, columnIndex, expectFields } from "./validate";
+import type { BeeParamsFile } from "../lib/beeMath";
 import {
   EXTRA_KEYS,
   METRIC_KEYS,
@@ -233,10 +234,75 @@ export const loadAblation = () =>
     return d;
   });
 
+export const TRACE_FIELDS = [
+  "placement_scarcity",
+  "resource_contention",
+  "mission_unmet_ratio",
+  "stimulus",
+  "threshold",
+  "activation",
+  "base_threshold",
+  "initial_contention",
+  "contention_increase",
+  "mean_mission_unmet",
+  "relative_unmet_pressure",
+  "pressure_count",
+  "adaptation_enabled",
+  "step",
+  "action",
+  "track_id",
+] as const;
+export type TraceRow = { [K in (typeof TRACE_FIELDS)[number]]: K extends "track_id" ? string : K extends "adaptation_enabled" ? boolean : number };
+export interface Trace {
+  method: "adaptive_bee" | "adaptive_a3_first_pass";
+  fold: number;
+  test_week: string;
+  training_seed: number;
+  evaluation_seed: number;
+  source_file: string;
+  rows: TraceRow[];
+}
+export interface Thresholds {
+  traces: Trace[];
+  diagnostic: { source_file: string; note: string; rows: Record<string, number>[]; term_means: Record<string, number>; term_max: Record<string, number> };
+  selected_threshold_by_fold: Record<string, Record<string, number | string>[]>;
+}
+
 export const loadThresholds = () =>
   cached("thresholds.json", async () => {
-    const d = (await fetchJson("thresholds.json")) as ThresholdsFile;
-    expectFields("thresholds.json", d, { traces: "array", diagnostic: "object" });
+    const d = (await fetchJson("thresholds.json")) as ThresholdsFile & Record<string, unknown>;
+    expectFields("thresholds.json", d, { traces: "array", diagnostic: "object", selected_threshold_by_fold: "object" });
+    const traces = (d.traces as Record<string, unknown>[]).map((t, i) => {
+      expectFields("thresholds.json", t, { method: "string", fold: "number", columns: "array", rows: "array", source_file: "string" }, `traces[${i}].`);
+      const idx = columnIndex("thresholds.json", t.columns, TRACE_FIELDS);
+      return {
+        method: t.method,
+        fold: t.fold,
+        test_week: t.test_week,
+        training_seed: t.training_seed,
+        evaluation_seed: t.evaluation_seed,
+        source_file: t.source_file,
+        rows: (t.rows as unknown[][]).map((r) => Object.fromEntries(TRACE_FIELDS.map((f) => [f, r[idx[f]]])) as TraceRow),
+      } as Trace;
+    });
+    const dg = d.diagnostic as { columns: string[]; rows: number[][]; [k: string]: unknown };
+    expectFields("thresholds.json", dg, { columns: "array", rows: "array", term_means: "object", term_max: "object" }, "diagnostic.");
+    columnIndex("thresholds.json", dg.columns, ["step", "valid_requests", "scarcity_term", "contention_term", "unmet_term", "mean_threshold", "minimum_threshold"] as const);
+    return {
+      traces,
+      diagnostic: { ...(dg as object), rows: dg.rows.map((r) => Object.fromEntries(dg.columns.map((c, i) => [c, r[i]]))) },
+      selected_threshold_by_fold: d.selected_threshold_by_fold,
+    } as Thresholds;
+  });
+
+export const loadBeeParams = () =>
+  cached("bee_params.json", async () => {
+    const d = (await fetchJson("bee_params.json")) as BeeParamsFile;
+    expectFields("bee_params.json", d, { statement: "string", mask: "object", methods: "object", differences_note: "string" });
+    for (const k of ["fixed_F2", "adaptive_A6", "adaptive_A3"] as const) {
+      expectFields("bee_params.json", d.methods[k], { stimulus_weights: "object", threshold: "object", activation: "object", definitions: "object" }, `methods.${k}.`);
+      expectFields("bee_params.json", d.methods[k].activation, { sensitivity_k: "object", epsilon: "number" }, `methods.${k}.activation.`);
+    }
     return d;
   });
 
