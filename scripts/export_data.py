@@ -34,6 +34,7 @@ HEURISTIC_RULES = ["random_feasible", "earliest_window_end", "shortest_duration"
 PROTOCOL_W50_SEEDS = [42, 123, 456]
 BOOTSTRAP_B = 10_000
 BOOTSTRAP_SEED = 20180
+TIE_TOL = 1e-12  # fold differences within this are counted as equal (floating-point noise)
 STAGE_BADGE = {
     "screening": "screening (1,024 steps)",
     "shortlist": "shortlist (5,120)",
@@ -364,14 +365,15 @@ def pair(a: str, b: str, label: str, unit: str) -> dict:
     out = {"first": a, "second": b, "label": label, "unit": unit, "metrics": {}}
     for m in PAIR_METRICS:
         d = np.array([fa[f][m] - fb[f][m] for f in folds], dtype=float)
-        better = (d < 0) if m in LOWER_IS_BETTER else (d > 0)
+        tie = np.abs(d) <= TIE_TOL
+        better = ~tie & ((d < 0) if m in LOWER_IS_BETTER else (d > 0))
         out["metrics"][m] = {
             "direction": "lower is better" if m in LOWER_IS_BETTER else "higher is better",
             "per_fold": [{"fold": f, "test_week": short(WEEKS[f - 1]), "first": float(fa[f][m]),
                           "second": float(fb[f][m]), "difference": float(x)} for f, x in zip(folds, d)],
             "mean_difference": float(d.mean()),
             "folds_first_better": int(better.sum()),
-            "folds_equal": int((d == 0).sum()),
+            "folds_equal": int(tie.sum()),
             "min_difference": float(d.min()),
             "max_difference": float(d.max()),
             "bootstrap_95_interval": bootstrap_ci(d),
