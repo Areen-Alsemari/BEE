@@ -1,0 +1,8 @@
+{
+  "note": "Public reference data, not team data. Approximate geographic centres of the three NASA Deep Space Network complexes, used only to place antennas in the illustrative 3D scene. Antenna-to-complex assignment by DSS number range.",
+  "complexes": [
+    {"id": "goldstone", "name": "Goldstone", "country": "USA", "dss_min": 10, "dss_max": 29, "lat": 35.4267, "lon": -116.89},
+    {"id": "canberra", "name": "Canberra", "country": "Australia", "dss_min": 30, "dss_max": 49, "lat": -35.4014, "lon": 148.9817},
+    {"id": "madrid", "name": "Madrid", "country": "Spain", "dss_min": 50, "dss_max": 69, "lat": 40.4314, "lon": -4.2481}
+  ]
+}
