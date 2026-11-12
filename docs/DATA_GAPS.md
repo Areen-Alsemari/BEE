@@ -11,11 +11,22 @@ Status keys: **OPEN** (still missing or unverified), **RESOLVED** (closed, with 
 
 | # | Item | Detail | Lab behaviour |
 |---|------|--------|---------------|
-| G1 | Adaptive BEE notebook not in `incoming/` | `04_adaptive_threshold_bee.ipynb` is not inside `incoming/member4_adaptive_bee/`. A file with that name exists outside the repo drop and was **not** copied pending confirmation of which version is final. The method source (`src/bee_adaptive_environment.py`, `src/bee_fixed_environment.py`) is copied. | Protocol page lists the notebook as pending. |
+| G1 | Adaptive BEE notebook is not final | `04_adaptive_threshold_bee.ipynb` was copied from outside `incoming/` (source, size and md5 in MIGRATION.md). It ends at section 13 and does **not** contain the section 14 revision (14.1-14.11) that produced A6. Section 14 exists as a separate notebook (`adaptive_bee_section_14_revision.ipynb`, no executed outputs) that was not copied. The A6 result files in `data/results/` are the source of truth for the lab. | Protocol page shows the notebook as "not final: section 14 revision held separately". |
 | G2 | Fixed BEE per-evaluation-seed metrics | `fixed_bee_cross_week_results.csv` has 15 rows already averaged over evaluation seeds (5 folds x training seeds 42/123/456). Per-evaluation-seed values will be recomputed from the 75 runs in `robustness_fold_*_schedules.csv` with the shared_v2 validator and metric code, as a verification first, in Phase 2. Used only if they match the 15 rows and the 0.622154 overall within 1e-6; tagged "recomputed from schedules". | Shows seed-averaged rows until verified. |
 | G3 | Fixed BEE: no `scheduled_requests`, `allocated_hours`, `episode_reward` columns | Cannot assert schedule row count against a reported count. Will be filled by the G2 recompute if it verifies. | Shows "pending" for those fields. |
 | G4 | Paired model comparison file is empty | `adaptive_paired_model_comparison.csv` (and its archived copy) are 1-byte files. | Paired differences are computed by the export script from per-run rows. |
 | G5 | Team names and affiliation | Not in the data. | Placeholder in `web/src/config/team.ts`. |
+
+## Needs confirmation by owner
+
+These are recorded as stated in the source files but have not been verified. The UI must
+present them as "awaiting owner confirmation", never as verified facts.
+
+| # | Item | Owner | What needs confirming |
+|---|------|-------|-----------------------|
+| N1 | Fixed BEE W40-only selection and freeze | Shahad (member 3) | That F2 was selected on W40 only and frozen before cross-week testing. `fixed_bee_configuration.json` gives the selection basis as "validation performance followed by five-fold cross-week robustness evaluation" (see C11). |
+| N2 | Plain PPO configuration seeds | Sara (member 2) | `plain_ppo_configuration.json` lists `training_seeds: [42]`; the W50 seeds 123/456 runs exist (R1). Confirm the configuration record should list 42/123/456 and that the extra runs used an unchanged configuration (see C12). |
+| N3 | Heuristics package version | Aroob (member 1) | `heuristics_configuration.json` says `package_version: shared_v1`. Confirm the cross-week results were produced with `shared_v2`, or that the v1/v2 identical-trace check covers them (see C8). |
 
 ## Resolved
 

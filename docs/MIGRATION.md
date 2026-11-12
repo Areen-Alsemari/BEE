@@ -12,7 +12,7 @@ An md5 of every file in `incoming/` was taken before and after the copy; they ar
 | `notebooks/01_heuristics/` | notebook + report section | 2 | 0.90 MB |
 | `notebooks/02_maskable_ppo/` | notebook (updated with W50 seeds 123/456) + report section | 2 | 2.13 MB |
 | `notebooks/03_fixed_bee/` | notebook + report section | 2 | 3.43 MB |
-| `notebooks/04_adaptive_bee/` | `src/*.py` (2) + first-pass A3 report section (`adaptive_bee_report_section_a3_first_pass.md`, superseded by A6); **notebook pending (DATA_GAPS G1)** | 3 | 0.01 MB |
+| `notebooks/04_adaptive_bee/` | `src/*.py` (2) + first-pass A3 report section (`adaptive_bee_report_section_a3_first_pass.md`, superseded by A6) + notebook copied from outside `incoming/` (see below; **not final**, DATA_GAPS G1) | 4 | 0.48 MB |
 | `shared/` | `shared_v2` package as-is (src, data, metadata, tests; no `__pycache__`) | 18 | 4.24 MB |
 | `data/raw/` | `requests`, `visibility_periods`, `maintenance` parquet + `mission_color_map.json` | 4 | 0.56 MB |
 | `data/results/` | result/summary/config CSV+JSON for all four methods, prefixed by method | 42 | 0.38 MB |
@@ -24,6 +24,16 @@ An md5 of every file in `incoming/` was taken before and after the copy; they ar
 | `data/schedules/adaptive_threshold_traces/` | A6 cross-week (35), A3 first pass (35), configuration search A1-A6 (75) | 145 | 3.74 MB |
 | `web/public/brand/bee-logo.png` | logo, byte-identical copy of `BEE.png` | 1 | 0.20 MB |
 | **Total copied** | | **454** | **23.49 MB** |
+
+## Files copied from outside `incoming/`
+
+| Source | Destination | Size | md5 | Status |
+|---|---|---:|---|---|
+| `~/Downloads/04_adaptive_threshold_bee.ipynb` (modified 2026-11-11 21:25) | `notebooks/04_adaptive_bee/04_adaptive_threshold_bee.ipynb` | 468,785 bytes | `7882262b61341dc228cb1d025a34efb6` | **Not final.** 66 cells; headings end at section 13 ("13.1 Final Deliverable and Completeness Check"). It does **not** contain the section 14 revision cells (14.1-14.11). |
+
+Section 14 (14.1-14.11, "Post-Review Revision of the Final Adaptive Rule") exists as a separate
+file `~/Downloads/adaptive_bee_section_14_revision.ipynb` (24 cells, 37,412 bytes,
+md5 `71a3ffe55f3567f28f2f7dc5d52c4ea4`, no executed outputs). It was **not** copied pending a decision.
 
 ## Renames
 
