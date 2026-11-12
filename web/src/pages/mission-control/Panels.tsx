@@ -170,10 +170,12 @@ export function Controls({
 // ------------------------------------------------------------ metrics
 const CARD_METRICS = ["duration_fulfillment", "minimum_satisfaction_rate", "full_satisfaction_rate", "unmet_hours", "mission_fairness"] as const;
 
+export const findGap = (gaps: GapsFile, id: string) => gaps.needs_confirmation.find((r) => (r.id ?? r["#"]) === id);
+
 export function confirmFor(method: MethodId, gaps: GapsFile): { id: string; text: string } | null {
   const id = method === "fixed_bee" ? "N1" : method === "plain_ppo" ? "N2" : method === "heuristics" ? "N3" : null;
   if (!id) return null;
-  const row = gaps.needs_confirmation.find((r) => r["#"] === id);
+  const row = findGap(gaps, id);
   return row ? { id, text: `${row["Item"]}: ${row["What needs confirming"]}` } : null;
 }
 
@@ -444,7 +446,9 @@ export function CompareSummary({
   colorA,
   colorB,
   windows,
+  pairNote,
 }: {
+  pairNote?: { id: string; text: string } | null;
   scheduleA: Schedule;
   scheduleB: Schedule;
   labelA: string;
@@ -482,6 +486,11 @@ export function CompareSummary({
       <div className="mt-1 text-2xs text-muted">
         A = {labelA}; B = {labelB}. Requests scheduled by only one run are outlined (dashed) in the timeline and drawn as dashed beams.
       </div>
+      {pairNote && (
+        <div className="mt-2 rounded-md border border-orange-300 bg-orange-50 px-2 py-1.5 text-xs text-orange-900" data-testid="pair-note-n4">
+          <ConfirmMarker id={pairNote.id} text={pairNote.text} /> {pairNote.text}
+        </div>
+      )}
       <ul className="mt-1.5 max-h-28 space-y-0.5 overflow-y-auto">
         {list.map((id) => (
           <li key={id}>

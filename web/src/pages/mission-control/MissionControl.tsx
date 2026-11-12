@@ -18,7 +18,7 @@ import { methodLabel } from "../../lib/format";
 import { Scene } from "./Scene";
 import { Timeline } from "./Timeline";
 import { Playback } from "./Playback";
-import { CompareSummary, Controls, DetailCard, MetricsPanel, UnscheduledList } from "./Panels";
+import { CompareSummary, Controls, DetailCard, MetricsPanel, UnscheduledList, findGap } from "./Panels";
 import { MethodGlyph } from "../../components/MethodGlyph";
 import { PRESETS, useView } from "./viewStore";
 import { findRun, findScheduleEntry, seriesId, trainingSeedsFor, type RunSpec } from "./runModel";
@@ -219,7 +219,7 @@ function MissionControlView({
         {windows.status === "ready" && (
           <>
             {sA && sB && (
-              <CompareSummary scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} colorA={colorA} colorB={colorB} windows={windows.data} />
+              <CompareSummary pairNote={new Set([st.methodA, st.methodB]).has("adaptive_bee") && new Set([st.methodA, st.methodB]).has("fixed_bee") ? n4Note(gaps) : null} scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} colorA={colorA} colorB={colorB} windows={windows.data} />
             )}
             <DetailCard windows={windows.data} complexes={complexes} scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} />
             <UnscheduledList windows={windows.data} schedule={sA} tag="A" label={labelA} />
@@ -252,4 +252,9 @@ function ViewBar() {
       {preset === "free" && <span className="text-xs text-muted">Free camera (drag to orbit, wheel to zoom)</span>}
     </div>
   );
+}
+
+function n4Note(gaps: Parameters<typeof findGap>[0]) {
+  const r = findGap(gaps, "N4");
+  return r ? { id: "N4", text: `Awaiting owner confirmation: ${r["What needs confirming"]}` } : null;
 }
