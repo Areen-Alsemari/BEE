@@ -280,7 +280,7 @@ for (const viewport of [
     for (const type of ["none", "deuteranopia", "protanopia", "tritanopia"]) {
       await cdp.send("Emulation.setEmulatedVisionDeficiency", { type });
       await page.waitForTimeout(300);
-      await page.locator("#how-to-read").screenshot({ path: join(OUT, `${tag}_08_legend_${type}.png`) });
+      await page.locator('#how-to-read section:has(h3:has-text("Method colours"))').screenshot({ path: join(OUT, `${tag}_08_legend_${type}.png`) });
     }
     await cdp.send("Emulation.setEmulatedVisionDeficiency", { type: "none" });
     const shapes = await page.locator("#how-to-read li svg[data-shape]").evaluateAll((els) => [...new Set(els.map((e) => e.getAttribute("data-shape")))]);

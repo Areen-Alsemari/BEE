@@ -94,7 +94,7 @@ const Earth = memo(function Earth({ geo, onPickComplex }: { geo: ComplexGeo[]; o
                 </mesh>
                 <mesh position={[0, 0.026, 0]} rotation={[0.35, 0, 0]} geometry={dishGeom}>
                   <meshStandardMaterial color="#ffffff" side={THREE.DoubleSide} roughness={0.5} />
-                  <Outlines thickness={0.0025} color={BRAND.fg} />
+                  <Outlines thickness={0.0009} color={BRAND.fg} />
                 </mesh>
               </group>
             ))}
@@ -217,6 +217,7 @@ function SpacecraftFleet({
 
 // ------------------------------------------------------------------ frame loop
 interface Overlay {
+  chrome: (HTMLDivElement | null)[]; // top-left, top-right, bottom overlay chips: labels keep clear of them
   complexLabels: (HTMLDivElement | null)[];
   leaders: (SVGLineElement | null)[];
   scLabels: (HTMLDivElement | null)[];
@@ -463,6 +464,9 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       return { x: (v.x * 0.5 + 0.5) * W, y: (-v.y * 0.5 + 0.5) * Hh, z: v.z };
     };
     const centre = project(new THREE.Vector3());
+    const [tl, tr, bottom] = ov.chrome;
+    const SAFE_TOP = Math.max(tl ? tl.offsetTop + tl.offsetHeight : 0, tr ? tr.offsetTop + tr.offsetHeight : 0) + 8;
+    const SAFE_BOTTOM = bottom ? Hh - bottom.offsetTop + 8 : 76;
     const camPos = camera.position;
     const boxes: { i: number; x: number; y: number; w: number; h: number; ax: number; ay: number; visible: boolean }[] = [];
     geo.forEach((c, i) => {
@@ -494,8 +498,8 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
     for (const b of boxes) {
       const el = ov.complexLabels[b.i]!;
       const ln = ov.leaders[b.i];
-      const x = Math.min(Math.max(b.x, 4), W - b.w - 4);
-      const y = Math.min(Math.max(b.y, 4), Hh - b.h - 4);
+      const x = Math.min(Math.max(b.x, 6), W - b.w - 6);
+      const y = Math.min(Math.max(b.y, SAFE_TOP), Hh - b.h - SAFE_BOTTOM);
       el.style.transform = `translate(${x}px, ${y}px)`;
       el.style.opacity = b.visible ? "1" : "0";
       el.style.pointerEvents = b.visible ? "auto" : "none";
@@ -512,7 +516,7 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
     for (const r of rows) if (!labelled.some((l) => l.id === r.mission)) labelled.push({ id: r.mission, text: `Mission ${r.mission}` });
     if (selReq && !labelled.some((l) => l.id === selReq.mission))
       labelled.push({ id: selReq.mission, text: `Mission ${selReq.mission} · ${unscheduled.has(selReq.request_id) ? "not scheduled" : "not active now"}` });
-    const placed = boxes.filter((b) => b.visible).map((b) => ({ x: Math.min(Math.max(b.x, 4), W - b.w - 4), y: Math.min(Math.max(b.y, 4), Hh - b.h - 4), w: b.w, h: b.h }));
+    const placed = boxes.filter((b) => b.visible).map((b) => ({ x: Math.min(Math.max(b.x, 6), W - b.w - 6), y: Math.min(Math.max(b.y, SAFE_TOP), Hh - b.h - SAFE_BOTTOM), w: b.w, h: b.h }));
     const scDebug: unknown[] = [];
     const ray = new THREE.Ray();
     const sphere = new THREE.Sphere(new THREE.Vector3(), EARTH_R);
@@ -533,9 +537,9 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       if (el.textContent !== l.text) el.textContent = l.text;
       const w = el.offsetWidth;
       const h = el.offsetHeight;
-      let lx = s.x + 14;
-      let ly = s.y - 12;
-      if (!(hidden || s.z > 1)) {
+      let lx = Math.min(Math.max(s.x + 14, 6), W - w - 6);
+      let ly = Math.min(Math.max(s.y - 12, SAFE_TOP), Hh - h - SAFE_BOTTOM);
+      if (!(hidden || s.z > 1 || s.y < SAFE_TOP || s.y > Hh - SAFE_BOTTOM)) {
         for (let tries = 0; tries < 8; tries++) {
           const clash = placed.find((b) => Math.min(lx + w, b.x + b.w) - Math.max(lx, b.x) > -3 && Math.min(ly + h, b.y + b.h) - Math.max(ly, b.y) > -3);
           if (!clash) break;
@@ -544,8 +548,9 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
         placed.push({ x: lx, y: ly, w, h });
       }
       el.style.transform = `translate(${lx}px, ${ly}px)`;
-      el.style.opacity = hidden || s.z > 1 ? "0" : "1";
-      scDebug.push({ id: l.id, visible: !(hidden || s.z > 1), x: lx, y: ly, w, h });
+      const off = hidden || s.z > 1 || s.y < SAFE_TOP || s.y > Hh - SAFE_BOTTOM || s.x < 0 || s.x > W;
+      el.style.opacity = off ? "0" : "1";
+      scDebug.push({ id: l.id, visible: !off, x: lx, y: ly, w, h });
     }
 
     // 7. snapshot for automated checks
@@ -645,7 +650,7 @@ function Clock({ fallback }: { fallback: number }) {
 }
 
 export function Scene(props: SceneProps) {
-  const overlay = useRef<Overlay>({ complexLabels: [], leaders: [], scLabels: [] });
+  const overlay = useRef<Overlay>({ chrome: [], complexLabels: [], leaders: [], scLabels: [] });
   const setPreset = useView((s) => s.setPreset);
   return (
     <div
@@ -691,15 +696,15 @@ export function Scene(props: SceneProps) {
           aria-hidden
         />
       ))}
-      <div className="chip pointer-events-none absolute left-3 top-3 flex max-w-[55%] items-center gap-2">
+      <div ref={(d) => void (overlay.current.chrome[0] = d)} className="chip pointer-events-none absolute left-3 top-3 flex max-w-[55%] items-center gap-2">
         {props.titleGlyph}
         <span className="truncate font-semibold">{props.title}</span>
       </div>
-      <div className="chip pointer-events-none absolute right-3 top-3 flex flex-col items-end gap-0.5">
+      <div ref={(d) => void (overlay.current.chrome[1] = d)} className="chip pointer-events-none absolute right-3 top-3 flex flex-col items-end gap-0.5">
         <Clock fallback={props.windows.span[0]} />
         <ActiveCount schedule={props.schedule} />
       </div>
-      <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex flex-wrap items-end justify-between gap-2">
+      <div ref={(d) => void (overlay.current.chrome[2] = d)} className="pointer-events-none absolute bottom-3 left-3 right-3 flex flex-wrap items-end justify-between gap-2">
         <div className="chip flex items-center gap-2">
           <EvidenceBadge kind="illustrative" />
           <span data-testid="illustrative-label">Spacecraft positions illustrative; schedule data is real</span>
