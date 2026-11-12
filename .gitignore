@@ -37,3 +37,6 @@ data/raw/maintenance.csv
 
 # Original logo drop; the tracked copy lives in web/public/brand/
 /BEE.png
+*.tsbuildinfo
+web/test-results/
+web/playwright-report/

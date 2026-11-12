@@ -1,0 +1,72 @@
+import { Suspense, lazy } from "react";
+import { Navigate, Outlet, createHashRouter, RouterProvider, Link } from "react-router-dom";
+import { Nav } from "./components/Nav";
+import { HowToRead } from "./components/HowToRead";
+import { Loading } from "./components/States";
+import { Logo } from "./components/Logo";
+import { PROJECT_TITLE } from "./config/team";
+
+const MissionControl = lazy(() => import("./pages/mission-control/MissionControl"));
+
+function Shell() {
+  return (
+    <div className="flex h-full flex-col">
+      <Nav />
+      <main className="min-h-0 flex-1">
+        <Suspense fallback={<Loading what="page" />}>
+          <Outlet />
+        </Suspense>
+      </main>
+      <HowToRead />
+    </div>
+  );
+}
+
+function NotBuilt({ title }: { title: string }) {
+  return (
+    <div className="mx-auto max-w-xl p-10">
+      <h1 className="text-xl font-semibold">{title}</h1>
+      <p className="mt-2 text-sm text-ink-300">This page has not been built yet.</p>
+      <Link className="btn mt-4" to="/mission-control">
+        Open Mission Control
+      </Link>
+    </div>
+  );
+}
+
+function LandingPlaceholder() {
+  return (
+    <div className="mx-auto flex max-w-3xl flex-col items-center p-12 text-center">
+      <Logo size="lg" />
+      <h1 className="mt-6 text-2xl font-semibold leading-snug">{PROJECT_TITLE}</h1>
+      <div className="mt-6 flex gap-3">
+        <Link className="btn" to="/tour">
+          Start the tour
+        </Link>
+        <Link className="btn btn-on" to="/mission-control">
+          Open the lab
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+const router = createHashRouter([
+  {
+    element: <Shell />,
+    children: [
+      { path: "/", element: <LandingPlaceholder /> },
+      { path: "/mission-control", element: <MissionControl /> },
+      { path: "/bee-lab", element: <NotBuilt title="BEE Mechanism Lab" /> },
+      { path: "/ablation", element: <NotBuilt title="Ablation Lab" /> },
+      { path: "/results", element: <NotBuilt title="Results Arena" /> },
+      { path: "/tour", element: <NotBuilt title="Guided Tour" /> },
+      { path: "/protocol", element: <NotBuilt title="Protocol and Reproducibility" /> },
+      { path: "*", element: <Navigate to="/" replace /> },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
+}

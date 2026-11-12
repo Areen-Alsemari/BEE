@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-space-950 text-ink-50 font-sans antialiased;
+  background-image: radial-gradient(ellipse at 20% -10%, rgba(48, 96, 168, 0.18), transparent 55%),
+    radial-gradient(ellipse at 100% 0%, rgba(24, 48, 120, 0.22), transparent 50%);
+  background-attachment: fixed;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-space-600/70 bg-space-900/80 backdrop-blur-sm;
+  }
+  .panel-title {
+    @apply text-2xs font-semibold uppercase tracking-[0.14em] text-ink-300;
+  }
+  .num {
+    @apply font-mono tabular-nums;
+  }
+  .ctl {
+    @apply rounded-md border border-space-600 bg-space-850 px-2 py-1 text-sm text-ink-50 outline-none
+      focus-visible:ring-2 focus-visible:ring-brand-light;
+  }
+  .btn {
+    @apply inline-flex items-center gap-1.5 rounded-md border border-space-600 bg-space-800 px-2.5 py-1 text-sm
+      text-ink-50 transition-colors hover:border-brand-light hover:bg-space-700 focus-visible:outline-none
+      focus-visible:ring-2 focus-visible:ring-brand-light disabled:opacity-40;
+  }
+  .btn-on {
+    @apply border-brand-light bg-brand-navy/60;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #6f95d6;
+  outline-offset: 2px;
+}
+
+input[type="range"] {
+  accent-color: #6f95d6;
+}
