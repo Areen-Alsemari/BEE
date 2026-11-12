@@ -308,8 +308,9 @@ for i, c in enumerate(ablation["configurations"]):
         base = ("configurations", i, "stages", st)
         for k, v in e["metrics"].items():
             eq(F, base + ("metrics", k), v, tab.loc[c["id"], k], f"data/results/{stage_src[st]}")
-        for k, v in e["delta_vs_A6"].items():
-            eq(F, base + ("delta_vs_A6", k), v, tab.loc[c["id"], k] - tab.loc["A6", k], f"data/results/{stage_src[st]}")
+        for ref in ["A6", "A3"]:
+            for k, v in e[f"delta_vs_{ref}"].items():
+                eq(F, base + (f"delta_vs_{ref}", k), v, tab.loc[c["id"], k] - tab.loc[ref, k], f"data/results/{stage_src[st]}")
         sr = search[(search.stage == st) & (search.configuration_id == c["id"])]
         s_src = "data/results/adaptive_configuration_search.csv"
         eq(F, base + ("timesteps",), e["timesteps"], steps[st], s_src)
@@ -339,6 +340,16 @@ for k, sid, ov in [("A6", "adaptive_bee", "adaptive_overall_summary.csv"),
                    ("A3_first_pass", "adaptive_a3_first_pass", "adaptive_a3_first_pass_overall_summary.csv")]:
     eq(F, ("cross_week", k, "duration_fulfillment"), ablation["cross_week"][k]["duration_fulfillment"],
        pd.read_csv(RES / ov).iloc[0].duration_fulfillment, f"data/results/{ov}", TEAM_TOL)
+ref3 = next(r for r in ablation["references"] if r["id"] == "A3")["supporting_data"]
+for st, v in ref3["mean_selected_threshold_by_stage"].items():
+    eq(F, ("references", 1, "supporting_data", "mean_selected_threshold_by_stage", st), v,
+       search[(search.stage == st) & (search.configuration_id == "A3")].mean_selected_threshold.mean(),
+       "data/results/adaptive_configuration_search.csv")
+eq(F, ("references", 1, "supporting_data", "cross_week_mean_selected_threshold"), ref3["cross_week_mean_selected_threshold"],
+   pd.read_csv(RES / "adaptive_a3_first_pass_overall_summary.csv").iloc[0].mean_selected_threshold,
+   "data/results/adaptive_a3_first_pass_overall_summary.csv")
+eq(F, ("references", 1, "supporting_data", "base_threshold"), ref3["base_threshold"],
+   cfg["adaptive_parameters"]["base_threshold"], "data/results/adaptive_bee_configuration.json")
 if "not used to attribute effects to individual components" not in ablation["evidence_note"]:
     FAILS.append("ablation evidence note missing component-conclusion disclaimer")
 

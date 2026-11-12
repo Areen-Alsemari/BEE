@@ -596,6 +596,7 @@ FLAGS = {  # from the components_enabled labels in adaptive_ablation_results.csv
     "lower-strength full adaptation": dict(scarcity=True, contention=True, unmet=True, selective_gate=False, strength="lower"),
     "selective full adaptation": dict(scarcity=True, contention=True, unmet=True, selective_gate=True, strength="full"),
 }
+ABL_REFS = ["A6", "A3"]
 ABL_METRICS = ["duration_fulfillment", "minimum_satisfaction_rate", "full_satisfaction_rate", "mission_fairness",
                "fulfillment_std", "runtime_seconds", "constraint_violations"]
 check((pd.concat([t for t, _ in stages.values()]).constraint_violations == 0).all(), "ablation: 0 violations at every stage")
@@ -608,14 +609,15 @@ for _, a in abl.sort_values("configuration_id").iterrows():
         if row.empty:
             entry["stages"][name] = {"reached": False, "badge": STAGE_BADGE[name]}
             continue
-        ref = tab[tab.configuration_id == "A6"].iloc[0]
+        refs = {r: tab[tab.configuration_id == r].iloc[0] for r in ABL_REFS}
         srch = search[(search.stage == name) & (search.configuration_id == cid)]
         entry["stages"][name] = {
             "reached": True, "badge": STAGE_BADGE[name], "timesteps": steps,
             "training_seeds": sorted(int(s) for s in srch.training_seed.unique()),
             "n_runs": int(len(srch)),
             "metrics": {k: clean(row.iloc[0][k]) for k in ABL_METRICS},
-            "delta_vs_A6": {k: clean(row.iloc[0][k] - ref[k]) for k in ABL_METRICS if k != "constraint_violations"},
+            **{f"delta_vs_{r}": {k: clean(row.iloc[0][k] - ref[k]) for k in ABL_METRICS if k != "constraint_violations"}
+               for r, ref in refs.items()},
             "mean_selected_threshold": float(srch.mean_selected_threshold.mean()),
             "min_selected_threshold": float(srch.minimum_selected_threshold.min()),
         }
@@ -630,6 +632,21 @@ check(gap < larger_sd, f"confirmation: A3 vs A6 gap {gap:.6f} < larger across-se
 cross = {k: summaries[k]["overall"]["mean"] for k in ["adaptive_bee", "adaptive_a3_first_pass"]}
 write("ablation.json", {
     "reference": "A6 (selected configuration); deltas are computed within the same stage",
+    "references": [
+        {"id": "A6", "default": True, "delta_key": "delta_vs_A6",
+         "label": "A6, the selected configuration (selective full adaptation)"},
+        {"id": "A3", "default": False, "delta_key": "delta_vs_A3",
+         "label": "contention-only; threshold stayed about 0.50, so it behaves as near-fixed. "
+                  "A proxy for no adaptation, not a true control.",
+         "supporting_data": {
+             "mean_selected_threshold_by_stage": {
+                 st: float(search[(search.stage == st) & (search.configuration_id == "A3")].mean_selected_threshold.mean())
+                 for st in ["screening", "shortlist", "confirmation"]},
+             "cross_week_mean_selected_threshold": float(
+                 pd.read_csv(RES / "adaptive_a3_first_pass_overall_summary.csv").iloc[0].mean_selected_threshold),
+             "base_threshold": cfg["adaptive_parameters"]["base_threshold"],
+             "source": "data/results/adaptive_configuration_search.csv, adaptive_a3_first_pass_overall_summary.csv"}},
+    ],
     "stage_badges": STAGE_BADGE,
     "configurations": configs,
     "confirmation_tie": {
@@ -703,7 +720,8 @@ write("protocol.json", {
         "01_heuristics": "notebooks/01_heuristics/01_baselines_and_heuristics.ipynb",
         "02_maskable_ppo": "notebooks/02_maskable_ppo/02_plain_maskable_ppo.ipynb",
         "03_fixed_bee": "notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb",
-        "04_adaptive_bee": "notebooks/04_adaptive_bee/04_adaptive_threshold_bee.ipynb (not final, see gap G1)",
+        "04_adaptive_bee": "notebooks/04_adaptive_bee/04_adaptive_threshold_bee_through_section13.ipynb",
+        "04_adaptive_bee_section_14": "notebooks/04_adaptive_bee/04_adaptive_bee_section_14_revision.ipynb (executed outputs not saved, gap G1)",
     },
 })
 
