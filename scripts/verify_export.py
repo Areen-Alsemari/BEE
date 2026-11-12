@@ -289,6 +289,38 @@ for sid, sp in paired["w50_seed_spread"].items():
         eq(F, base + ("sd",), sp["sd"], stdev(vals.values()), SRC_OF["heuristics"])
         eq(F, base + ("range",), sp["range"], max(vals.values()) - min(vals.values()), SRC_OF["heuristics"])
 
+# ------------------------------------------------------------ 3b. W50 seed spread for every metric, and each pair's scale
+F = "paired.json"
+SID = {"plain_ppo": ("plain_ppo", "maskable_ppo"), "fixed_bee": ("fixed_bee", "F2"), "adaptive_bee": ("adaptive_bee", "A6"), "adaptive_a3_first_pass": ("adaptive_a3_first_pass", "A3")}
+for sid, sp in paired["w50_seed_spread_by_metric"].items():
+    method, variant = ("heuristics", sid.split("/")[1]) if sid.startswith("heuristics/") else SID[sid]
+    rows = proto[(proto.method == method) & (proto.variant == variant) & (proto.fold == 5)]
+    for m, mm in sp["metrics"].items():
+        base = ("w50_seed_spread_by_metric", sid, "metrics", m)
+        if method == "heuristics":
+            per = {str(int(e)): float(v) for e, v in zip(rows.evaluation_seed, rows[m])}
+            key = "per_evaluation_seed"
+        else:
+            per = {}
+            for t in sorted(rows.training_seed.dropna().unique()):
+                if m == "runtime_seconds" and method == "fixed_bee":
+                    per[str(int(t))] = fixed_rt[(5, int(t))]
+                else:
+                    per[str(int(t))] = mean(float(x) for x in rows[rows.training_seed == t][m])
+            key = "per_training_seed"
+        for k, v in mm[key].items():
+            eq(F, base + (key, k), v, per[k], SRC_OF[method])
+        eq(F, base + ("sd",), mm["sd"], stdev(per.values()), SRC_OF[method])
+        eq(F, base + ("range",), mm["range"], max(per.values()) - min(per.values()), SRC_OF[method])
+for group in ("pairs", "supplementary_pairs"):
+    for i, pr in enumerate(paired[group]):
+        for m, sc in pr["scale"]["metrics"].items():
+            sa = paired["w50_seed_spread_by_metric"][pr["first"]]["metrics"][m]["sd"]
+            sb = paired["w50_seed_spread_by_metric"][pr["second"]]["metrics"][m]["sd"]
+            eq(F, (group, i, "scale", "metrics", m, "first_w50_sd"), sc["first_w50_sd"], sa, "w50_seed_spread_by_metric")
+            eq(F, (group, i, "scale", "metrics", m, "second_w50_sd"), sc["second_w50_sd"], sb, "w50_seed_spread_by_metric")
+            eq(F, (group, i, "scale", "metrics", m, "band_half_width"), sc["band_half_width"], max(sa, sb), "w50_seed_spread_by_metric")
+
 # ------------------------------------------------------------ 4. ablation
 F = "ablation.json"
 search = pd.read_csv(RES / "adaptive_configuration_search.csv")

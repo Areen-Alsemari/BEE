@@ -420,6 +420,45 @@ for sid, s in summaries.items():
             "range": float(sub.duration_fulfillment.max() - sub.duration_fulfillment.min()),
         }
 
+# W50 seed spread for every metric (the comparison scale used by the Results Arena and the report)
+def w50_spread(sid: str) -> dict:
+    method, variant = (("heuristics", sid.split("/")[1]) if sid.startswith("heuristics/") else (sid, dict(SERIES)[sid] if sid in dict(SERIES) else None))
+    if variant is None:
+        variant = next(v for m, v in SERIES if m == sid)
+    sub = PROTO[(PROTO.method == method) & (PROTO.variant == variant) & (PROTO.fold == 5)]
+    if method == "heuristics":
+        kind, keyname = "across evaluation seeds (heuristics have no training seed)", "per_evaluation_seed"
+        per = {str(int(e)): g for e, g in sub.groupby("evaluation_seed")}
+        vals = {m: {k: float(g[m].iloc[0]) for k, g in per.items()} for m in PAIR_METRICS}
+    else:
+        kind, keyname = "across training seeds (each averaged over 5 evaluation seeds)", "per_training_seed"
+        ml = model_level(sub)
+        vals = {m: {str(int(t)): float(v) for t, v in zip(ml.training_seed, ml[m])} for m in PAIR_METRICS}
+    out = {"kind": kind, "metrics": {}}
+    for m in PAIR_METRICS:
+        v = np.array(list(vals[m].values()), dtype=float)
+        out["metrics"][m] = {keyname: vals[m], "sd": float(v.std(ddof=1)), "range": float(v.max() - v.min())}
+    return out
+
+
+paired["w50_seed_spread_by_metric"] = {sid: w50_spread(sid) for sid in summaries}
+for group in ("pairs", "supplementary_pairs"):
+    for pr in paired[group]:
+        a, b = pr["first"], pr["second"]
+        pr["scale"] = {
+            "definition": "band = +/- the larger of the two methods' W50 seed SDs for this metric",
+            "metrics": {
+                m: {
+                    "first_w50_sd": paired["w50_seed_spread_by_metric"][a]["metrics"][m]["sd"],
+                    "second_w50_sd": paired["w50_seed_spread_by_metric"][b]["metrics"][m]["sd"],
+                    "band_half_width": max(paired["w50_seed_spread_by_metric"][a]["metrics"][m]["sd"], paired["w50_seed_spread_by_metric"][b]["metrics"][m]["sd"]),
+                }
+                for m in PAIR_METRICS
+            },
+        }
+check(all(abs(paired["w50_seed_spread_by_metric"][s]["metrics"]["duration_fulfillment"]["sd"] - paired["w50_seed_spread"][s]["sd"]) < 1e-15 for s in summaries),
+      "W50 seed spread by metric agrees with the duration-fulfillment spread already exported")
+
 # ---------------------------------------------------------------- write
 if OUT.exists():
     shutil.rmtree(OUT)
