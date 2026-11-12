@@ -2,8 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Design tokens. Every colour in the app comes from here (as RGB triplets so Tailwind
+ * can apply opacity). Change the theme in this one block.
+ * Contrast (WCAG): fg 16.9:1, fg-2 11.8:1, muted 7.3:1 on white; muted 6.7:1 on canvas.
+ */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+  --canvas: 242 245 250;
+  --surface: 255 255 255;
+  --sunken: 245 247 251;
+  --hover: 234 239 247;
+  --selected: 221 230 245;
+  --line: 207 215 230;
+  --line-strong: 141 154 181;
+  --fg: 14 27 61;
+  --fg-2: 43 55 86;
+  --muted: 74 86 117;
+  --brand: 24 48 120;
+  --brand-2: 44 90 160;
+  --brand-tint: 228 236 250;
+  --focus: 44 90 160;
+  --ok-fg: 0 105 62;
+  --ok-bg: 230 245 238;
+  --danger-fg: 176 42 30;
+  --danger-bg: 253 236 234;
+  --warn-fg: 138 90 0;
+  --warn-bg: 253 244 222;
+  --scene-top: 223 231 242;
+  --scene-bottom: 250 252 255;
+}
+
+html {
+  font-size: 16px;
 }
 
 html,
@@ -13,41 +44,42 @@ body,
 }
 
 body {
-  @apply bg-space-950 text-ink-50 font-sans antialiased;
-  background-image: radial-gradient(ellipse at 20% -10%, rgba(48, 96, 168, 0.18), transparent 55%),
-    radial-gradient(ellipse at 100% 0%, rgba(24, 48, 120, 0.22), transparent 50%);
-  background-attachment: fixed;
+  @apply bg-canvas font-sans text-sm text-fg antialiased;
 }
 
 @layer components {
   .panel {
-    @apply rounded-xl border border-space-600/70 bg-space-900/80 backdrop-blur-sm;
+    @apply rounded-xl border border-line bg-surface shadow-[0_1px_2px_rgba(14,27,61,0.06)];
   }
   .panel-title {
-    @apply text-2xs font-semibold uppercase tracking-[0.14em] text-ink-300;
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-muted;
   }
   .num {
     @apply font-mono tabular-nums;
   }
   .ctl {
-    @apply rounded-md border border-space-600 bg-space-850 px-2 py-1 text-sm text-ink-50 outline-none
-      focus-visible:ring-2 focus-visible:ring-brand-light;
+    @apply rounded-md border border-line-strong bg-surface px-2 py-1 text-sm text-fg outline-none
+      focus-visible:ring-2 focus-visible:ring-focus;
   }
   .btn {
-    @apply inline-flex items-center gap-1.5 rounded-md border border-space-600 bg-space-800 px-2.5 py-1 text-sm
-      text-ink-50 transition-colors hover:border-brand-light hover:bg-space-700 focus-visible:outline-none
-      focus-visible:ring-2 focus-visible:ring-brand-light disabled:opacity-40;
+    @apply inline-flex items-center gap-1.5 rounded-md border border-line-strong bg-surface px-2.5 py-1 text-sm
+      text-fg transition-colors hover:border-brand-2 hover:bg-hover focus-visible:outline-none
+      focus-visible:ring-2 focus-visible:ring-focus disabled:opacity-40;
   }
   .btn-on {
-    @apply border-brand-light bg-brand-navy/60;
+    @apply border-brand bg-brand text-white hover:bg-brand-2;
+  }
+  .chip {
+    @apply rounded-md border border-line bg-surface/95 px-2 py-1 text-xs text-fg shadow-sm;
   }
 }
 
 :focus-visible {
-  outline: 2px solid #6f95d6;
+  outline: 2px solid rgb(var(--focus));
   outline-offset: 2px;
 }
 
-input[type="range"] {
-  accent-color: #6f95d6;
+input[type="range"],
+input[type="checkbox"] {
+  accent-color: rgb(var(--brand-2));
 }

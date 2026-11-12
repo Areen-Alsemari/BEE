@@ -3,9 +3,10 @@ import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useLab } from "../../store/useLabStore";
 import type { ComplexesFile, Schedule, Windows } from "../../data/types";
 import { fmtTime } from "../../lib/format";
+import { BRAND, METHOD_CUES, missionShade, type MethodId } from "../../config/theme";
 
-const LABEL_W = 92;
-const ROW_H = 26;
+const LABEL_W = 96;
+const ROW_H = 21;
 const AXIS_H = 22;
 
 interface Lane {
@@ -23,6 +24,8 @@ export interface TimelineProps {
   colorB: string;
   labelA: string;
   labelB: string;
+  methodA: MethodId;
+  methodB: MethodId;
   missionColors: Map<string, string>;
 }
 
@@ -48,6 +51,8 @@ const Bars = memo(function Bars({
   missionColors,
   colorA,
   colorB,
+  dashA,
+  dashB,
   selectedId,
   onSelect,
 }: {
@@ -60,6 +65,8 @@ const Bars = memo(function Bars({
   missionColors: Map<string, string>;
   colorA: string;
   colorB: string;
+  dashA: string;
+  dashB: string;
   selectedId: string | null;
   onSelect: (id: string) => void;
 }) {
@@ -67,7 +74,7 @@ const Bars = memo(function Bars({
   const idsB = useMemo(() => new Set(scheduleB?.rows.map((r) => r.request_id)), [scheduleB]);
   const laneKeys = new Set(lanes.map((l) => l.key));
   const out: JSX.Element[] = [];
-  const draw = (s: Schedule | null, run: "A" | "B", other: Set<string> | null, runColor: string) => {
+  const draw = (s: Schedule | null, run: "A" | "B", other: Set<string> | null, runColor: string, runDash: string) => {
     if (!s) return;
     for (const r of s.rows) {
       const only = other ? !other.has(r.request_id) : false;
@@ -80,7 +87,8 @@ const Bars = memo(function Bars({
         const x0 = x(new Date(r.start * 1000));
         const x1 = x(new Date(r.end * 1000));
         const sel = r.request_id === selectedId;
-        const col = missionColors.get(r.mission) ?? "#ccc";
+        const col = missionColors.get(r.mission) ?? "#cccccc";
+        const edge = missionShade(col, 3.2);
         out.push(
           <g
             key={`${run}-${r.request_id}-${a}`}
@@ -93,7 +101,7 @@ const Bars = memo(function Bars({
             data-run={run}
           >
             <title>{`${r.request_id} · mission ${r.mission} · ${r.antennas.join("+")}\n${fmtTime(r.start)} to ${fmtTime(r.end)}${only ? `\nscheduled only by ${run}` : ""}`}</title>
-            <rect x={xr0} y={y + 3} width={Math.max(1, xr1 - xr0)} height={laneH - 6} fill={col} opacity={0.22} rx={2} />
+            <rect x={xr0} y={y + 3} width={Math.max(1, xr1 - xr0)} height={laneH - 6} fill={col} opacity={0.35} rx={2} />
             <rect
               x={x0}
               y={y + 3}
@@ -101,20 +109,20 @@ const Bars = memo(function Bars({
               height={laneH - 6}
               fill={col}
               rx={2}
-              stroke={sel ? "#fff" : only ? runColor : "none"}
-              strokeWidth={sel ? 2 : only ? 1.6 : 0}
-              strokeDasharray={only && !sel ? "3 2" : undefined}
+              stroke={sel ? BRAND.navy : only ? runColor : edge}
+              strokeWidth={sel ? 2.6 : only ? 2.2 : 1}
+              strokeDasharray={only && !sel ? runDash || "5 2" : undefined}
             />
             {r.antennas.length > 1 && (
-              <rect x={x0} y={y + laneH - 6} width={Math.max(1.5, x1 - x0)} height={2} fill="#fff" opacity={0.8} />
+              <rect x={x0} y={y + laneH - 6} width={Math.max(1.5, x1 - x0)} height={2} fill={BRAND.fg} opacity={0.85} />
             )}
           </g>,
         );
       }
     }
   };
-  draw(scheduleA, "A", scheduleB ? idsB : null, colorA);
-  draw(scheduleB, "B", scheduleA ? idsA : null, colorB);
+  draw(scheduleA, "A", scheduleB ? idsB : null, colorA, dashA);
+  draw(scheduleB, "B", scheduleA ? idsA : null, colorB, dashB);
   return <g>{out}</g>;
 });
 
@@ -124,8 +132,8 @@ function Playhead({ x, height }: { x: d3.ScaleTime<number, number>; height: numb
   const px = x(new Date(t * 1000));
   return (
     <g pointerEvents="none" data-testid="playhead" data-value={t}>
-      <line x1={px} x2={px} y1={0} y2={height} stroke="#ffffff" strokeWidth={1.5} />
-      <path d={`M${px - 5},0 L${px + 5},0 L${px},7 Z`} fill="#fff" />
+      <line x1={px} x2={px} y1={0} y2={height} stroke={BRAND.navy} strokeWidth={2} />
+      <path d={`M${px - 5},0 L${px + 5},0 L${px},7 Z`} fill={BRAND.navy} />
     </g>
   );
 }
@@ -148,7 +156,7 @@ export function Timeline(props: TimelineProps) {
     () => antennas.flatMap((a) => (compare ? (["A", "B"] as const).map((run) => ({ key: `${run}:${a.id}`, antenna: a.id, run })) : [{ key: `A:${a.id}`, antenna: a.id, run: "A" as const }])),
     [antennas, compare],
   );
-  const laneH = compare ? 15 : ROW_H;
+  const laneH = compare ? 13 : ROW_H;
   const plotH = lanes.length * laneH;
   const innerW = Math.max(200, size.w - LABEL_W - 8);
 
@@ -204,7 +212,7 @@ export function Timeline(props: TimelineProps) {
             const xa = x(new Date(v.feasible_start * 1000));
             const xb = x(new Date(v.feasible_end * 1000));
             if (xb < 0 || xa > innerW) return null;
-            return <rect key={`v${i}${l.key}`} x={xa} y={laneY(l.key) + 1} width={Math.max(0.5, xb - xa)} height={laneH - 2} fill="#6f95d6" opacity={0.06} />;
+            return <rect key={`v${i}${l.key}`} x={xa} y={laneY(l.key) + 1} width={Math.max(0.5, xb - xa)} height={laneH - 2} fill={BRAND.blue} opacity={0.1} />;
           }),
       ),
     );
@@ -230,9 +238,9 @@ export function Timeline(props: TimelineProps) {
                 width={Math.max(1, x(new Date(v.feasible_end * 1000)) - x(new Date(v.feasible_start * 1000)))}
                 height={laneH - 2}
                 fill="none"
-                stroke="#ffffff"
-                strokeOpacity={0.55}
-                strokeDasharray="2 2"
+                stroke={BRAND.navy}
+                strokeWidth={1.5}
+                strokeDasharray="3 2"
               />
             )),
         ),
@@ -241,7 +249,7 @@ export function Timeline(props: TimelineProps) {
   }, [selectedId, windows, lanes, x, laneH]);
 
   return (
-    <div ref={wrapRef} className="relative h-full w-full overflow-y-auto overflow-x-hidden" data-testid="timeline">
+    <div ref={wrapRef} className="relative h-full w-full overflow-y-auto overflow-x-hidden" data-testid="timeline" tabIndex={0} role="region" aria-label="Schedule timeline per antenna">
       <svg
         ref={svgRef}
         width={size.w}
@@ -262,15 +270,16 @@ export function Timeline(props: TimelineProps) {
               <rect x={0} y={-AXIS_H} width={innerW} height={plotH + AXIS_H + 4} />
             </clipPath>
             <pattern id="maint" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y1="0" x2="0" y2="6" stroke="#8c93a8" strokeWidth="2" opacity="0.5" />
+              <rect width="6" height="6" fill="#e6eaf1" />
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#5a6684" strokeWidth="1.6" opacity="0.6" />
             </pattern>
           </defs>
           {lanes.map((l, i) => (
-            <rect key={l.key} x={0} y={i * laneH} width={innerW} height={laneH} fill={i % 2 ? "#0a1230" : "#0c1535"} />
+            <rect key={l.key} x={0} y={i * laneH} width={innerW} height={laneH} fill={i % 2 ? "#f5f7fb" : "#ffffff"} />
           ))}
           <g clipPath="url(#plot-clip)">
             {ticks.map((t) => (
-              <line key={+t} x1={x(t)} x2={x(t)} y1={0} y2={plotH} stroke="#22305c" strokeWidth={1} />
+              <line key={+t} x1={x(t)} x2={x(t)} y1={0} y2={plotH} stroke="#e1e7f1" strokeWidth={1} />
             ))}
             {visLayer}
             {layers.maintenance &&
@@ -300,6 +309,8 @@ export function Timeline(props: TimelineProps) {
               missionColors={props.missionColors}
               colorA={props.colorA}
               colorB={props.colorB}
+              dashA={METHOD_CUES[props.methodA].dash}
+              dashB={METHOD_CUES[props.methodB].dash}
               selectedId={selectedId}
               onSelect={(id) => set({ selectedRequestId: id })}
             />
@@ -308,7 +319,7 @@ export function Timeline(props: TimelineProps) {
           </g>
           <g transform={`translate(0,${-4})`} clipPath="url(#plot-clip)">
             {ticks.map((t) => (
-              <text key={+t} x={x(t)} y={-6} fontSize={10} fill="#939cb6" textAnchor={x(t) < 30 ? "start" : x(t) > innerW - 30 ? "end" : "middle"}>
+              <text key={+t} x={x(t)} y={-6} fontSize={11} fill="#4a5675" textAnchor={x(t) < 30 ? "start" : x(t) > innerW - 30 ? "end" : "middle"}>
                 {tickFmt(t)}
               </text>
             ))}
@@ -318,10 +329,10 @@ export function Timeline(props: TimelineProps) {
           {lanes.map((l, i) => {
             const cx = complexes.antennas.find((a) => a.id === l.antenna)?.complex ?? "";
             return (
-              <text key={l.key} x={6} y={i * laneH + laneH / 2 + 3.5} fontSize={compare ? 9.5 : 11} fill={l.run === "B" ? "#939cb6" : "#d9deeb"}>
+              <text key={l.key} x={6} y={i * laneH + laneH / 2 + 3.5} fontSize={compare ? 10.5 : 12} fill={l.run === "B" ? "#4a5675" : "#0e1b3d"}>
                 {compare ? `${l.run} ` : ""}
                 {l.antenna}
-                {!compare && <tspan fill="#717a95"> {cx.slice(0, 3)}</tspan>}
+                {!compare && <tspan fill="#4a5675"> {cx.slice(0, 3)}</tspan>}
               </text>
             );
           })}

@@ -1,45 +1,31 @@
 /** @type {import('tailwindcss').Config} */
+const token = (name) => `rgb(var(--${name}) / <alpha-value>)`;
+
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        space: {
-          950: "#03061a",
-          900: "#060b24",
-          850: "#0a1230",
-          800: "#0e1838",
-          700: "#16224a",
-          600: "#22305c",
-          500: "#34426f",
-        },
-        ink: {
-          50: "#eef1f8",
-          100: "#d9deeb",
-          200: "#b7bfd4",
-          300: "#939cb6",
-          400: "#717a95",
-        },
-        brand: {
-          deep: "#000030",
-          navy: "#183078",
-          blue: "#3060a8",
-          light: "#6f95d6",
-        },
-        method: {
-          heuristics: "#bdb6a8",
-          plain: "#E69F00",
-          fixed: "#009E73",
-          adaptive: "#CC79A7",
-          a3: "#E8B9D3",
-        },
+        canvas: token("canvas"),
+        surface: token("surface"),
+        sunken: token("sunken"),
+        hover: token("hover"),
+        selected: token("selected"),
+        line: { DEFAULT: token("line"), strong: token("line-strong") },
+        fg: { DEFAULT: token("fg"), 2: token("fg-2") },
+        muted: token("muted"),
+        brand: { DEFAULT: token("brand"), 2: token("brand-2"), tint: token("brand-tint") },
+        focus: token("focus"),
+        ok: { fg: token("ok-fg"), bg: token("ok-bg") },
+        danger: { fg: token("danger-fg"), bg: token("danger-bg") },
+        warn: { fg: token("warn-fg"), bg: token("warn-bg") },
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
         mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       fontSize: {
-        "2xs": ["0.6875rem", { lineHeight: "1rem" }],
+        "2xs": ["0.75rem", { lineHeight: "1.05rem" }],
       },
     },
   },

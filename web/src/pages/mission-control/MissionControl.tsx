@@ -19,6 +19,8 @@ import { Scene } from "./Scene";
 import { Timeline } from "./Timeline";
 import { Playback } from "./Playback";
 import { CompareSummary, Controls, DetailCard, MetricsPanel, UnscheduledList } from "./Panels";
+import { MethodGlyph } from "../../components/MethodGlyph";
+import { PRESETS, useView } from "./viewStore";
 import { findRun, findScheduleEntry, seriesId, trainingSeedsFor, type RunSpec } from "./runModel";
 import type { Schedule } from "../../data/types";
 
@@ -118,7 +120,8 @@ function MissionControlView({
           <Loading what={`${week} windows`} />
         ) : (
           <>
-            <div className={`grid min-h-0 flex-[1.25] gap-2 ${st.compareMode ? "grid-cols-2" : "grid-cols-1"}`}>
+            <ViewBar />
+            <div className={`grid h-[56vh] min-h-[400px] shrink-0 gap-2 ${st.compareMode ? "grid-cols-2" : "grid-cols-1"}`}>
               {entryA ? (
                 <Scene
                   testId="scene-A"
@@ -128,6 +131,7 @@ function MissionControlView({
                   complexes={complexes}
                   missionColors={missionColors}
                   title={`${st.compareMode ? "A: " : ""}${labelA}`}
+                  titleGlyph={<MethodGlyph method={st.methodA} rule={st.ruleA} />}
                   color={colorA}
                 />
               ) : (
@@ -145,6 +149,7 @@ function MissionControlView({
                     complexes={complexes}
                     missionColors={missionColors}
                     title={`B: ${labelB}`}
+                    titleGlyph={<MethodGlyph method={st.methodB} rule={st.ruleB} />}
                     color={colorB}
                   />
                 ) : (
@@ -166,6 +171,8 @@ function MissionControlView({
                   colorB={colorB}
                   labelA={labelA}
                   labelB={labelB}
+                  methodA={st.methodA}
+                  methodB={st.methodB}
                   missionColors={missionColors}
                 />
               </div>
@@ -180,6 +187,7 @@ function MissionControlView({
           label={labelA}
           color={colorA}
           method={st.methodA}
+          rule={st.ruleA}
           run={runA}
           series={summary.series[keyA]}
           seriesKey={keyA}
@@ -196,6 +204,7 @@ function MissionControlView({
             label={labelB}
             color={colorB}
             method={st.methodB}
+            rule={st.ruleB}
             run={runB}
             series={summary.series[keyB]}
             seriesKey={keyB}
@@ -218,6 +227,29 @@ function MissionControlView({
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+function ViewBar() {
+  const preset = useView((s) => s.preset);
+  const setPreset = useView((s) => s.setPreset);
+  return (
+    <div className="flex items-center gap-1.5" role="toolbar" aria-label="Camera presets">
+      <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-muted">View</span>
+      {PRESETS.map((p) => (
+        <button
+          key={p.id}
+          type="button"
+          className={`btn px-2 py-0.5 text-xs ${preset === p.id ? "btn-on" : ""}`}
+          aria-pressed={preset === p.id}
+          onClick={() => setPreset(p.id)}
+          data-testid={`preset-${p.id}`}
+        >
+          {p.label}
+        </button>
+      ))}
+      {preset === "free" && <span className="text-xs text-muted">Free camera (drag to orbit, wheel to zoom)</span>}
     </div>
   );
 }

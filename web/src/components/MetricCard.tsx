@@ -25,23 +25,23 @@ export function MetricCard({
   accent?: string;
 }) {
   return (
-    <div className="rounded-lg border border-space-600/70 bg-space-850/80 px-3 py-2" data-testid={testId}>
+    <div className="rounded-lg border border-line bg-sunken px-3 py-2.5" data-testid={testId}>
       <div className="flex items-start justify-between gap-2">
-        <span className="text-2xs uppercase tracking-wider text-ink-300">{label}</span>
+        <span className="text-xs font-medium uppercase tracking-wider text-muted">{label}</span>
         {badge}
       </div>
       <div className="mt-0.5 flex items-baseline gap-2">
         <span
-          className="num text-xl font-semibold"
+          className="num text-xl font-semibold text-fg"
           style={accent ? { color: accent } : undefined}
           data-value={value ?? ""}
           data-metric={metricKey}
         >
           {fmtMetric(metricKey, value)}
         </span>
-        {context && <span className="text-2xs text-ink-300">{context}</span>}
+        {context && <span className="text-xs text-muted">{context}</span>}
       </div>
-      <div className="mt-1 text-2xs leading-snug text-ink-400">{scale}</div>
+      <div className="mt-1 text-xs leading-snug text-muted">{scale}</div>
     </div>
   );
 }

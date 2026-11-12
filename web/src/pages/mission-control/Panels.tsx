@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useLab } from "../../store/useLabStore";
-import { HEURISTIC_RULES, PRIMARY_METHODS, type HeuristicRule, type MethodId } from "../../config/theme";
+import { HEURISTIC_RULES, PRIMARY_METHODS, seriesTextColor, type HeuristicRule, type MethodId } from "../../config/theme";
+import { MethodGlyph } from "../../components/MethodGlyph";
 import { WEEKS, type GapsFile, type PairedFile, type RunRow, type Schedule, type SeriesSummary, type WeekId, type Windows } from "../../data/types";
 import { ConfirmMarker, EvidenceBadge, evidenceFromStage } from "../../components/EvidenceBadge";
 import { MetricCard } from "../../components/MetricCard";
@@ -25,7 +26,7 @@ function MethodPicker({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-2xs uppercase tracking-wider text-ink-300">
+      <label className="block text-2xs uppercase tracking-wider text-muted">
         {label}
         <select className="ctl mt-1 w-full" value={method} onChange={(e) => onMethod(e.target.value as MethodId)} data-testid={`${testId}-method`}>
           {PRIMARY_METHODS.map((m) => (
@@ -36,7 +37,7 @@ function MethodPicker({
         </select>
       </label>
       {method === "heuristics" && (
-        <label className="block text-2xs uppercase tracking-wider text-ink-300">
+        <label className="block text-2xs uppercase tracking-wider text-muted">
           Heuristic rule
           <select className="ctl mt-1 w-full" value={rule} onChange={(e) => onRule(e.target.value as HeuristicRule)} data-testid={`${testId}-rule`}>
             {HEURISTIC_RULES.map((r) => (
@@ -90,10 +91,10 @@ export function Controls({
         testId="a"
       />
       <div className="grid grid-cols-2 gap-2">
-        <label className="block text-2xs uppercase tracking-wider text-ink-300">
+        <label className="block text-2xs uppercase tracking-wider text-muted">
           Training seed
           {seedsA.length === 0 ? (
-            <div className="ctl mt-1 text-ink-400" title="Heuristics are not trained">
+            <div className="ctl mt-1 text-muted" title="Heuristics are not trained">
               n/a
             </div>
           ) : (
@@ -111,7 +112,7 @@ export function Controls({
             </select>
           )}
         </label>
-        <label className="block text-2xs uppercase tracking-wider text-ink-300">
+        <label className="block text-2xs uppercase tracking-wider text-muted">
           Evaluation seed
           <select
             className="ctl mt-1 w-full"
@@ -127,12 +128,12 @@ export function Controls({
           </select>
         </label>
       </div>
-      <div className="border-t border-space-600/60 pt-3">
+      <div className="border-t border-line pt-3">
         <label className="flex cursor-pointer items-center justify-between text-sm">
           <span>Compare mode</span>
           <input
             type="checkbox"
-            className="h-4 w-4 accent-[#6f95d6]"
+            className="h-4 w-4"
             checked={s.compareMode}
             onChange={(e) => s.set({ compareMode: e.target.checked })}
             data-testid="compare-toggle"
@@ -148,11 +149,11 @@ export function Controls({
               onRule={(r) => s.set({ ruleB: r })}
               testId="b"
             />
-            <p className="mt-1.5 text-2xs text-ink-400">Same week, training seed and evaluation seed as A.</p>
+            <p className="mt-1.5 text-2xs text-muted">Same week, training seed and evaluation seed as A.</p>
           </div>
         )}
       </div>
-      <div className="border-t border-space-600/60 pt-3">
+      <div className="border-t border-line pt-3">
         <div className="panel-title">Timeline layers</div>
         {(["maintenance", "visibility"] as const).map((l) => (
           <label key={l} className="mt-1.5 flex cursor-pointer items-center justify-between text-sm">
@@ -160,7 +161,7 @@ export function Controls({
             <input type="checkbox" className="h-4 w-4" checked={s.layers[l]} onChange={() => s.toggleLayer(l)} data-testid={`layer-${l}`} />
           </label>
         ))}
-        <p className="mt-1.5 text-2xs text-ink-400">The selected request&apos;s own windows are always outlined.</p>
+        <p className="mt-1.5 text-2xs text-muted">The selected request&apos;s own windows are always outlined.</p>
       </div>
     </div>
   );
@@ -179,8 +180,8 @@ export function confirmFor(method: MethodId, gaps: GapsFile): { id: string; text
 export function MetricsPanel({
   tag,
   label,
-  color,
   method,
+  rule,
   run,
   series,
   seriesKey,
@@ -195,6 +196,7 @@ export function MetricsPanel({
   label: string;
   color: string;
   method: MethodId;
+  rule: HeuristicRule;
   run: RunRow | undefined;
   series: SeriesSummary | undefined;
   seriesKey: string;
@@ -210,8 +212,8 @@ export function MetricsPanel({
   return (
     <section className="panel p-3" data-testid={`metrics-${tag}`} aria-label={`Metrics for ${label}`}>
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="h-2.5 w-2.5 rounded-sm" style={{ background: color }} />
-        <h2 className="text-sm font-semibold">{label}</h2>
+        <MethodGlyph method={method} rule={rule} size={13} />
+        <h2 className="text-base font-semibold text-fg">{label}</h2>
         {confirm && <ConfirmMarker id={confirm.id} text={confirm.text} />}
       </div>
       {!run ? (
@@ -225,10 +227,10 @@ export function MetricsPanel({
             {run.source === "recomputed from schedules" && <EvidenceBadge kind="recomputed" />}
             {!run.protocol && <EvidenceBadge kind="supplementary" label="supplementary seed" />}
           </div>
-          <div className="mt-1 text-2xs text-ink-300">
+          <div className="mt-1.5 text-xs text-muted">
             {run.test_week} · fold {run.fold} · training seed {run.training_seed ?? "n/a"} · evaluation seed {run.evaluation_seed}
           </div>
-          <div className={`mt-2 grid grid-cols-1 ${compact ? "gap-1" : "gap-1.5"}`}>
+          <div className={`mt-3 grid grid-cols-1 ${compact ? "gap-1.5" : "gap-2"}`}>
             {CARD_METRICS.map((m) => (
               <MetricCard
                 key={m}
@@ -236,7 +238,7 @@ export function MetricsPanel({
                 label={METRIC_LABEL[m]}
                 metricKey={m}
                 value={run[m]}
-                accent={m === "duration_fulfillment" ? color : undefined}
+                accent={m === "duration_fulfillment" ? seriesTextColor(method) : undefined}
                 context={series ? `${week} mean ${fmtMetric(m, series.per_week[week]?.mean[m])}` : undefined}
                 scale={
                   series ? (
@@ -256,21 +258,21 @@ export function MetricsPanel({
               />
             ))}
           </div>
-          <div className="mt-2 flex items-center justify-between rounded-md border border-emerald-400/30 bg-emerald-400/5 px-2 py-1.5 text-xs">
+          <div className="mt-2 flex items-center justify-between rounded-md border border-ok-fg/30 bg-ok-bg px-2.5 py-2 text-sm">
             <span>Constraint violations</span>
-            <span className="num font-semibold text-emerald-200" data-testid={`violations-${tag}`} data-value={run.constraint_violations ?? ""}>
+            <span className="num font-semibold text-ok-fg" data-testid={`violations-${tag}`} data-value={run.constraint_violations ?? ""}>
               {run.constraint_violations === 0 ? "0 ✓" : fmtMetric("constraint_violations", run.constraint_violations)}
             </span>
           </div>
-          <div className="mt-1.5 grid grid-cols-2 gap-1 text-xs">
-            <div className="rounded-md bg-space-850 px-2 py-1">
+          <div className="mt-2 grid grid-cols-2 gap-1.5 text-sm">
+            <div className="rounded-md bg-sunken px-2 py-1">
               Scheduled{" "}
               <span className="num font-semibold" data-testid={`scheduled-count-${tag}`} data-value={run.scheduled_requests ?? ""}>
                 {run.scheduled_requests}
               </span>{" "}
-              <span className="text-ink-400">of {run.number_of_requests}</span>
+              <span className="text-muted">of {run.number_of_requests}</span>
             </div>
-            <div className="rounded-md bg-space-850 px-2 py-1">
+            <div className="rounded-md bg-sunken px-2 py-1">
               Unscheduled{" "}
               <span className="num font-semibold" data-testid={`unscheduled-count-${tag}`} data-value={schedule ? schedule.n_unscheduled : ""}>
                 {schedule ? schedule.n_unscheduled : "n/a"}
@@ -304,7 +306,7 @@ export function DetailCard({
 }) {
   const id = useLab((s) => s.selectedRequestId);
   const set = useLab((s) => s.set);
-  if (!id) return <div className="panel p-3 text-xs text-ink-400">Click a request in the timeline, a beam, a spacecraft or the unscheduled list to see its details.</div>;
+  if (!id) return <div className="panel p-3 text-xs text-muted">Click a request in the timeline, a beam, a spacecraft or the unscheduled list to see its details.</div>;
   const req = windows.requestById.get(id);
   if (!req) return null;
   const runs = [
@@ -320,46 +322,46 @@ export function DetailCard({
         </button>
       </div>
       <dl className="mt-2 grid grid-cols-[110px_1fr] gap-x-2 gap-y-1">
-        <dt className="text-ink-300">Mission</dt>
+        <dt className="text-muted">Mission</dt>
         <dd data-testid="detail-mission">{req.mission}</dd>
-        <dt className="text-ink-300">Requested</dt>
+        <dt className="text-muted">Requested</dt>
         <dd>
-          {fmtDuration(req.duration_seconds)} <span className="text-ink-400">(minimum {fmtDuration(req.minimum_duration_seconds)})</span>
+          {fmtDuration(req.duration_seconds)} <span className="text-muted">(minimum {fmtDuration(req.minimum_duration_seconds)})</span>
         </dd>
-        <dt className="text-ink-300">Time window</dt>
+        <dt className="text-muted">Time window</dt>
         <dd>
           {fmtTime(req.time_window_start)} to {fmtTime(req.time_window_end)}
         </dd>
-        <dt className="text-ink-300">Antenna options</dt>
+        <dt className="text-muted">Antenna options</dt>
         <dd className="break-words">{req.resource_options.join(", ")}</dd>
       </dl>
       {runs.map(({ label, s }) => {
         const row = s?.rows.find((r) => r.request_id === id);
         return (
-          <div key={label} className="mt-2 rounded-md border border-space-600/70 p-2" data-testid="detail-run">
+          <div key={label} className="mt-2 rounded-md border border-line p-2" data-testid="detail-run">
             <div className="flex items-center justify-between">
               <span className="font-medium">{label}</span>
               {row ? (
-                <span className="rounded bg-emerald-400/15 px-1.5 text-emerald-200" data-testid="detail-status">
+                <span className="rounded bg-ok-bg px-1.5 font-medium text-ok-fg" data-testid="detail-status">
                   scheduled
                 </span>
               ) : (
-                <span className="rounded bg-red-400/15 px-1.5 text-red-200" data-testid="detail-status">
+                <span className="rounded bg-danger-bg px-1.5 font-medium text-danger-fg" data-testid="detail-status">
                   not scheduled
                 </span>
               )}
             </div>
             {row && (
               <dl className="mt-1 grid grid-cols-[110px_1fr] gap-x-2 gap-y-0.5">
-                <dt className="text-ink-300">Antenna</dt>
+                <dt className="text-muted">Antenna</dt>
                 <dd>{row.antennas.join(" + ")}{row.antennas.length > 1 ? " (array)" : ""}</dd>
-                <dt className="text-ink-300">Start</dt>
+                <dt className="text-muted">Start</dt>
                 <dd className="num">{fmtTime(row.start)}</dd>
-                <dt className="text-ink-300">End</dt>
+                <dt className="text-muted">End</dt>
                 <dd className="num">{fmtTime(row.end)}</dd>
-                <dt className="text-ink-300">Allocated</dt>
+                <dt className="text-muted">Allocated</dt>
                 <dd>{fmtDuration(row.allocated_seconds)}</dd>
-                <dt className="text-ink-300">Visibility used</dt>
+                <dt className="text-muted">Visibility used</dt>
                 <dd className="num">
                   {fmtTime(row.visibility_start)} to {fmtTime(row.visibility_end)}
                 </dd>
@@ -394,7 +396,7 @@ export function UnscheduledList({ windows, schedule, tag, label }: { windows: Wi
     <section className="panel flex min-h-0 flex-col p-3" aria-label={`Unscheduled requests for ${label}`}>
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold">Unscheduled ({tag})</h2>
-        <span className="num text-xs text-ink-300" data-testid={`unscheduled-list-count-${tag}`} data-value={items.length}>
+        <span className="num text-xs text-muted" data-testid={`unscheduled-list-count-${tag}`} data-value={items.length}>
           {items.length} of {schedule.n_requests}
         </span>
       </div>
@@ -402,12 +404,12 @@ export function UnscheduledList({ windows, schedule, tag, label }: { windows: Wi
         {items.map((r) => (
           <li key={r.request_id}>
             <button
-              className={`flex w-full items-center gap-2 rounded px-1.5 py-0.5 text-left opacity-60 hover:bg-space-800 hover:opacity-100 ${sel === r.request_id ? "bg-space-700 opacity-100" : ""}`}
+              className={`flex w-full items-center gap-2 rounded border-l-2 border-dashed border-danger-fg/60 px-1.5 py-0.5 text-left text-muted hover:bg-hover hover:text-fg ${sel === r.request_id ? "bg-selected text-fg" : ""}`}
               onClick={() => set({ selectedRequestId: r.request_id })}
             >
-              <span className="w-10 shrink-0 text-ink-300">{r.mission}</span>
+              <span className="w-10 shrink-0 text-muted">{r.mission}</span>
               <span className="num truncate">{r.request_id}</span>
-              <span className="ml-auto shrink-0 text-ink-400">{fmtDuration(r.duration_seconds)}</span>
+              <span className="ml-auto shrink-0 text-muted">{fmtDuration(r.duration_seconds)}</span>
             </button>
           </li>
         ))}
@@ -446,10 +448,10 @@ export function CompareSummary({
     <section className="panel p-3 text-xs" data-testid="compare-summary" aria-label="Compare summary">
       <h2 className="text-sm font-semibold">Same week, same seeds</h2>
       <div className="mt-2 grid grid-cols-2 gap-1">
-        <div className="rounded bg-space-850 px-2 py-1">
+        <div className="rounded bg-sunken px-2 py-1">
           Both <span className="num font-semibold">{both}</span>
         </div>
-        <div className="rounded bg-space-850 px-2 py-1">
+        <div className="rounded bg-sunken px-2 py-1">
           Neither <span className="num font-semibold">{neither}</span>
         </div>
         <button className={`rounded px-2 py-1 text-left ${tab === "A" ? "ring-1" : ""}`} style={{ background: `${colorA}22`, ["--tw-ring-color" as string]: colorA }} onClick={() => setTab("A")}>
@@ -459,13 +461,13 @@ export function CompareSummary({
           Only B <span className="num font-semibold" data-testid="only-b">{onlyB.length}</span>
         </button>
       </div>
-      <div className="mt-1 text-2xs text-ink-400">
+      <div className="mt-1 text-2xs text-muted">
         A = {labelA}; B = {labelB}. Requests scheduled by only one run are outlined (dashed) in the timeline and drawn as dashed beams.
       </div>
       <ul className="mt-1.5 max-h-28 space-y-0.5 overflow-y-auto">
         {list.map((id) => (
           <li key={id}>
-            <button className="num w-full rounded px-1 text-left hover:bg-space-800" onClick={() => set({ selectedRequestId: id })}>
+            <button className="num w-full rounded px-1 text-left hover:bg-hover" onClick={() => set({ selectedRequestId: id })}>
               {windows.requestById.get(id)?.mission} · {id}
             </button>
           </li>

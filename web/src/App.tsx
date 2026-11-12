@@ -26,7 +26,7 @@ function NotBuilt({ title }: { title: string }) {
   return (
     <div className="mx-auto max-w-xl p-10">
       <h1 className="text-xl font-semibold">{title}</h1>
-      <p className="mt-2 text-sm text-ink-300">This page has not been built yet.</p>
+      <p className="mt-2 text-sm text-muted">This page has not been built yet.</p>
       <Link className="btn mt-4" to="/mission-control">
         Open Mission Control
       </Link>

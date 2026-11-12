@@ -5,8 +5,8 @@ import { EvidenceBadge } from "./EvidenceBadge";
 
 export function Loading({ what = "data" }: { what?: string }) {
   return (
-    <div role="status" className="flex h-full min-h-[80px] items-center justify-center gap-2 text-sm text-ink-300">
-      <span className="h-2 w-2 animate-pulse rounded-full bg-brand-light" />
+    <div role="status" className="flex h-full min-h-[80px] items-center justify-center gap-2 text-sm text-muted">
+      <span className="h-2 w-2 animate-pulse rounded-full bg-brand-2" />
       Loading {what}
     </div>
   );
@@ -15,17 +15,17 @@ export function Loading({ what = "data" }: { what?: string }) {
 export function ErrorState({ error }: { error: Error }) {
   const isData = error instanceof DataError;
   return (
-    <div role="alert" className="m-2 rounded-lg border border-red-400/50 bg-red-500/10 p-3 text-sm text-red-100">
+    <div role="alert" className="m-2 rounded-lg border border-danger-fg/40 bg-danger-bg p-3 text-sm text-danger-fg">
       <div className="font-semibold">{isData ? "Data file problem" : "Something went wrong"}</div>
       <div className="mt-1 font-mono text-xs">{error.message}</div>
-      <div className="mt-1 text-xs text-red-200/80">Re-run scripts/export_data.py and reload. Nothing is shown in place of the missing data.</div>
+      <div className="mt-1 text-xs text-danger-fg">Re-run scripts/export_data.py and reload. Nothing is shown in place of the missing data.</div>
     </div>
   );
 }
 
 export function Pending({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-start gap-2 rounded-lg border border-dashed border-ink-400/50 p-3 text-sm text-ink-300">
+    <div className="flex items-start gap-2 rounded-lg border border-dashed border-line-strong p-3 text-sm text-muted">
       <EvidenceBadge kind="pending" />
       <div>{children}</div>
     </div>

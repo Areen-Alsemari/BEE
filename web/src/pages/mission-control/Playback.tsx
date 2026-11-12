@@ -66,7 +66,7 @@ export function Playback({ span }: { span: [number, number] }) {
       >
         {playing ? "Pause" : "Play"}
       </button>
-      <label className="flex items-center gap-1 text-2xs text-ink-300">
+      <label className="flex items-center gap-1 text-2xs text-muted">
         Speed
         <select className="ctl py-0.5 text-xs" value={speed} onChange={(e) => set({ speed: Number(e.target.value) })} aria-label="Playback speed">
           {SPEEDS.map((s) => (
@@ -87,10 +87,10 @@ export function Playback({ span }: { span: [number, number] }) {
         aria-label="Scrub through the week"
         data-testid="scrubber"
       />
-      <span className="num w-[170px] text-right text-xs text-ink-100" data-testid="current-time">
+      <span className="num w-[170px] text-right text-xs text-fg" data-testid="current-time">
         {fmtTime(t)}
       </span>
-      <span className="hidden text-2xs text-ink-400 xl:inline">wheel: zoom · shift+drag: pan · space: play</span>
+      <span className="hidden text-2xs text-muted xl:inline">wheel: zoom · shift+drag: pan · space: play</span>
     </div>
   );
 }
