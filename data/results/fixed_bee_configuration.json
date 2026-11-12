@@ -1,0 +1,32 @@
+{
+  "selected_configuration": "F2",
+  "method": "fixed-threshold bee-inspired scheduling",
+  "selection_basis": "validation performance followed by five-fold cross-week robustness evaluation",
+  "training_seeds": [
+    42,
+    123,
+    456
+  ],
+  "evaluation_seeds": [
+    1001,
+    2002,
+    3003,
+    4004,
+    5005
+  ],
+  "training_timesteps_per_run": 25000,
+  "constraint_violations_observed": 0,
+  "selected_result_row": {
+    "rank": 1,
+    "configuration_id": "F2",
+    "constraint_violations": 0,
+    "mean_duration_fulfillment": 0.5360467809319079,
+    "mean_minimum_satisfaction_rate": 0.6618618618618619,
+    "mean_full_satisfaction_rate": 0.5609609609609609,
+    "mean_mission_fairness": 0.8651888920717201,
+    "mean_episode_reward": 327.5394376322752,
+    "training_stage_timesteps": 5000,
+    "source_file": "stage_5000_configuration_ranking.csv",
+    "mean_runtime_seconds": null
+  }
+}

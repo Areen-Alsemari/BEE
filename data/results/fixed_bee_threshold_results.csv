@@ -1,0 +1,4 @@
+rank,configuration_id,constraint_violations,mean_duration_fulfillment,mean_minimum_satisfaction_rate,mean_full_satisfaction_rate,mean_mission_fairness,mean_episode_reward,training_stage_timesteps,source_file,mean_runtime_seconds
+1,F2,0,0.5319537372923104,0.6570570570570571,0.5543543543543543,0.8628310457427985,325.2131100456621,10000,stage_10000_configuration_ranking.csv,
+2,F2,0,0.5341414752116082,0.6624624624624624,0.5633633633633635,0.8691990729871245,327.9756904761905,1000,stage_1000_configuration_ranking.csv,28.68151715499989
+1,F2,0,0.5360467809319079,0.6618618618618619,0.5609609609609609,0.8651888920717201,327.5394376322752,5000,stage_5000_configuration_ranking.csv,

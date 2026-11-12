@@ -1,0 +1,16 @@
+{
+  "package_version": "shared_v2",
+  "source": "BEE Phase 3 validated implementation",
+  "optimization": {
+    "visibility_cache": true,
+    "maintenance_cache": true,
+    "affected_antenna_refresh": true
+  },
+  "modules": {
+    "environment.py": "bb5cc62f3dd23fff749b8591a7ce2a994abd05b220f66e90fbcb5544d7aebda7",
+    "experiment_config.py": "9704cd0c1000ff58fa9afb9eceaf18f995c9f0090c24d3213c2722a0c810269f",
+    "experiment_utils.py": "a92190c7a0d02c641b2967886821cfe716220ec8297cc4d3bb59d9e58c0b80c1",
+    "placement.py": "6579b898b1c7047ea0ce9b04a55cdaec3ecde9408b694aa326f48c1d4e9fc4fd",
+    "validator.py": "b1dcbb306d180fd723b31f078ccb6f1b1817bf7f23d04e49ee181e8b53badcf3"
+  }
+}

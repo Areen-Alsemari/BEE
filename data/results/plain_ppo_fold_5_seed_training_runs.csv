@@ -1,0 +1,3 @@
+fold,training_seed,total_timesteps,training_time_seconds,model_path
+5,123,25088,2144.14,/content/drive/MyDrive/BEE/member2_plain_ppo/plain_ppo_cross_week_models/fold_5_train_seed_123
+5,456,25088,2185.5,/content/drive/MyDrive/BEE/member2_plain_ppo/plain_ppo_cross_week_models/fold_5_train_seed_456

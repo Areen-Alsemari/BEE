@@ -1,0 +1,11 @@
+fold,held_out_week,training_seed,evaluation_seed,duplicate_request_violations,duration_violations,visibility_violations,maintenance_violations,antenna_overlap_violations,resource_violations,constraint_violations
+5,W50_2018,123,1001,0,0,0,0,0,0,0
+5,W50_2018,123,2002,0,0,0,0,0,0,0
+5,W50_2018,123,3003,0,0,0,0,0,0,0
+5,W50_2018,123,4004,0,0,0,0,0,0,0
+5,W50_2018,123,5005,0,0,0,0,0,0,0
+5,W50_2018,456,1001,0,0,0,0,0,0,0
+5,W50_2018,456,2002,0,0,0,0,0,0,0
+5,W50_2018,456,3003,0,0,0,0,0,0,0
+5,W50_2018,456,4004,0,0,0,0,0,0,0
+5,W50_2018,456,5005,0,0,0,0,0,0,0

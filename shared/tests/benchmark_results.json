@@ -1,0 +1,10 @@
+{
+  "package_version": "shared_v2",
+  "week_key": "W10_2018",
+  "seed": 42,
+  "benchmark_steps": 100,
+  "elapsed_seconds": 8.247727681000015,
+  "steps_per_second": 12.124551618061579,
+  "trace_sha256": "ae006dd03f0d7532e19119356791752e2e2892ad198d14a3a1a7653923ce5b2f",
+  "constraint_violations": 0
+}

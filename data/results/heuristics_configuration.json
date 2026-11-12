@@ -1,0 +1,22 @@
+{
+  "selected_configuration": "H4",
+  "method": "weighted_composite_H4",
+  "weights": {
+    "a": 0.5,
+    "b": 0.3,
+    "c": 0.2,
+    "d": 0.0
+  },
+  "selection_week": "W40_2018",
+  "selection_seed": 1001,
+  "selection_metric": "episode_reward",
+  "evaluation_seeds": [
+    1001,
+    2002,
+    3003,
+    4004,
+    5005
+  ],
+  "package_version": "shared_v1",
+  "configuration_frozen": true
+}

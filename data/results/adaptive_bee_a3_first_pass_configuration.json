@@ -1,0 +1,58 @@
+{
+  "model_name": "adaptive_bee",
+  "package_version": "shared_v2",
+  "selected_configuration_id": "A3",
+  "training_weeks": [
+    "W10_2018",
+    "W20_2018",
+    "W30_2018"
+  ],
+  "validation_week": "W40_2018",
+  "test_week_not_used_for_selection": "W50_2018",
+  "ppo_parameters": {
+    "learning_rate": 0.0003,
+    "n_steps": 256,
+    "batch_size": 64,
+    "n_epochs": 10,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.01,
+    "vf_coef": 0.5,
+    "max_grad_norm": 0.5
+  },
+  "adaptive_parameters": {
+    "scarcity_strength": 0.0,
+    "contention_strength": 0.2,
+    "unmet_strength": 0.0,
+    "selective_mode": false,
+    "stimulus_weights": [
+      0.4,
+      0.4,
+      0.2
+    ],
+    "base_threshold": 0.5,
+    "sensitivity": 2.0,
+    "minimum_threshold": 0.1,
+    "maximum_threshold": 0.9,
+    "scarcity_indicator_limit": 0.3,
+    "contention_indicator_limit": 0.1,
+    "unmet_indicator_limit": 0.1,
+    "minimum_pressure_indicators": 2
+  },
+  "requested_target_timesteps": 25000,
+  "controlled_actual_target_timesteps": 25088,
+  "selection_training_seeds": [
+    42,
+    123,
+    456
+  ],
+  "selection_metric_order": [
+    "duration_fulfillment",
+    "minimum_satisfaction_rate",
+    "full_satisfaction_rate",
+    "mission_fairness",
+    "runtime_seconds"
+  ],
+  "selection_reason": "Highest lexicographic validation ranking on W40 after staged screening and three-seed confirmation."
+}

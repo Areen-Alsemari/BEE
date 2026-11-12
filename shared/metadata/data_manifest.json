@@ -1,0 +1,25 @@
+{
+  "package_version": "shared_v2",
+  "weeks": [
+    "W10_2018",
+    "W20_2018",
+    "W30_2018",
+    "W40_2018",
+    "W50_2018"
+  ],
+  "request_count": 1452,
+  "visibility_period_count": 14699,
+  "maintenance_interval_count": 1798,
+  "requests_per_week": {
+    "W10_2018": 257,
+    "W20_2018": 294,
+    "W30_2018": 293,
+    "W40_2018": 333,
+    "W50_2018": 275
+  },
+  "processed_files": {
+    "maintenance.parquet": "e04333923dfa0b52a17080fd5db9b3a86d52c1892f4e949d163d87776949f978",
+    "requests.parquet": "98282f27852c02d2c973ae6ad052f9624b03eb624c0b35e91191aaa7a1c02941",
+    "visibility_periods.parquet": "bf7064e7be7db9ba23a2eff091388853d55e32e771f9fd77ed3a5186f818493e"
+  }
+}

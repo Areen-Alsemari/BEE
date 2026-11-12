@@ -1,0 +1,23 @@
+{
+  "package_version": "shared_v2",
+  "seed": 42,
+  "steps": 200,
+  "episode_reward": 298.1229482496195,
+  "runtime_seconds": 14.952095212999893,
+  "week_key": "W10_2018",
+  "number_of_requests": 257,
+  "scheduled_requests": 200,
+  "allocated_hours": 790.9486111111111,
+  "duration_fulfillment": 0.6638259430223341,
+  "minimum_satisfaction_rate": 0.7782101167315175,
+  "full_satisfaction_rate": 0.6926070038910506,
+  "unmet_hours": 400.5513888888889,
+  "mission_fairness": 0.921172413750574,
+  "constraint_violations": 0,
+  "duplicate_request_violations": 0,
+  "duration_violations": 0,
+  "visibility_violations": 0,
+  "maintenance_violations": 0,
+  "antenna_overlap_violations": 0,
+  "resource_violations": 0
+}

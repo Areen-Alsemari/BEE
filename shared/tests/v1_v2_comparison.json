@@ -1,0 +1,8 @@
+{
+  "v1_elapsed_seconds": 186.880892055,
+  "v2_elapsed_seconds": 8.247727681000015,
+  "v1_steps_per_second": 0.5351001854730525,
+  "v2_steps_per_second": 12.124551618061579,
+  "speedup_factor": 22.658470221502416,
+  "identical_trace": true
+}
