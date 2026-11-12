@@ -9,8 +9,8 @@ import { MethodDash, MethodGlyph } from "./MethodGlyph";
 const PAGE_NOTES: Record<string, string[]> = {
   "/mission-control": [
     "Pick a week, a method and seeds. The 3D view and the timeline show the same run.",
-    "Beams link a DSN complex to a spacecraft while one of its requests is being served. Arrays (for example DSS-34_DSS-35) draw a single beam.",
-    "Spacecraft positions are illustrative. Times, antennas, missions and which requests were scheduled are real data.",
+    "Beams link a DSN complex to a spacecraft while one of its requests is being served. An array draws one beam per complex it uses (for example DSS-34_DSS-35 draws one beam from Canberra; DSS-25_DSS-34 draws one from Goldstone and one from Canberra).",
+    "Spacecraft positions are illustrative. Times, antennas, missions and which requests were scheduled are real data. Earth\u2019s rotation follows the schedule time; the lighting is only there to make the globe readable.",
     "Unscheduled requests are listed on the right; they never draw a beam.",
     "Compare mode shows two methods on the same week and seeds, and marks requests that only one of them scheduled.",
   ],

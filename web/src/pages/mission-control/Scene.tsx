@@ -134,8 +134,8 @@ function DistanceRings() {
 }
 
 /**
- * Key light kept at the viewer's upper left, so the side facing the camera is lit and the shaded
- * (night-like) side falls on the right limb. Earth rotation itself stays real (sidereal).
+ * Key light kept at the viewer's upper left for legibility: the side facing the camera is lit and
+ * the right limb is shaded. This lighting is not the Sun. Earth's rotation is real (sidereal).
  */
 function KeyLight() {
   const light = useRef<THREE.DirectionalLight>(null);
@@ -245,6 +245,15 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
     for (const c of geo) for (const d of c.dishes) m.set(d.antenna, { complex: c, pos: d.pos });
     return m;
   }, [geo]);
+  /** One dish per complex used by a request: single antennas and same-complex arrays give one, cross-complex arrays give one per complex. */
+  const servingDishes = (r: ScheduleRow) => {
+    const out: { complex: ComplexGeo; pos: THREE.Vector3 }[] = [];
+    for (const a of r.antennas) {
+      const d = dishOf.get(a);
+      if (d && !out.some((o) => o.complex.id === d.complex.id)) out.push(d);
+    }
+    return out;
+  };
   const bases = useMemo(() => basePositions(ids), [ids]);
   const radius = useMemo(() => new Map(ids.map((id) => [id, bases.get(id)!.length()])), [ids, bases]);
   const sim = useRef(new Map<string, THREE.Vector3>());
@@ -294,8 +303,8 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
     for (const id of ids) {
       const cur = sim.current.get(id)!;
       const served = servedBy.get(id);
-      const d = served ? dishOf.get(served.antennas[0]) : undefined;
-      const target = d ? servedPosition(id, toInertial(d.complex.normal, angle), radius.get(id)!) : bases.get(id)!;
+      const ds = served ? servingDishes(served) : [];
+      const target = ds.length ? servedPosition(id, ds.map((d) => toInertial(d.complex.normal, angle)), radius.get(id)!) : bases.get(id)!;
       const r0 = cur.length();
       const r1 = target.length();
       const dir = cur.clone().normalize();
@@ -323,14 +332,12 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       mesh.instanceMatrix.needsUpdate = true;
     }
 
-    // 3. beams: straight dish-to-spacecraft lines; arrays use one beam from the first dish of the array
+    // 3. beams: straight dish-to-spacecraft lines; an array draws one beam per complex it uses
     const debugBeams: unknown[] = [];
     let si = 0;
     let di = 0;
     slotRequest.current = [];
-    for (const r of rows) {
-      const d = dishOf.get(r.antennas[0]);
-      if (!d) continue;
+    for (const r of rows) for (const d of servingDishes(r)) {
       const nrm = toInertial(d.complex.normal, angle);
       const dishPos = toInertial(d.pos, angle);
       const from = dishPos.clone().add(nrm.multiplyScalar(0.03));
@@ -366,6 +373,7 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
         request: r.request_id,
         mission: r.mission,
         antennas: r.antennas,
+        complex: d.complex.id,
         from: from.toArray(),
         to: to.toArray(),
         fromRadius: from.length(),

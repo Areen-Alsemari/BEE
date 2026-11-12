@@ -41,3 +41,11 @@ data/raw/maintenance.csv
 web/test-results/
 web/playwright-report/
 .claude/
+
+# Screenshots: only the final sets are tracked
+docs/screenshots/*
+!docs/screenshots/light_redesign/
+docs/screenshots/light_redesign/*
+!docs/screenshots/light_redesign/after/
+!docs/screenshots/light_redesign/round3/
+!docs/screenshots/pages_2_3/

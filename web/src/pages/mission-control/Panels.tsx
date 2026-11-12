@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useLab } from "../../store/useLabStore";
 import { HEURISTIC_RULES, PRIMARY_METHODS, seriesTextColor, type HeuristicRule, type MethodId } from "../../config/theme";
 import { MethodGlyph } from "../../components/MethodGlyph";
-import { WEEKS, type GapsFile, type PairedFile, type RunRow, type Schedule, type SeriesSummary, type WeekId, type Windows } from "../../data/types";
+import { WEEKS, type ComplexesFile, type GapsFile, type PairedFile, type RunRow, type Schedule, type SeriesSummary, type WeekId, type Windows } from "../../data/types";
 import { ConfirmMarker, EvidenceBadge, evidenceFromStage } from "../../components/EvidenceBadge";
 import { MetricCard } from "../../components/MetricCard";
 import { Pending } from "../../components/States";
@@ -293,18 +293,29 @@ export function MetricsPanel({
 // ------------------------------------------------------------ request detail
 export function DetailCard({
   windows,
+  complexes,
   scheduleA,
   scheduleB,
   labelA,
   labelB,
 }: {
   windows: Windows;
+  complexes: ComplexesFile;
   scheduleA: Schedule | null;
   scheduleB: Schedule | null;
   labelA: string;
   labelB: string;
 }) {
   const id = useLab((s) => s.selectedRequestId);
+  const complexNames = (antennas: string[]) => {
+    const names: string[] = [];
+    for (const a of antennas) {
+      const cid = complexes.antennas.find((x) => x.id === a)?.complex;
+      const name = complexes.complexes.find((c) => c.id === cid)?.name;
+      if (name && !names.includes(name)) names.push(name);
+    }
+    return names;
+  };
   const set = useLab((s) => s.set);
   if (!id) return <div className="panel p-3 text-xs text-muted">Click a request in the timeline, a beam, a spacecraft or the unscheduled list to see its details.</div>;
   const req = windows.requestById.get(id);
@@ -354,7 +365,14 @@ export function DetailCard({
             {row && (
               <dl className="mt-1 grid grid-cols-[110px_1fr] gap-x-2 gap-y-0.5">
                 <dt className="text-muted">Antenna</dt>
-                <dd>{row.antennas.join(" + ")}{row.antennas.length > 1 ? " (array)" : ""}</dd>
+                <dd>
+                  {row.antennas.join(" + ")}
+                  {row.antennas.length > 1 && (
+                    <span className="block text-muted" data-testid="array-note">
+                      {complexNames(row.antennas).length > 1 ? `array spans ${complexNames(row.antennas).join(" + ")}` : `array at ${complexNames(row.antennas)[0]}`}
+                    </span>
+                  )}
+                </dd>
                 <dt className="text-muted">Start</dt>
                 <dd className="num">{fmtTime(row.start)}</dd>
                 <dt className="text-muted">End</dt>

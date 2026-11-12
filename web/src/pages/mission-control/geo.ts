@@ -20,17 +20,6 @@ export function gmst(epochSeconds: number): number {
 
 export const toInertial = (v: THREE.Vector3, angle: number) => v.clone().applyAxisAngle(Y, angle);
 
-/** Approximate direction of the Sun in the scene frame (subsolar point; lighting only). */
-export function sunDirection(epochSeconds: number): THREE.Vector3 {
-  const d = new Date(epochSeconds * 1000);
-  const start = Date.UTC(d.getUTCFullYear(), 0, 0);
-  const day = (d.getTime() - start) / 86400000;
-  const decl = -23.44 * Math.cos(((2 * Math.PI) / 365) * (day + 10));
-  const hours = d.getUTCHours() + d.getUTCMinutes() / 60;
-  const lon = -15 * (hours - 12);
-  return toInertial(latLonToVec3(decl, lon, 1), gmst(epochSeconds)).normalize();
-}
-
 export const SC_R_MIN = 1.75;
 export const SC_R_MAX = 2.6;
 
@@ -60,16 +49,22 @@ function missionOffset(id: string): THREE.Vector3 {
 }
 
 /**
- * Illustrative position while a request is active: above the serving complex's horizon.
- * The direction stays within ~35 degrees of the local vertical, at the mission's own distance,
- * so the straight dish-to-spacecraft line never passes through the Earth (needs r*cos >= 1).
+ * Illustrative position while a request is active: above the horizon of every serving complex.
+ * One complex: within ~32 degrees of its local vertical (stable per-mission offset). An array that
+ * spans complexes: on the bisector of their verticals, no offset, distance raised so the spacecraft
+ * is above each horizon. No dish-to-spacecraft line passes through the Earth.
  */
-export function servedPosition(id: string, complexNormal: THREE.Vector3, radius: number): THREE.Vector3 {
-  const n = complexNormal.clone().normalize();
+export function servedPosition(id: string, normals: THREE.Vector3[], radius: number): THREE.Vector3 {
+  const n = normals.reduce((acc, v) => acc.add(v.clone().normalize()), new THREE.Vector3()).normalize();
+  if (normals.length > 1) {
+    // Cross-complex array: no offset; raise the distance so radius * cos(angle to each vertical) >= 1.12.
+    const minCos = Math.min(...normals.map((v) => v.clone().normalize().dot(n)));
+    return n.multiplyScalar(Math.max(radius, 1.12 / Math.max(minCos, 0.2)));
+  }
   const o = missionOffset(id);
   const tangent = o.sub(n.clone().multiplyScalar(o.dot(n)));
   if (tangent.lengthSq() < 1e-6) tangent.set(0, 1, 0);
-  tangent.normalize().multiplyScalar(0.62); // tan(~32 deg)
+  tangent.normalize().multiplyScalar(0.62);
   return n.add(tangent).normalize().multiplyScalar(radius);
 }
 

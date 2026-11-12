@@ -221,7 +221,7 @@ function MissionControlView({
             {sA && sB && (
               <CompareSummary scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} colorA={colorA} colorB={colorB} windows={windows.data} />
             )}
-            <DetailCard windows={windows.data} scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} />
+            <DetailCard windows={windows.data} complexes={complexes} scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} />
             <UnscheduledList windows={windows.data} schedule={sA} tag="A" label={labelA} />
             {sB && <UnscheduledList windows={windows.data} schedule={sB} tag="B" label={labelB} />}
           </>
