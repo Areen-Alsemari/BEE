@@ -9,6 +9,8 @@ import { Pending } from "../../components/States";
 import { Details, SpreadNote } from "../../components/PageChrome";
 import { fmtDuration, fmtMain, fmtMetric, fmtTime, methodLabel, METRIC_LABEL } from "../../lib/format";
 
+const fmtRaw = (m: string, v: number | null | undefined) => (v == null ? "" : m === "unmet_hours" ? v.toFixed(1) : v.toFixed(4));
+
 // ------------------------------------------------------------ controls
 function MethodPicker({
   label,
@@ -245,6 +247,7 @@ export function MetricsPanel({
                 large={!compact}
                 accent={m === "duration_fulfillment" ? seriesTextColor(method) : undefined}
                 context={series ? `this week's average ${fmtMain(m, series.per_week[week]?.mean[m])}` : undefined}
+                raw={series ? `${fmtRaw(m, series.per_week[week]?.mean[m])} ${fmtRaw(m, series.overall.mean[m])}` : undefined}
               />
             ))}
           </div>
@@ -252,7 +255,14 @@ export function MetricsPanel({
           <Details summary="More" testId={`more-${tag}`}>
             <div className="grid grid-cols-1 gap-1.5">
               {MORE_METRICS.map((m) => (
-                <MetricCard key={m} testId={`metric-${tag}-${m}`} label={METRIC_LABEL[m]} metricKey={m} value={run[m]} />
+                <MetricCard
+                  key={m}
+                  testId={`metric-${tag}-${m}`}
+                  label={METRIC_LABEL[m]}
+                  metricKey={m}
+                  value={run[m]}
+                  raw={series ? `${fmtRaw(m, series.per_week[week]?.mean[m])} ${fmtRaw(m, series.overall.mean[m])}` : undefined}
+                />
               ))}
             </div>
           </Details>

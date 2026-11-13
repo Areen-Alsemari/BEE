@@ -11,6 +11,7 @@ export function MetricCard({
   value,
   scale,
   context,
+  raw,
   badge,
   testId,
   accent,
@@ -21,6 +22,7 @@ export function MetricCard({
   value: number | null | undefined;
   scale?: ReactNode;
   context?: ReactNode;
+  raw?: ReactNode;
   badge?: ReactNode;
   testId?: string;
   accent?: string;
@@ -42,6 +44,7 @@ export function MetricCard({
           {fmtMain(metricKey, value)}
         </span>
         {context && <span className="text-xs text-muted">{context}</span>}
+        {raw && <span className="sr-only">{raw}</span>}
       </div>
       {scale && <div className="mt-1 text-xs leading-snug text-muted">{scale}</div>}
     </div>
