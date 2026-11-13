@@ -635,11 +635,6 @@ function WhatTheyShow({ summary, paired }: { summary: SummaryFile; paired: Paire
           </li>
         ))}
       </ul>
-      <div className="mt-3 rounded-md border border-dashed border-line-strong bg-sunken px-3 py-2 text-sm" data-testid="hypothesis">
-        <span className="mr-1 rounded border border-slate-400 bg-white px-1.5 text-xs font-semibold text-slate-800">an idea, not tested</span>
-        The learning methods may not have trained long enough, under this budget, to separate from each other or from the simple rules. The study did not test
-        longer training.
-      </div>
       <h3 className="mt-4 font-semibold text-fg">What these numbers can&apos;t tell you</h3>
       <ul className="mt-1 list-disc space-y-1 pl-5 text-sm" data-testid="cannot-show">
         <li>No ranking among the PPO-based methods: their differences are of the size of the seed spread, with n = 5 folds.</li>

@@ -698,10 +698,6 @@ function TracesShow({ params, thr }: { params: BeeParamsFile; thr: Thresholds })
               (max {sig(dg.term_max.contention_term)}). {dg.note}
             </p>
           </Details>
-          <div className="mt-3 rounded-md border border-dashed border-line-strong bg-sunken px-3 py-2 text-sm" data-testid="hypothesis">
-            <span className="mr-1 rounded border border-slate-400 bg-white px-1.5 text-xs font-semibold text-slate-800">an idea, not tested</span>
-            Competition is measured against each request&apos;s own starting level, which may keep the rise small.
-          </div>
         </div>
       </div>
     </Section>
