@@ -4,8 +4,13 @@ import { loadAblation, loadPaired, loadThresholds, useData, type Thresholds } fr
 import { Ready } from "../../components/States";
 import { EvidenceBadge, evidenceFromStage } from "../../components/EvidenceBadge";
 import { Num, f2, f4, f6, signedWords } from "../../components/Num";
+import { PageIntro } from "../../components/PageChrome";
 import { BRAND, METHOD_COLORS } from "../../config/theme";
+import { ABLATION_NAME } from "../../lib/format";
 import type { PairedFile } from "../../data/types";
+
+/** Plain name for a variant, with its code as a small secondary label. */
+const variantName = (id: string) => ABLATION_NAME[id] ?? id;
 
 type Stage = "screening" | "shortlist" | "confirmation";
 const STAGES: Stage[] = ["screening", "shortlist", "confirmation"];
@@ -113,16 +118,28 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
   const refIdx = ab.references.findIndex((r) => r.id === "A3");
   const a3ref = ab.references[refIdx];
 
+  const confirmedIds = ab.configurations.filter((c) => c.stages.confirmation.reached).map((c) => c.id);
+
   return (
     <>
       <header>
-        <h1 className="text-2xl font-semibold text-brand">Ablation Lab</h1>
-        <p className="mt-1 max-w-4xl text-fg-2">
-          The adaptive-threshold configuration study (A1 to A6) on the W40 validation week, and exactly what its evidence can and cannot support.
-        </p>
+        <h1 className="text-2xl font-semibold text-brand">Variants</h1>
+        <PageIntro tryThis="Click a variant to see how far it got in testing.">We tried six versions of the adaptive rule on one week, then kept one.</PageIntro>
       </header>
 
-      <section className="mt-4 rounded-xl border-2 border-warn-fg/40 bg-warn-bg p-5" data-testid="can-cannot" aria-labelledby="cc-h">
+      <Section id="overview" title="What we found" kicker="Most variants only had a short trial, so these numbers cannot say which signal matters." badge={<StageBadge stage="confirmation" ab={ab} />}>
+        <VariantChart ab={ab} />
+        <p className="mt-2 text-sm text-fg-2" data-num-scope>
+          {confirmedIds.length >= 2
+            ? `At the final trial, ${variantName(confirmedIds[0])} and ${variantName(confirmedIds[1])} scored about the same.`
+            : "Only one variant reached the final trial."}
+        </p>
+      </Section>
+
+      <details open className="mt-5">
+        <summary className="panel cursor-pointer p-4 text-sm font-medium text-brand">Show every variant and how it was tested</summary>
+
+      <section className="mt-3 rounded-xl border-2 border-warn-fg/40 bg-warn-bg p-5" data-testid="can-cannot" aria-labelledby="cc-h">
         <h2 id="cc-h" className="text-lg font-semibold text-fg">
           What this ablation can and cannot support
         </h2>
@@ -151,11 +168,7 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
         <p className="mt-2 text-xs text-fg-2">{ab.evidence_note}</p>
       </section>
 
-      <Section
-        id="matrix"
-        title="Components and configurations"
-        kicker="Component flags are read from ablation.json. Click a configuration column, or switch components on and off; combinations that were not run are marked as such."
-      >
+      <Section id="matrix" title="Signals used by each variant" kicker="Click a variant, or switch signals on and off to see which variant that combination is.">
         <div className="flex flex-wrap items-center gap-4" role="group" aria-label="Component toggles">
           {COMPONENT_ROWS.map((r) =>
             r.k === "strength" ? (
@@ -256,16 +269,12 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
         </div>
       </Section>
 
-      <Section
-        id="detail"
-        title={`${cfg.id}: ${cfg.components_label}`}
-        kicker="Metrics for each stage this configuration reached, with differences against the chosen reference at the same stage. All differences are read from ablation.json."
-      >
-        <div className="flex flex-wrap items-center gap-3" role="radiogroup" aria-label="Reference">
-          <span className="text-xs font-semibold uppercase tracking-wider text-muted">Reference</span>
+      <Section id="detail" title={variantName(cfg.id)} kicker="Numbers for each trial stage this variant reached, compared against the version you pick below.">
+        <div className="flex flex-wrap items-center gap-3" role="radiogroup" aria-label="Compare against">
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted">Compare against</span>
           {ab.references.map((r) => (
             <button key={r.id} type="button" role="radio" aria-checked={ref === r.id} className={`btn ${ref === r.id ? "btn-on" : ""}`} onClick={() => setRef(r.id)} data-testid={`ref-${r.id}`}>
-              {r.id}
+              {r.id === "A6" ? "Chosen version" : "Contention-only version"}
             </button>
           ))}
           <span className="max-w-3xl text-sm text-fg-2" data-testid="ref-label">
@@ -427,7 +436,73 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
           </div>
         </div>
       </Section>
+      </details>
     </>
+  );
+}
+
+const STAGE_FILL: Record<Stage, string> = { screening: "#b45309", shortlist: "#a16207", confirmation: "#0369a1" };
+/** Short chart-axis labels (full names are in the tooltip and the Compare-against section). */
+const CHART_LABEL: Record<string, string> = {
+  A1: "all signals",
+  A2: "scarcity only",
+  A3: "contention only",
+  A4: "unmet only",
+  A5: "all, weaker",
+  A6: "under pressure",
+};
+
+function VariantChart({ ab }: { ab: Ablation }) {
+  const W = 760;
+  const H = 260;
+  const m = { l: 56, r: 12, t: 12, b: 40 };
+  const x0 = d3.scaleBand<string>().domain(ab.configurations.map((c) => c.id)).range([m.l, W - m.r]).padding(0.25);
+  const x1 = d3.scaleBand<string>().domain(STAGES).range([0, x0.bandwidth()]).padding(0.12);
+  const y = d3.scaleLinear().domain([0, 0.7]).range([H - m.b, m.t]);
+  return (
+    <div>
+      <svg width={W} height={H} role="img" aria-label="Requested time delivered per variant, by trial stage" className="max-w-full" data-num-scope>
+        {y.ticks(5).map((t) => (
+          <g key={t}>
+            <line x1={m.l} x2={W - m.r} y1={y(t)} y2={y(t)} stroke="#e1e7f1" />
+            <text x={m.l - 8} y={y(t) + 4} fontSize={11} textAnchor="end" fill="#4a5675">
+              {Math.round(t * 100)}%
+            </text>
+          </g>
+        ))}
+        {ab.configurations.map((c) =>
+          STAGES.map((s) => {
+            const st = c.stages[s];
+            if (!st.reached) return null;
+            const v = st.metrics!.duration_fulfillment;
+            return (
+              <rect key={`${c.id}-${s}`} x={x0(c.id)! + x1(s)!} width={x1.bandwidth()} y={y(v)} height={y(0) - y(v)} fill={STAGE_FILL[s]}>
+                <title>{`${variantName(c.id)} (${c.id}), ${ab.stage_badges[s]}: ${(v * 100).toFixed(1)}%`}</title>
+              </rect>
+            );
+          }),
+        )}
+        {ab.configurations.map((c) => (
+          <g key={c.id}>
+            <text x={x0(c.id)! + x0.bandwidth() / 2} y={H - m.b + 16} fontSize={12} textAnchor="middle" fill="#2b3756">
+              {c.id}
+            </text>
+            <text x={x0(c.id)! + x0.bandwidth() / 2} y={H - m.b + 29} fontSize={9} textAnchor="middle" fill="#4a5675">
+              {CHART_LABEL[c.id] ?? c.id}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <div className="mt-1 flex flex-wrap items-center gap-3 text-xs">
+        {STAGES.map((s) => (
+          <span key={s} className="flex items-center gap-1.5">
+            <span className="inline-block h-3 w-3" style={{ background: STAGE_FILL[s] }} />
+            {ab.stage_badges[s]}
+          </span>
+        ))}
+      </div>
+      <p className="mt-1 text-xs text-muted">Taller bars delivered more. Missing bars mean that stage was not run.</p>
+    </div>
   );
 }
 
