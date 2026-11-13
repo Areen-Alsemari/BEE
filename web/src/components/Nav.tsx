@@ -3,12 +3,12 @@ import { Logo } from "./Logo";
 import { useLab } from "../store/useLabStore";
 
 const LINKS = [
-  { to: "/mission-control", label: "Mission Control" },
-  { to: "/bee-lab", label: "BEE Mechanism" },
-  { to: "/ablation", label: "Ablation" },
+  { to: "/mission-control", label: "Explore a week" },
+  { to: "/bee-lab", label: "How BEE works" },
+  { to: "/ablation", label: "Variants" },
   { to: "/results", label: "Results" },
-  { to: "/tour", label: "Guided Tour" },
-  { to: "/protocol", label: "Protocol" },
+  { to: "/tour", label: "Tour" },
+  { to: "/protocol", label: "Method" },
 ];
 
 export function Nav() {
@@ -20,7 +20,7 @@ export function Nav() {
         <Logo size="sm" />
         <span className="leading-tight">
           <span className="block text-sm font-semibold tracking-wide text-brand">BEE Virtual Lab</span>
-          <span className="block text-2xs text-muted">Ground-station scheduling study</span>
+          <span className="block text-2xs text-muted">Antenna scheduling study</span>
         </span>
       </NavLink>
       <nav aria-label="Main" className="ml-4 flex items-center gap-1">
@@ -45,7 +45,7 @@ export function Nav() {
         aria-controls="how-to-read"
         onClick={() => set({ howToReadOpen: !open })}
       >
-        How to read this
+        Help
       </button>
     </header>
   );

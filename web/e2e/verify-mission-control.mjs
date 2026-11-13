@@ -275,7 +275,7 @@ for (const viewport of [
       await page.screenshot({ path: join(OUT, `${tag}_07_colourblind_${type}_compare.png`) });
     }
     await cdp.send("Emulation.setEmulatedVisionDeficiency", { type: "none" });
-    await page.click("text=How to read this");
+    await page.click("text=Help");
     await page.waitForTimeout(500);
     for (const type of ["none", "deuteranopia", "protanopia", "tritanopia"]) {
       await cdp.send("Emulation.setEmulatedVisionDeficiency", { type });

@@ -13,72 +13,73 @@ export type EvidenceKind =
   | "recorded"
   | "config";
 
+/** Plain labels per docs/COPY_DECK.md section 1.4. The tooltip carries the exact stage; raw stage
+ * names never need to appear in the main view. */
 const STYLE: Record<EvidenceKind, { label: string; cls: string; title: string }> = {
   screening: {
-    label: "screening (1,024 steps)",
+    label: "short trial",
     cls: "border-amber-300 bg-amber-50 text-amber-900",
-    title: "Configuration screening: 1,024 training steps, one training seed, W40 only. Supports shortlisting only.",
+    title: "Trial on week 40 only, 1,024 training steps, one training run. Good for shortlisting, not for conclusions.",
   },
   shortlist: {
-    label: "shortlist (5,120)",
+    label: "longer trial",
     cls: "border-yellow-300 bg-yellow-50 text-yellow-900",
-    title: "Shortlist stage: 5,120 training steps, one training seed, W40 only.",
+    title: "Trial on week 40 only, 5,120 training steps, one training run.",
   },
   confirmation: {
-    label: "confirmation (10,240)",
+    label: "final trial",
     cls: "border-sky-300 bg-sky-50 text-sky-900",
-    title: "Confirmation stage: 10,240 training steps, three training seeds, W40 only.",
+    title: "Trial on week 40 only, 10,240 training steps, three training runs.",
   },
   cross_week: {
-    label: "full cross-week (25,088)",
+    label: "full test",
     cls: "border-emerald-300 bg-emerald-50 text-emerald-900",
-    title: "Five-fold cross-week evaluation with the full 25,088-step training budget.",
+    title: "All five test weeks, 25,088 training steps per model.",
   },
   recomputed: {
-    label: "recomputed from schedules",
+    label: "rebuilt from schedules",
     cls: "border-teal-300 bg-teal-50 text-teal-900",
-    title:
-      "Per-evaluation-seed values recomputed from the saved schedules with the shared_v2 validator and metric code; matched the reported seed-averaged values (max difference 1.1e-13).",
+    title: "Rebuilt from the saved schedules with the shared scoring code. Matches the team's own totals to within 1.1e-13.",
   },
   supplementary: {
-    label: "supplementary",
+    label: "extra runs",
     cls: "border-line-strong bg-sunken text-fg",
-    title: "Extra runs outside the protocol comparison. Shown for context only.",
+    title: "Runs outside the main comparison, shown for context only.",
   },
   pending: {
-    label: "pending data",
+    label: "not available yet",
     cls: "border-line-strong border-dashed bg-transparent text-muted",
-    title: "Data not yet available. See the Protocol page for the list of gaps.",
+    title: "This value is missing from the data. See the Method page.",
   },
   heuristic: {
-    label: "heuristic (no training)",
+    label: "simple rule",
     cls: "border-stone-300 bg-stone-50 text-stone-800",
-    title: "Non-learning rule; evaluated on the five evaluation seeds of every week.",
+    title: "A fixed rule with no training, run on the same five test weeks.",
   },
   illustrative: {
     label: "illustrative",
     cls: "border-violet-300 bg-violet-50 text-violet-900",
-    title: "Visual placement only; not derived from data.",
+    title: "Placement for the picture only. Not from the data.",
   },
   whatif: {
-    label: "what-if, computed from the equations",
+    label: "try it",
     cls: "border-slate-400 bg-slate-50 text-slate-800 border-dashed",
-    title: "Computed in your browser from the equations in the code, with inputs you choose. Not a result of the study.",
+    title: "Computed in your browser from the code's formulas, with inputs you choose. Not a result.",
   },
   config: {
-    label: "configuration record",
+    label: "settings",
     cls: "border-indigo-300 bg-indigo-50 text-indigo-900",
-    title: "Value from the exported configuration and protocol files, not a result.",
+    title: "Taken from the team's settings files, not a result.",
   },
   recorded: {
-    label: "recorded trace value",
+    label: "recorded",
     cls: "border-emerald-300 bg-emerald-50 text-emerald-900",
-    title: "Value exactly as recorded in the exported threshold trace of a cross-week run.",
+    title: "Value as saved during a test run.",
   },
   needs_confirmation: {
-    label: "awaiting owner confirmation",
+    label: "open question",
     cls: "border-orange-300 bg-orange-50 text-orange-900",
-    title: "Recorded in the source files but not yet confirmed by its owner.",
+    title: "Recorded in the team's files but not yet confirmed. See the Method page.",
   },
 };
 
@@ -104,15 +105,20 @@ export function EvidenceBadge({ kind, label, className = "" }: { kind: EvidenceK
   );
 }
 
-/** Small marker for items on the "needs confirmation by owner" list (N1-N3). */
+/**
+ * Plain link for an item on the "awaiting owner confirmation" list (N1-N4). Shows "Open question";
+ * the raw id and the full text are in the tooltip only, per docs/COPY_DECK.md section 1.5.
+ * Links to the Method (Protocol) page's open-questions section.
+ */
 export function ConfirmMarker({ id, text }: { id: string; text: string }) {
   return (
-    <span
+    <a
+      href="#/protocol"
       title={`${id}: ${text}`}
       data-confirm={id}
-      className="ml-1 inline-flex h-4 items-center rounded border border-orange-400 bg-orange-50 px-1 text-[11px] font-semibold text-orange-900"
+      className="ml-1 inline-flex items-center rounded border border-orange-400 bg-orange-50 px-1.5 py-[1px] text-[11px] font-medium text-orange-900 underline-offset-2 hover:underline"
     >
-      {id}
-    </span>
+      Open question
+    </a>
   );
 }

@@ -89,7 +89,7 @@ for (const [name, hash] of PAGES) {
   }
 }
 await page.goto(`${BASE}/#/mission-control`, { waitUntil: "networkidle" });
-await page.click("text=How to read this");
+await page.click("text=Help");
 await page.waitForTimeout(500);
 const htr = await page.locator("#how-to-read").evaluate((el) => [...el.querySelectorAll("h2,h3,li,p,span[data-evidence]")].map((e) => ({ tag: e.tagName.toLowerCase(), text: e.textContent.replace(/\s+/g, " ").trim() })));
 for (const b of htr) out.push({ page: "How to read this (panel)", section: "panel", ...b, words: b.text.split(/\s+/).length });
