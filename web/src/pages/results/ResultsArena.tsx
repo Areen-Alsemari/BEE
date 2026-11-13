@@ -36,7 +36,7 @@ const SERIES: Series[] = [
   { sid: "plain_ppo", method: "plain_ppo", label: "Plain PPO", secondary: false },
   { sid: "fixed_bee", method: "fixed_bee", label: "Fixed BEE (F2)", secondary: false },
   { sid: "adaptive_bee", method: "adaptive_bee", label: "Adaptive BEE (A6)", secondary: false },
-  { sid: "adaptive_a3_first_pass", method: "adaptive_a3_first_pass", label: "First-pass A3 (secondary)", secondary: true },
+  { sid: "adaptive_a3_first_pass", method: "adaptive_a3_first_pass", label: "Earlier adaptive BEE (A3, secondary)", secondary: true },
 ];
 const SER = Object.fromEntries(SERIES.map((s) => [s.sid, s]));
 const PPO_SIDS = ["plain_ppo", "fixed_bee", "adaptive_bee"];

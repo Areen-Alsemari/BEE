@@ -4,7 +4,9 @@ import type { ReactNode } from "react";
 export function PageIntro({ children, tryThis }: { children: ReactNode; tryThis?: string }) {
   return (
     <header>
-      <p className="max-w-2xl text-fg-2">{children}</p>
+      <p className="max-w-2xl text-fg-2" data-testid="page-intro">
+        {children}
+      </p>
       {tryThis && (
         <p className="mt-1 text-sm text-brand-2">
           <span className="font-medium">Try this:</span> {tryThis}
