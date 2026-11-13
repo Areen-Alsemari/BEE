@@ -180,8 +180,8 @@ for (const viewport of [
   const rid = await bar.getAttribute("data-request");
   await bar.click({ force: true });
   await page.waitForTimeout(300);
-  check(`${tag}: clicking a timeline request opens its detail card`, (await page.locator('[data-testid="detail-card"] h2').textContent()).includes(rid), rid, "i");
-  await page.click('[data-testid="detail-card"] button:has-text("Jump to start")');
+  check(`${tag}: clicking a timeline request opens its detail card`, (await page.locator('[data-testid="detail-card"]').textContent()).includes(rid), rid, "i");
+  await page.click('[data-testid="detail-card"] button:has-text("Go to start")');
   await waitSettled(page);
   await page.screenshot({ path: join(OUT, `${tag}_04_selected_request.png`) });
 

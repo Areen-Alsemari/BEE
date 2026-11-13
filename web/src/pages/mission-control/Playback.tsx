@@ -90,7 +90,7 @@ export function Playback({ span }: { span: [number, number] }) {
       <span className="num w-[170px] text-right text-xs text-fg" data-testid="current-time">
         {fmtTime(t)}
       </span>
-      <span className="hidden text-2xs text-muted xl:inline">wheel: zoom · shift+drag: pan · space: play</span>
+      <span className="hidden text-2xs text-muted xl:inline">Scroll to zoom · Shift-drag to move · Space to play</span>
     </div>
   );
 }

@@ -15,6 +15,7 @@ import {
 import { ErrorState, Loading, Pending, Ready } from "../../components/States";
 import { seriesColor } from "../../config/theme";
 import { methodLabel } from "../../lib/format";
+import { PageIntro } from "../../components/PageChrome";
 import { Scene } from "./Scene";
 import { Timeline } from "./Timeline";
 import { Playback } from "./Playback";
@@ -99,8 +100,8 @@ function MissionControlView({
   const seedInfo = (seed: number) => {
     const r = findRun(runs.rows, { ...specA, trainingSeed: seed });
     const hasSched = !!findScheduleEntry(index.files, { ...specA, trainingSeed: seed });
-    if (r && !r.protocol) return "(supplementary)";
-    if (!hasSched) return "(metrics only)";
+    if (r && !r.protocol) return "(extra)";
+    if (!hasSched) return "(numbers only)";
     return "";
   };
 
@@ -112,7 +113,11 @@ function MissionControlView({
   if (windows.status === "error") return <ErrorState error={windows.error} />;
 
   return (
-    <div className="grid h-full min-h-0 grid-cols-[240px_minmax(0,1fr)_340px] gap-3 p-3 2xl:grid-cols-[260px_minmax(0,1fr)_380px]" data-testid="mission-control">
+    <div className="flex h-full min-h-0 flex-col gap-2 p-3" data-testid="mission-control">
+      <PageIntro tryThis="Press Play, then click a coloured bar to find its spacecraft.">
+        Watch one week of antenna bookings, request by request.
+      </PageIntro>
+      <div className="grid min-h-0 flex-1 grid-cols-[240px_minmax(0,1fr)_340px] gap-3 2xl:grid-cols-[260px_minmax(0,1fr)_380px]">
       <Controls seedsA={seedsA} seedInfo={seedInfo} evalSeeds={evalSeeds} />
 
       <div className="flex min-h-0 flex-col gap-2">
@@ -136,7 +141,7 @@ function MissionControlView({
                 />
               ) : (
                 <div className="panel flex items-center justify-center p-6">
-                  <Pending>Schedule not exported for training seed {st.trainingSeed} on {week}; this seed is available as metrics only.</Pending>
+                  <Pending>No schedule saved for this run. Numbers only.</Pending>
                 </div>
               )}
               {st.compareMode &&
@@ -154,7 +159,7 @@ function MissionControlView({
                   />
                 ) : (
                   <div className="panel flex items-center justify-center p-6">
-                    <Pending>No exported schedule for {labelB} with training seed {st.trainingSeed} on {week}.</Pending>
+                    <Pending>No schedule saved for {labelB} on this run.</Pending>
                   </div>
                 ))}
             </div>
@@ -227,6 +232,7 @@ function MissionControlView({
           </>
         )}
       </div>
+      </div>
     </div>
   );
 }
@@ -249,7 +255,7 @@ function ViewBar() {
           {p.label}
         </button>
       ))}
-      {preset === "free" && <span className="text-xs text-muted">Free camera (drag to orbit, wheel to zoom)</span>}
+      {preset === "free" && <span className="text-xs text-muted">Drag to look around, scroll to zoom</span>}
     </div>
   );
 }

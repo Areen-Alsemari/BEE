@@ -648,7 +648,7 @@ function ActiveCount({ schedule }: { schedule: Schedule | null }) {
   const n = activeRows(schedule, t).length;
   return (
     <span data-testid="active-links" data-value={n}>
-      Active links: <span className="num">{n}</span>
+      <span className="num">{n}</span> links now
     </span>
   );
 }
@@ -713,15 +713,12 @@ export function Scene(props: SceneProps) {
         <ActiveCount schedule={props.schedule} />
       </div>
       <div ref={(d) => void (overlay.current.chrome[2] = d)} className="pointer-events-none absolute bottom-3 left-3 right-3 flex flex-wrap items-end justify-between gap-2">
-        <div className="chip flex items-center gap-2">
+        <div className="chip flex items-center gap-2" title={`Spacecraft shapes: ${VARIANTS.map((v) => VARIANT_LABEL[v]).join(", ")}`}>
           <EvidenceBadge kind="illustrative" />
-          <span data-testid="illustrative-label">Spacecraft positions illustrative; schedule data is real</span>
+          <span data-testid="illustrative-label">Spacecraft positions are illustrative. Times, antennas and missions are real.</span>
         </div>
-        <div className="chip flex items-center gap-3">
-          <span className="flex items-center gap-1">
-            <span className="inline-block h-2.5 w-2.5 rounded-full border-2" style={{ borderColor: DANGER }} /> unscheduled, in window
-          </span>
-          <span className="hidden 2xl:inline">Shapes: {VARIANTS.map((v) => VARIANT_LABEL[v]).join(", ")} (illustrative)</span>
+        <div className="chip flex items-center gap-1">
+          <span className="inline-block h-2.5 w-2.5 rounded-full border-2" style={{ borderColor: DANGER }} /> waiting, not booked
         </div>
       </div>
     </div>
