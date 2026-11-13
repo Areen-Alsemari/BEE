@@ -6,6 +6,7 @@ import { Num } from "../../components/Num";
 import { tracePath } from "../../lib/download";
 import { TEAM } from "../../config/team";
 import { InlineMd } from "../../components/InlineMd";
+import { PageIntro } from "../../components/PageChrome";
 import type { GapsFile, ProtocolFile } from "../../data/types";
 import type { BeeParamsFile } from "../../lib/beeMath";
 
@@ -75,11 +76,11 @@ function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParam
   return (
     <>
       <header>
-        <h1 className="text-2xl font-semibold text-brand">Protocol and reproducibility</h1>
-        <p className="mt-1 max-w-4xl text-fg-2">How the study was run, where every number comes from, and how to rebuild the lab. Items still awaiting their owner&apos;s confirmation are marked.</p>
+        <h1 className="text-2xl font-semibold text-brand">Method</h1>
+        <PageIntro>How the study was run and where every number comes from, so anyone can rebuild it. Open questions are marked.</PageIntro>
       </header>
 
-      <Section id="selection" title="Selection rule">
+      <Section id="selection" title="How each method's settings were chosen">
         <p>
           Each method&apos;s configuration is selected on the validation week {String(sel.adaptive_bee.validation_week).slice(0, 3)} only and frozen before cross-week testing on
           the five test weeks.
@@ -106,7 +107,7 @@ function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParam
         </ul>
       </Section>
 
-      <Section id="budget" title="Shared PPO configuration, reward and budget">
+      <Section id="budget" title="Training settings and budget">
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <table className="w-full text-sm">
             <caption className="text-left text-xs text-muted">PPO parameters (shared by every PPO-based method)</caption>
@@ -163,7 +164,7 @@ function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParam
         </div>
       </Section>
 
-      <Section id="seeds" title="Seeds, coverage and aggregation">
+      <Section id="seeds" title="Random seeds and how numbers are averaged">
         <ul className="list-disc space-y-1.5 pl-5">
           <li>
             Evaluation seeds (every method, every week):{" "}
@@ -226,8 +227,8 @@ function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParam
         </ul>
       </Section>
 
-      <Section id="confirm" title="Awaiting owner confirmation" badge={<EvidenceBadge kind="needs_confirmation" />} scope={false}>
-        <p className="text-fg-2">Recorded in the source files but not yet confirmed by their owners. None of these is presented as a verified fact anywhere in the lab.</p>
+      <Section id="confirm" title="Open questions" badge={<EvidenceBadge kind="needs_confirmation" />} scope={false}>
+        <p className="text-fg-2">Recorded in the source files but not yet confirmed by their owners. None of these is treated as settled anywhere in the lab.</p>
         <table className="mt-2 w-full text-sm" data-testid="confirm-table">
           <thead>
             <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-muted">
@@ -253,7 +254,7 @@ function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParam
         <p className="mt-2 text-xs text-muted">Owner names are placeholders from config/team.ts{TEAM.placeholder ? " (not yet filled in)" : ""}.</p>
       </Section>
 
-      <Section id="gaps" title="Open data gaps" badge={<EvidenceBadge kind="pending" />} scope={false}>
+      <Section id="gaps" title="Missing data" badge={<EvidenceBadge kind="pending" />} scope={false}>
         <ul className="list-disc space-y-1.5 pl-5" data-testid="open-gaps">
           {gaps.open.map((r) => (
             <li key={r.id}>
