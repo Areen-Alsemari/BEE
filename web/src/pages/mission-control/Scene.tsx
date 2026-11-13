@@ -6,7 +6,6 @@ import type { Line2, OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useLab } from "../../store/useLabStore";
 import type { ComplexesFile, Schedule, ScheduleRow, Windows } from "../../data/types";
 import { BRAND, missionShade } from "../../config/theme";
-import { EvidenceBadge } from "../../components/EvidenceBadge";
 import { fmtTime } from "../../lib/format";
 import { EARTH_R, SC_R_MAX, SC_R_MIN, basePositions, gmst, latLonToVec3, segmentHitsSphere, servedPosition, toInertial } from "./geo";
 import { earthTexture } from "./earthTexture";
@@ -26,7 +25,7 @@ export interface SceneProps {
 }
 
 const FOV = 40;
-const EARTH_FRACTION = 0.38; // Earth diameter as a share of the scene's shorter side (Whole system view)
+const EARTH_FRACTION = 0.38;
 const SC_SCALE = 0.26;
 const DISH_RING = 0.075;
 const BEAM_POOL = 16;
@@ -54,7 +53,6 @@ function buildComplexGeo(complexes: ComplexesFile): ComplexGeo[] {
   });
 }
 
-// ------------------------------------------------------------------ Earth, dishes, atmosphere
 const Earth = memo(function Earth({ geo, onPickComplex }: { geo: ComplexGeo[]; onPickComplex: (id: string) => void }) {
   const group = useRef<THREE.Group>(null);
   const tex = useMemo(() => earthTexture(), []);
@@ -133,10 +131,6 @@ function DistanceRings() {
   );
 }
 
-/**
- * Key light kept at the viewer's upper left for legibility: the side facing the camera is lit and
- * the right limb is shaded. This lighting is not the Sun. Earth's rotation is real (sidereal).
- */
 function KeyLight() {
   const light = useRef<THREE.DirectionalLight>(null);
   const tmp = useMemo(() => ({ right: new THREE.Vector3(), up: new THREE.Vector3() }), []);
@@ -149,7 +143,6 @@ function KeyLight() {
   return <directionalLight ref={light} intensity={1.6} color="#ffffff" />;
 }
 
-// ------------------------------------------------------------------ spacecraft (instanced per variant part)
 const ROLE_COLOR: Record<Exclude<PartRole, "trim">, string> = { body: "#eef1f6", panel: "#2b4a86", dark: "#3a4256" };
 type PartMesh = { mesh: THREE.InstancedMesh; local: THREE.Matrix4; missions: string[] };
 
@@ -215,9 +208,8 @@ function SpacecraftFleet({
   );
 }
 
-// ------------------------------------------------------------------ frame loop
 interface Overlay {
-  chrome: (HTMLDivElement | null)[]; // top-left, top-right, bottom overlay chips: labels keep clear of them
+  chrome: (HTMLDivElement | null)[];
   complexLabels: (HTMLDivElement | null)[];
   leaders: (SVGLineElement | null)[];
   scLabels: (HTMLDivElement | null)[];
@@ -245,7 +237,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
     for (const c of geo) for (const d of c.dishes) m.set(d.antenna, { complex: c, pos: d.pos });
     return m;
   }, [geo]);
-  /** One dish per complex used by a request: single antennas and same-complex arrays give one, cross-complex arrays give one per complex. */
   const servingDishes = (r: ScheduleRow) => {
     const out: { complex: ComplexGeo; pos: THREE.Vector3 }[] = [];
     for (const a of r.antennas) {
@@ -297,7 +288,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
     const servedBy = new Map<string, ScheduleRow>();
     for (const r of rows) if (!servedBy.has(r.mission)) servedBy.set(r.mission, r);
 
-    // 1. spacecraft: damped (no teleporting) towards an above-horizon position while served, else the resting position
     const k = 1 - Math.exp(-Math.min(dt, 0.1) * 3.2);
     let maxErr = 0;
     for (const id of ids) {
@@ -319,7 +309,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       cur.copy(dir.multiplyScalar(r0 + (r1 - r0) * k));
     }
 
-    // 2. instanced spacecraft matrices, high-gain dish facing the Earth
     for (const { mesh, local, missions } of meshRefs.current.values()) {
       missions.forEach((id, i) => {
         tmpO.position.copy(sim.current.get(id)!);
@@ -332,7 +321,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       mesh.instanceMatrix.needsUpdate = true;
     }
 
-    // 3. beams: straight dish-to-spacecraft lines; an array draws one beam per complex it uses
     const debugBeams: unknown[] = [];
     let si = 0;
     let di = 0;
@@ -394,7 +382,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       }
     }
 
-    // 4. rings: unscheduled request inside its time window; selected request not active now
     const waiting: string[] = [];
     for (const id of unscheduled) {
       const r = windows.requestById.get(id);
@@ -422,7 +409,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       }
     }
 
-    // 5. camera presets (smoothly damped); orbiting by hand switches to "free"
     const aspect = size.width / Math.max(1, size.height);
     const shorter = Math.min(1, aspect);
     const sysDist = 1 / (EARTH_FRACTION * Math.tan(THREE.MathUtils.degToRad(FOV / 2)) * shorter);
@@ -463,7 +449,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       ctl.update();
     }
 
-    // 6. DOM overlay: complex labels with leader lines (overlap-free) and spacecraft labels
     const ov = overlay.current;
     const W = size.width;
     const Hh = size.height;
@@ -561,7 +546,6 @@ function SceneContent(props: SceneProps & { overlay: MutableRefObject<Overlay> }
       scDebug.push({ id: l.id, visible: !off, x: lx, y: ly, w, h });
     }
 
-    // 7. snapshot for automated checks
     const w = window as unknown as { __beeScene?: Record<string, unknown> };
     w.__beeScene = w.__beeScene ?? {};
     w.__beeScene[testId] = {
@@ -714,7 +698,6 @@ export function Scene(props: SceneProps) {
       </div>
       <div ref={(d) => void (overlay.current.chrome[2] = d)} className="pointer-events-none absolute bottom-3 left-3 right-3 flex flex-wrap items-end justify-between gap-2">
         <div className="chip flex items-center gap-2" title={`Spacecraft shapes: ${VARIANTS.map((v) => VARIANT_LABEL[v]).join(", ")}`}>
-          <EvidenceBadge kind="illustrative" />
           <span data-testid="illustrative-label">Spacecraft positions are illustrative. Times, antennas and missions are real.</span>
         </div>
         <div className="chip flex items-center gap-1">

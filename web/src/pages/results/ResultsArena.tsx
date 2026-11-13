@@ -1,15 +1,15 @@
 import * as d3 from "d3";
 import { Fragment, useMemo, useRef, useState, type ReactNode } from "react";
-import { loadGaps, loadPaired, loadSummary, useData } from "../../data/loaders";
+import { loadPaired, loadSummary, useData } from "../../data/loaders";
 import { Ready } from "../../components/States";
-import { ConfirmMarker, EvidenceBadge } from "../../components/EvidenceBadge";
+import { EvidenceBadge } from "../../components/EvidenceBadge";
 import { MethodGlyph } from "../../components/MethodGlyph";
 import { Num } from "../../components/Num";
 import { BRAND, HEURISTIC_RULES, METHOD_CUES, seriesColor, type HeuristicRule, type MarkerShape, type MethodId } from "../../config/theme";
 import { METRIC_LABEL, fmtMain, methodLabel } from "../../lib/format";
 import { PageIntro } from "../../components/PageChrome";
 import { downloadCsv, downloadPng, downloadSvg, tracePath } from "../../lib/download";
-import { WEEKS, type GapsFile, type Pair, type PairedFile, type SummaryFile, type WeekId } from "../../data/types";
+import { WEEKS, type Pair, type PairedFile, type SummaryFile, type WeekId } from "../../data/types";
 
 const METRICS = ["duration_fulfillment", "minimum_satisfaction_rate", "full_satisfaction_rate", "unmet_hours", "mission_fairness", "runtime_seconds"] as const;
 type Metric = (typeof METRICS)[number];
@@ -46,11 +46,10 @@ const P = "paired.json";
 export default function ResultsArena() {
   const summary = useData(loadSummary, []);
   const paired = useData(loadPaired, []);
-  const gaps = useData(loadGaps, []);
   return (
     <div className="mx-auto max-w-[1500px] px-6 pb-12 pt-5" data-testid="results-arena">
-      <Ready items={[summary, paired, gaps]} what="results">
-        {(s, p, g) => <Arena summary={s} paired={p} gaps={g} />}
+      <Ready items={[summary, paired]} what="results">
+        {(s, p) => <Arena summary={s} paired={p} />}
       </Ready>
     </div>
   );
@@ -86,19 +85,7 @@ function MetricPicker({ value, onChange, testId }: { value: Metric; onChange: (m
   );
 }
 
-function rowBadge(s: Series) {
-  if (s.method === "heuristics") return <EvidenceBadge kind="heuristic" />;
-  if (s.secondary) return <EvidenceBadge kind="supplementary" label="secondary: first pass" />;
-  return <EvidenceBadge kind="cross_week" />;
-}
-
-function confirmId(method: MethodId) {
-  return method === "fixed_bee" ? "N1" : method === "plain_ppo" ? "N2" : method === "heuristics" ? "N3" : null;
-}
-
-function Arena({ summary, paired, gaps }: { summary: SummaryFile; paired: PairedFile; gaps: GapsFile }) {
-  const gap = (id: string) => gaps.needs_confirmation.find((r) => (r.id ?? r["#"]) === id);
-  const n4 = gap("N4");
+function Arena({ summary, paired }: { summary: SummaryFile; paired: PairedFile }) {
   return (
     <>
       <header>
@@ -111,15 +98,14 @@ function Arena({ summary, paired, gaps }: { summary: SummaryFile; paired: Paired
       <TopFinding summary={summary} />
       <details open className="mt-5">
         <summary className="panel cursor-pointer p-4 text-sm font-medium text-brand">Show the table, paired comparisons and every sentence</summary>
-        <CrossWeekTable summary={summary} paired={paired} gap={gap} />
-        <PairedPanel paired={paired} n4={n4} />
-        <WhatTheyShow summary={summary} paired={paired} n4={n4} />
+        <CrossWeekTable summary={summary} paired={paired} />
+        <PairedPanel paired={paired} />
+        <WhatTheyShow summary={summary} paired={paired} />
       </details>
     </>
   );
 }
 
-// ------------------------------------------------------------------ one plain finding, up top
 function TopFinding({ summary }: { summary: SummaryFile }) {
   const m: Metric = "duration_fulfillment";
   const overall = (sid: string) => summary.series[sid].overall.mean[m]!;
@@ -131,14 +117,12 @@ function TopFinding({ summary }: { summary: SummaryFile }) {
         {top.label}
       </span>{" "}
       delivered the most requested time overall, at{" "}
-      <Num v={overall(top.sid)} trace={tracePath(S, "series", top.sid, "overall", "mean", m)} format={(v) => fmtMain(m, v)} className="font-semibold" />.{" "}
-      <EvidenceBadge kind={top.method === "heuristics" ? "heuristic" : "cross_week"} />
+      <Num v={overall(top.sid)} trace={tracePath(S, "series", top.sid, "overall", "mean", m)} format={(v) => fmtMain(m, v)} className="font-semibold" />.
     </p>
   );
 }
 
-// ------------------------------------------------------------------ (a) table
-function CrossWeekTable({ summary, paired, gap }: { summary: SummaryFile; paired: PairedFile; gap: (id: string) => Record<string, string> | undefined }) {
+function CrossWeekTable({ summary, paired }: { summary: SummaryFile; paired: PairedFile }) {
   const [metric, setMetric] = useState<Metric>("duration_fulfillment");
   const [sort, setSort] = useState<{ key: string; dir: 1 | -1 }>({ key: "overall", dir: -1 });
   const valueOf = (s: Series, key: string) => {
@@ -191,7 +175,7 @@ function CrossWeekTable({ summary, paired, gap }: { summary: SummaryFile; paired
         has the{" "}
         {LOWER_BETTER.has(metric) ? "lowest" : "highest"} overall value (
         <Num v={valueOf(best, "overall") as number} trace={tracePath(S, "series", best.sid, "overall", "mean", metric)} format={fmtM(metric)} />
-        ). <EvidenceBadge kind={best.method === "heuristics" ? "heuristic" : "cross_week"} />
+        ).
       </p>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[980px] text-sm" data-testid="cross-week-table">
@@ -210,20 +194,16 @@ function CrossWeekTable({ summary, paired, gap }: { summary: SummaryFile; paired
                   </button>
                 </th>
               ))}
-              <th className="px-2 text-left font-semibold">Evidence</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((s) => {
-              const cid = confirmId(s.method);
-              const g = cid ? gap(cid) : undefined;
               return (
                 <tr key={s.sid} className={`border-b border-line/60 ${s.sid === best.sid ? "bg-brand-tint/60" : ""}`} data-num-scope data-row={s.sid}>
                   <td className="py-1.5">
                     <span className="flex items-center gap-1.5">
                       <MethodGlyph method={s.method} rule={s.rule} />
                       <span className={s.secondary ? "italic" : ""}>{s.label}</span>
-                      {g && <ConfirmMarker id={cid!} text={g["What needs confirming"]} />}
                     </span>
                   </td>
                   {WEEKS.map((w) => (
@@ -240,12 +220,13 @@ function CrossWeekTable({ summary, paired, gap }: { summary: SummaryFile; paired
                   <td className="px-2 text-right text-fg-2">
                     <Num v={valueOf(s, "w50_sd") as number} trace={tracePath(P, "w50_seed_spread_by_metric", s.sid, "metrics", metric, "sd")} format={fmtM(metric)} />
                   </td>
-                  <td className="px-2">{rowBadge(s)}</td>
                 </tr>
               );
             })}
             <tr className="text-fg-2" data-num-scope>
-              <td className="py-1.5 italic">Fixed BEE, all training seeds on every fold</td>
+              <td className="py-1.5 italic">
+                Fixed BEE, all training seeds on every fold <EvidenceBadge kind="supplementary" className="ml-1" />
+              </td>
               {WEEKS.map((w) => (
                 <td key={w} className="px-2 text-right">
                   <Num v={supp.per_week[w].mean[metric]!} trace={tracePath(S, "supplementary", "fixed_bee_all_training_seeds", "per_week", w, "mean", metric)} format={fmtM(metric)} />
@@ -258,9 +239,6 @@ function CrossWeekTable({ summary, paired, gap }: { summary: SummaryFile; paired
                 <Num v={supp.overall.fold_sd[metric]!} trace={tracePath(S, "supplementary", "fixed_bee_all_training_seeds", "overall", "fold_sd", metric)} format={fmtM(metric)} />
               </td>
               <td />
-              <td className="px-2">
-                <EvidenceBadge kind="supplementary" />
-              </td>
             </tr>
           </tbody>
         </table>
@@ -273,7 +251,6 @@ function CrossWeekTable({ summary, paired, gap }: { summary: SummaryFile; paired
   );
 }
 
-// ------------------------------------------------------------------ (b) chart
 function marker(shape: MarkerShape, x: number, y: number, r: number, color: string, key?: string) {
   const common = { key, stroke: color, strokeWidth: 1.6 };
   switch (shape) {
@@ -398,8 +375,7 @@ function WeekChart({ summary, paired }: { summary: SummaryFile; paired: PairedFi
   );
 }
 
-// ------------------------------------------------------------------ (c) paired comparisons
-function PairStrip({ pair, group, index, metric, n4 }: { pair: Pair; group: string; index: number; metric: Metric; n4?: Record<string, string> }) {
+function PairStrip({ pair, group, index, metric }: { pair: Pair; group: string; index: number; metric: Metric }) {
   const pm = pair.metrics[metric];
   const sc = pair.scale.metrics[metric];
   const W = 620;
@@ -408,7 +384,6 @@ function PairStrip({ pair, group, index, metric, n4 }: { pair: Pair; group: stri
   const ext = Math.max(sc.band_half_width, ...pm.per_fold.map((f) => Math.abs(f.difference)), Math.abs(pm.bootstrap_95_interval[0]), Math.abs(pm.bootstrap_95_interval[1])) * 1.15;
   const x = d3.scaleLinear().domain([-ext, ext]).range([m.l, W - m.r]);
   const cy = 58;
-  // stagger fold labels that would overlap
   const labelRow: number[] = [];
   [...pm.per_fold.keys()]
     .sort((i, j) => pm.per_fold[i].difference - pm.per_fold[j].difference)
@@ -424,7 +399,6 @@ function PairStrip({ pair, group, index, metric, n4 }: { pair: Pair; group: stri
   const second = SER[pair.second];
   const fcol = seriesColor(first.method, first.rule);
   const base = [P, group, index, "metrics", metric] as const;
-  const isAF = new Set([pair.first, pair.second]).has("adaptive_bee") && new Set([pair.first, pair.second]).has("fixed_bee");
   const higherFolds = LOWER_BETTER.has(metric) ? pm.per_fold.length - pm.folds_first_better - pm.folds_equal : pm.folds_first_better;
   return (
     <div className="rounded-lg border border-line bg-sunken p-3" data-num-scope data-pair={`${group}/${index}`}>
@@ -434,7 +408,6 @@ function PairStrip({ pair, group, index, metric, n4 }: { pair: Pair; group: stri
         <span className="text-muted">minus</span>
         <MethodGlyph method={second.method} rule={second.rule} />
         <span className="font-semibold">{second.label}</span>
-        <EvidenceBadge kind={second.method === "heuristics" ? "heuristic" : "cross_week"} label={second.method === "heuristics" ? "compared on evaluation seeds only" : undefined} />
         {group === "supplementary_pairs" && second.method !== "heuristics" && <EvidenceBadge kind="supplementary" label="supplementary, suggestive" />}
       </div>
       <div className="mt-2 grid grid-cols-1 gap-3 xl:grid-cols-[620px_minmax(0,1fr)]">
@@ -486,19 +459,13 @@ function PairStrip({ pair, group, index, metric, n4 }: { pair: Pair; group: stri
               </span>
             ))}
           </div>
-          {isAF && n4 && (
-            <div className="mt-2 rounded-md border border-orange-300 bg-orange-50 px-2 py-1.5 text-xs text-orange-900" data-testid="pair-note-n4">
-              <ConfirmMarker id="N4" text={n4["What needs confirming"]} /> Not an isolated effect of the threshold rule: fixed BEE and adaptive BEE also differ in
-              stimulus weights, contention definition and activation details (awaiting owner confirmation).
-            </div>
-          )}
         </div>
       </div>
     </div>
   );
 }
 
-function PairedPanel({ paired, n4 }: { paired: PairedFile; n4?: Record<string, string> }) {
+function PairedPanel({ paired }: { paired: PairedFile }) {
   const [metric, setMetric] = useState<Metric>("duration_fulfillment");
   const [heur, setHeur] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
@@ -566,7 +533,7 @@ function PairedPanel({ paired, n4 }: { paired: PairedFile; n4?: Record<string, s
     >
       <div ref={wrap} className="space-y-3">
         {paired.pairs.map((p, i) => (
-          <PairStrip key={i} pair={p} group="pairs" index={i} metric={metric} n4={n4} />
+          <PairStrip key={i} pair={p} group="pairs" index={i} metric={metric} />
         ))}
         <PairStrip pair={paired.supplementary_pairs[a3]} group="supplementary_pairs" index={a3} metric={metric} />
         <label className="flex cursor-pointer items-center gap-2 pt-2 text-sm">
@@ -584,8 +551,7 @@ function PairedPanel({ paired, n4 }: { paired: PairedFile; n4?: Record<string, s
   );
 }
 
-// ------------------------------------------------------------------ (d) what the results show (templates)
-function WhatTheyShow({ summary, paired, n4 }: { summary: SummaryFile; paired: PairedFile; n4?: Record<string, string> }) {
+function WhatTheyShow({ summary, paired }: { summary: SummaryFile; paired: PairedFile }) {
   const m: Metric = "duration_fulfillment";
   const sentences = useMemo(() => {
     const out: { id: string; node: ReactNode }[] = [];
@@ -662,10 +628,6 @@ function WhatTheyShow({ summary, paired, n4 }: { summary: SummaryFile; paired: P
   }, [summary, paired]);
   return (
     <Section id="show" title="Every comparison, in words" kicker="Every sentence below is filled in from the result files when the page loads; no number here is typed by hand." scope>
-      <div className="flex gap-1">
-        <EvidenceBadge kind="cross_week" />
-        <EvidenceBadge kind="heuristic" />
-      </div>
       <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm" data-testid="template-sentences">
         {sentences.map((s) => (
           <li key={s.id} data-sentence={s.id}>
@@ -681,10 +643,7 @@ function WhatTheyShow({ summary, paired, n4 }: { summary: SummaryFile; paired: P
       <h3 className="mt-4 font-semibold text-fg">What these numbers can&apos;t tell you</h3>
       <ul className="mt-1 list-disc space-y-1 pl-5 text-sm" data-testid="cannot-show">
         <li>No ranking among the PPO-based methods: their differences are of the size of the seed spread, with n = 5 folds.</li>
-        <li>
-          Adaptive minus fixed BEE is not an isolated effect of the threshold rule {n4 && <ConfirmMarker id="N4" text={n4["What needs confirming"]} />}: the two
-          streams also differ in stimulus weights, contention definition and activation details.
-        </li>
+        <li>Adaptive minus fixed BEE is not an isolated effect of the threshold rule: the two streams also differ in stimulus weights, contention definition and activation details.</li>
         <li>Seed coverage differs: one training seed on folds 1-4 and three on W50; heuristics have evaluation seeds only.</li>
       </ul>
     </Section>

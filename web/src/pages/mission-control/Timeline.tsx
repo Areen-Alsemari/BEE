@@ -193,7 +193,6 @@ export function Timeline(props: TimelineProps) {
   const ticks = x.ticks(Math.max(4, Math.floor(innerW / 110)));
   const tickFmt = x.tickFormat();
 
-  // Scrub by dragging on the plot background or axis.
   const dragging = useRef(false);
   const timeAt = (clientX: number) => {
     const rect = svgRef.current!.getBoundingClientRect();
@@ -216,7 +215,6 @@ export function Timeline(props: TimelineProps) {
           }),
       ),
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layers.visibility, windows, lanes, x, innerW, laneH]);
 
   const selVis = useMemo(() => {
@@ -245,7 +243,6 @@ export function Timeline(props: TimelineProps) {
             )),
         ),
       );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId, windows, lanes, x, laneH]);
 
   return (

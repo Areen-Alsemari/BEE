@@ -1,8 +1,3 @@
-/**
- * A number traced to its data file. `trace` is "<file>:<path/inside/json>", checked by the
- * automated number-trace test against the exported JSON. Every Num must sit inside an element
- * marked data-num-scope that also contains its evidence badge.
- */
 export function Num({ v, trace, format, className = "" }: { v: number; trace: string; format: (x: number) => string; className?: string }) {
   return (
     <span className={`num ${className}`} data-trace={trace} data-value={String(v)}>

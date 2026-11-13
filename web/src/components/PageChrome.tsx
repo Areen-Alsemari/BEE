@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-/** Page intro: one plain sentence (<=25 words) plus a concrete "Try this" action. docs/COPY_DECK.md. */
 export function PageIntro({ children, tryThis }: { children: ReactNode; tryThis?: string }) {
   return (
     <header>
@@ -16,12 +15,10 @@ export function PageIntro({ children, tryThis }: { children: ReactNode; tryThis?
   );
 }
 
-/** One-line caveat for a whole page, replacing the repeated "n = 5 folds, indicative only" sentences. */
 export function Caveat({ children }: { children: ReactNode }) {
   return <p className="mt-2 text-sm text-muted">{children}</p>;
 }
 
-/** Native disclosure for raw identifiers, formulas and long tables. Closed by default. */
 export function Details({ summary, children, testId }: { summary: string; children: ReactNode; testId?: string }) {
   return (
     <details className="mt-2 text-sm" data-testid={testId}>
@@ -31,7 +28,6 @@ export function Details({ summary, children, testId }: { summary: string; childr
   );
 }
 
-/** Shaded reference band label, replacing repeated seed-SD sentences: one label + one tooltip. */
 export function SpreadNote({ className = "" }: { className?: string }) {
   return (
     <span

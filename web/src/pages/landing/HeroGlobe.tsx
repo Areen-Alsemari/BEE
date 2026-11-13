@@ -5,7 +5,6 @@ import { earthTexture } from "../mission-control/earthTexture";
 import { EARTH_R, latLonToVec3 } from "../mission-control/geo";
 import type { ComplexesFile } from "../../data/types";
 
-/** Slowly rotating Earth with the three DSN complexes, reusing the Mission Control texture and geometry helpers. */
 function Globe({ complexes }: { complexes: ComplexesFile }) {
   const g = useRef<THREE.Group>(null);
   const tex = useMemo(() => earthTexture(), []);

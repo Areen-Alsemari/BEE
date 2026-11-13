@@ -1,4 +1,3 @@
-/** Resolve the selected method/week/seeds to a run row, its schedule file and its summary series. */
 import type { HeuristicRule, MethodId } from "../../config/theme";
 import type { RunRow, ScheduleIndexEntry, WeekId } from "../../data/types";
 
@@ -20,7 +19,6 @@ export interface RunSpec {
 export const variantOf = (method: MethodId, rule: HeuristicRule) => (method === "heuristics" ? rule : VARIANT[method]);
 export const seriesId = (method: MethodId, rule: HeuristicRule) => (method === "heuristics" ? `heuristics/${rule}` : method);
 
-/** Training seeds that have runs for this method and week (empty for heuristics). */
 export function trainingSeedsFor(rows: RunRow[], method: MethodId, rule: HeuristicRule, week: WeekId): number[] {
   if (method === "heuristics") return [];
   const v = variantOf(method, rule);

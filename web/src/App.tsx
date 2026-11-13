@@ -1,5 +1,5 @@
 import { Suspense, lazy } from "react";
-import { Navigate, Outlet, createHashRouter, RouterProvider, Link } from "react-router-dom";
+import { Navigate, Outlet, createHashRouter, RouterProvider } from "react-router-dom";
 import { Nav } from "./components/Nav";
 import { HowToRead } from "./components/HowToRead";
 import { Loading } from "./components/States";
@@ -25,18 +25,6 @@ function Shell() {
   );
 }
 
-function NotBuilt({ title }: { title: string }) {
-  return (
-    <div className="mx-auto max-w-xl p-10">
-      <h1 className="text-xl font-semibold">{title}</h1>
-      <p className="mt-2 text-sm text-muted">This page has not been built yet.</p>
-      <Link className="btn mt-4" to="/mission-control">
-        Open Mission Control
-      </Link>
-    </div>
-  );
-}
-
 const router = createHashRouter([
   {
     element: <Shell />,
@@ -46,7 +34,6 @@ const router = createHashRouter([
       { path: "/bee-lab", element: <BeeLab /> },
       { path: "/ablation", element: <AblationLab /> },
       { path: "/results", element: <ResultsArena /> },
-      { path: "/tour", element: <NotBuilt title="Guided Tour" /> },
       { path: "/protocol", element: <Protocol /> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],

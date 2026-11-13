@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 
-/** Minimal inline markdown for text copied from docs (`code` and **bold** only). */
 export function InlineMd({ text }: { text: string }) {
   const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g);
   return (

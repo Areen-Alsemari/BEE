@@ -4,14 +4,12 @@ import { hash01 } from "./spacecraftModels";
 export const EARTH_R = 1;
 const Y = new THREE.Vector3(0, 1, 0);
 
-/** Earth-fixed position for latitude/longitude in degrees (y = north pole). */
 export function latLonToVec3(lat: number, lon: number, r = EARTH_R): THREE.Vector3 {
   const la = THREE.MathUtils.degToRad(lat);
   const lo = THREE.MathUtils.degToRad(lon);
   return new THREE.Vector3(r * Math.cos(la) * Math.cos(lo), r * Math.sin(la), -r * Math.cos(la) * Math.sin(lo));
 }
 
-/** Greenwich mean sidereal angle (radians) for a UNIX time: rotating the Earth by it about +y gives the real orientation. */
 export function gmst(epochSeconds: number): number {
   const jd = epochSeconds / 86400 + 2440587.5;
   const turns = 0.779057273264 + 1.00273781191135448 * (jd - 2451545.0);
@@ -23,11 +21,6 @@ export const toInertial = (v: THREE.Vector3, angle: number) => v.clone().applyAx
 export const SC_R_MIN = 1.75;
 export const SC_R_MAX = 2.6;
 
-/**
- * Illustrative resting positions for the missions, deterministic per id. Each mission gets its
- * own distance (by hash rank) so markers do not overlap each other or the Earth.
- * Not derived from data: the dataset has no ephemerides.
- */
 export function basePositions(ids: string[]): Map<string, THREE.Vector3> {
   const ranked = [...ids].sort((a, b) => hash01(a, 3) - hash01(b, 3));
   const out = new Map<string, THREE.Vector3>();
@@ -40,7 +33,6 @@ export function basePositions(ids: string[]): Map<string, THREE.Vector3> {
   return out;
 }
 
-/** Stable per-mission tangent offset used while a mission is being served. */
 function missionOffset(id: string): THREE.Vector3 {
   const a = hash01(id, 11) * Math.PI * 2;
   const z = hash01(id, 12) * 2 - 1;
@@ -48,16 +40,9 @@ function missionOffset(id: string): THREE.Vector3 {
   return new THREE.Vector3(s * Math.cos(a), z, s * Math.sin(a));
 }
 
-/**
- * Illustrative position while a request is active: above the horizon of every serving complex.
- * One complex: within ~32 degrees of its local vertical (stable per-mission offset). An array that
- * spans complexes: on the bisector of their verticals, no offset, distance raised so the spacecraft
- * is above each horizon. No dish-to-spacecraft line passes through the Earth.
- */
 export function servedPosition(id: string, normals: THREE.Vector3[], radius: number): THREE.Vector3 {
   const n = normals.reduce((acc, v) => acc.add(v.clone().normalize()), new THREE.Vector3()).normalize();
   if (normals.length > 1) {
-    // Cross-complex array: no offset; raise the distance so radius * cos(angle to each vertical) >= 1.12.
     const minCos = Math.min(...normals.map((v) => v.clone().normalize().dot(n)));
     return n.multiplyScalar(Math.max(radius, 1.12 / Math.max(minCos, 0.2)));
   }
@@ -68,7 +53,6 @@ export function servedPosition(id: string, normals: THREE.Vector3[], radius: num
   return n.add(tangent).normalize().multiplyScalar(radius);
 }
 
-/** True if the segment a->b passes inside a sphere of radius r at the origin. */
 export function segmentHitsSphere(a: THREE.Vector3, b: THREE.Vector3, r = EARTH_R * 0.999): boolean {
   const d = b.clone().sub(a);
   const t = Math.min(1, Math.max(0, -a.dot(d) / d.lengthSq()));

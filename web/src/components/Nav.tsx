@@ -7,7 +7,6 @@ const LINKS = [
   { to: "/bee-lab", label: "How BEE works" },
   { to: "/ablation", label: "Variants" },
   { to: "/results", label: "Results" },
-  { to: "/tour", label: "Tour" },
   { to: "/protocol", label: "Method" },
 ];
 

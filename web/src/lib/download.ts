@@ -1,4 +1,3 @@
-/** Browser downloads: CSV from rows, SVG and PNG from an <svg> element. */
 
 function save(blob: Blob, name: string) {
   const a = document.createElement("a");
@@ -56,5 +55,4 @@ export function downloadPng(svg: SVGSVGElement | null, name: string, scale = 3) 
   img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(serialise(svg));
 }
 
-/** Trace path for <Num>: segments are URI-encoded so ids containing "/" stay intact. */
 export const tracePath = (file: string, ...segs: (string | number)[]) => `${file}:${segs.map((s) => encodeURIComponent(String(s))).join("/")}`;

@@ -1,20 +1,3 @@
-/**
- * Visual identity for the light theme.
- *
- * Brand (logo navy #183078, blue #2c5aa0) is used for nav, headings, focus and primary buttons
- * only; it is never a method colour. Surface tokens live in src/index.css.
- *
- * Method colours were chosen by a search over darkened Okabe-Ito-style hues and neutrals for the
- * largest minimum CIE76 difference under protanopia, deuteranopia and tritanopia simulation
- * (min deltaE >= 27 in every case), with >= 4.5:1 text contrast on the light surfaces
- * (contrast on white / canvas #f2f5fa / scene backdrop #dfe7f2):
- *   heuristics    #2f2f2f  13.39 / 12.25 / 10.74 (charcoal; rule shades are greys, all >= 4.5:1)
- *   plain PPO     #b84e00   5.09 /  4.66 /  4.08
- *   fixed BEE     #00805c   4.95 /  4.53 /  3.97
- *   adaptive BEE  #a23f9c   5.63 /  5.16 /  4.52
- *   first-pass A3 #b866b0   3.77 /  3.45 /  3.03 (marks only, always dashed / open marker)
- * Every method also has a non-colour cue: a marker shape and a dash pattern.
- */
 export const BRAND = {
   navy: "#183078",
   blue: "#2c5aa0",
@@ -39,7 +22,6 @@ export const METHOD_COLORS: Record<MethodId, string> = {
   adaptive_a3_first_pass: "#b866b0",
 };
 
-/** Shades of the heuristic family (greys); each >= 4.5:1 on canvas. */
 export const HEURISTIC_SHADES: Record<HeuristicRule, string> = {
   random_feasible: "#5f5f5f",
   earliest_window_end: "#1c1c1c",
@@ -70,12 +52,10 @@ export function seriesColor(method: MethodId, rule?: HeuristicRule): string {
   if (method === "heuristics" && rule) return HEURISTIC_SHADES[rule];
   return METHOD_COLORS[method];
 }
-/** Text colour for a method (always >= 4.5:1 on light surfaces). */
 export function seriesTextColor(method: MethodId): string {
   return method === "adaptive_a3_first_pass" ? METHOD_COLORS.adaptive_bee : METHOD_COLORS[method];
 }
 
-// ------------------------------------------------------------------ colour utilities
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.replace("#", "");
   return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255) as [number, number, number];
@@ -119,11 +99,6 @@ function hslToRgb([h, s, l]: number[]): number[] {
 
 const SCENE_BACKDROP = "#dfe7f2";
 const shadeCache = new Map<string, string>();
-/**
- * Darker display shade of a mission colour (missions.json values are not changed): same hue,
- * lightness lowered until the shade has >= 3.2:1 contrast with the darkest scene/Gantt backdrop.
- * Used for bar outlines, beams and spacecraft trim.
- */
 export function missionShade(hex: string, target = 3.2): string {
   const key = `${hex}|${target}`;
   if (shadeCache.has(key)) return shadeCache.get(key)!;

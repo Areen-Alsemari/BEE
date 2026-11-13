@@ -1,10 +1,6 @@
 import type { ReactNode } from "react";
 import { fmtMain } from "../lib/format";
 
-/**
- * A single metric with its comparison scale. Rates display as a percentage in the main view;
- * exact fractions stay available in Details/downloads. `large` is used for a page's headline cards.
- */
 export function MetricCard({
   label,
   metricKey,

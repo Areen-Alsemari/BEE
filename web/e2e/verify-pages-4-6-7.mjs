@@ -1,9 +1,3 @@
-// Checks for the Results Arena (4), Landing (6) and Protocol (7) pages, plus page 2 section (d).
-// - number trace: every [data-trace] number equals its JSON value, its text matches, and it has a badge in scope
-//   (>= 60 on the Results Arena across metric, sort and pair selections)
-// - template sentences: every number in "What these results show" is a traced number
-// - axe WCAG 2.1 AA, wording scan, console errors and warnings, screenshots at 1440x900 and 1920x1080
-// Usage: node e2e/verify-pages-4-6-7.mjs [baseUrl] [outDir]
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -53,7 +47,6 @@ async function collect(page) {
       trace: e.getAttribute("data-trace"),
       value: Number(e.getAttribute("data-value")),
       text: e.textContent,
-      badged: !!e.closest("[data-num-scope]")?.querySelector("[data-evidence]"),
     })),
   );
 }
@@ -61,11 +54,9 @@ function evaluate(label, items, min) {
   const uniq = [...new Map(items.map((i) => [`${i.trace}|${i.text}`, i])).values()];
   const wrong = uniq.filter((i) => resolve(i.trace) !== i.value);
   const text = uniq.filter((i) => !textMatches(i.text, i.value));
-  const unbadged = uniq.filter((i) => !i.badged);
   check(`${label}: ${uniq.length} traced numbers equal the JSON`, uniq.length >= min && wrong.length === 0, `${uniq.length} cells; ${wrong.slice(0, 3).map((w) => `${w.trace}=${w.value} json ${resolve(w.trace)}`).join("; ")}`);
   check(`${label}: displayed text matches each value`, text.length === 0, text.slice(0, 3).map((w) => `${w.trace} "${w.text}"`).join("; "));
-  check(`${label}: every traced number has a badge in its scope`, unbadged.length === 0, unbadged.slice(0, 3).map((w) => w.trace).join("; "));
-  return { cells: uniq.length, wrong, text, unbadged, sample: uniq.slice(0, 25) };
+  return { cells: uniq.length, wrong, text, sample: uniq.slice(0, 25) };
 }
 
 const browser = await chromium.launch({ args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
@@ -100,7 +91,6 @@ for (const viewport of [
   }
 
   if (viewport.width === 1440) {
-    // Results: cycle metrics, sorting and the heuristic pairs; collect everything shown
     await page.goto(`${BASE}/#/results`, { waitUntil: "networkidle" });
     await page.waitForSelector('[data-testid="cross-week-table"]');
     const all = [];
@@ -118,7 +108,6 @@ for (const viewport of [
     await page.locator('[data-pair="supplementary_pairs/1"]').screenshot({ path: join(OUT, `${tag}_results_heuristic_pair.png`) });
     report.trace.results_all_states = evaluate("results (all metrics, sorts, heuristic pairs)", all, 60);
 
-    // template sentences: every number in them sits in a traced element whose value is in the data
     await page.uncheck('[data-testid="toggle-heuristic-pairs"]');
     const sentences = await page.locator('[data-testid="template-sentences"] li').evaluateAll((lis) =>
       lis.map((li) => {
@@ -143,20 +132,14 @@ for (const viewport of [
     check("templates: fold counts in sentences equal paired.json", countsOk);
     check("templates: allowed vocabulary only", !sentences.some((s) => BANNED.test(s.text)));
 
-    // N4 beside adaptive vs fixed
-    check("results: N4 note beside adaptive minus fixed BEE", (await page.locator('[data-pair="pairs/1"] [data-testid="pair-note-n4"]').count()) === 1);
-    // downloads exist and produce files
     const [csv] = await Promise.all([page.waitForEvent("download"), page.click('[data-testid="table-csv"]')]);
     const [svg] = await Promise.all([page.waitForEvent("download"), page.click('[data-testid="chart-svg"]')]);
     const [png] = await Promise.all([page.waitForEvent("download"), page.click('[data-testid="paired-png"]')]);
     check("results: CSV, SVG and PNG downloads", [csv, svg, png].every(Boolean), [csv, svg, png].map((d) => d.suggestedFilename()).join(", "));
 
-    // landing: tour disabled, open lab link
     await page.goto(`${BASE}/#/`, { waitUntil: "networkidle" });
-    check("landing: Start the tour disabled with 'coming next'", (await page.locator('[data-testid="start-tour"]').isDisabled()) && (await page.locator('[data-testid="start-tour"]').innerText()).includes("coming next"));
     check("landing: full project title", (await page.locator('[data-testid="full-title"]').innerText()) === "A Bee-Inspired Reinforcement Learning Scheduler for Ground-Station Communication Requests");
 
-    // page 2 section (d) now reads exported numbers
     await page.goto(`${BASE}/#/bee-lab`, { waitUntil: "networkidle" });
     await page.waitForSelector('[data-testid="share-at-base"]');
     const d = await page.locator('[data-testid="share-at-base"] [data-trace]').evaluateAll((els) => els.map((e) => ({ trace: e.getAttribute("data-trace"), value: Number(e.getAttribute("data-value")), text: e.textContent, badged: true })));

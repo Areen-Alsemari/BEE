@@ -9,7 +9,6 @@ import { BRAND, METHOD_COLORS } from "../../config/theme";
 import { ABLATION_NAME } from "../../lib/format";
 import type { PairedFile } from "../../data/types";
 
-/** Plain name for a variant, with its code as a small secondary label. */
 const variantName = (id: string) => ABLATION_NAME[id] ?? id;
 
 type Stage = "screening" | "shortlist" | "confirmation";
@@ -91,7 +90,7 @@ function Section({ id, title, kicker, badge, children, scope }: { id: string; ti
 }
 
 function StageBadge({ stage, ab }: { stage: Stage; ab: Ablation }) {
-  return <EvidenceBadge kind={evidenceFromStage(ab.stage_badges[stage])} label={ab.stage_badges[stage]} />;
+  return <EvidenceBadge kind={evidenceFromStage(ab.stage_badges[stage]) ?? "pending"} label={ab.stage_badges[stage]} />;
 }
 
 function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; thr: Thresholds }) {
@@ -109,7 +108,6 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
     if (m) setSel(m.id);
   };
   const toggleMatch = match(toggles);
-  const reachedCounts = Object.fromEntries(STAGES.map((s) => [s, ab.configurations.filter((c) => c.stages[s].reached).map((c) => c.id)]));
   const a6vsA3 = paired.supplementary_pairs.findIndex((p) => p.first === "adaptive_bee" && p.second === "adaptive_a3_first_pass");
   const pair = paired.supplementary_pairs[a6vsA3];
   const dm = pair.metrics.duration_fulfillment;
@@ -138,35 +136,6 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
 
       <details open className="mt-5">
         <summary className="panel cursor-pointer p-4 text-sm font-medium text-brand">Show every variant and how it was tested</summary>
-
-      <section className="mt-3 rounded-xl border-2 border-warn-fg/40 bg-warn-bg p-5" data-testid="can-cannot" aria-labelledby="cc-h">
-        <h2 id="cc-h" className="text-lg font-semibold text-fg">
-          What this ablation can and cannot support
-        </h2>
-        <div className="mt-2 grid grid-cols-1 gap-4 text-sm text-fg lg:grid-cols-2">
-          <div>
-            <div className="font-semibold">It can support</div>
-            <ul className="mt-1 list-disc space-y-1 pl-5">
-              <li>Which configurations were shortlisted and which reached confirmation, under the declared staged rule.</li>
-              <li>That A3 and A6 were tied at confirmation, and that A6 was chosen by the declared W40-only tie-break.</li>
-              <li>How each configuration&apos;s recorded thresholds behaved (for example, A3 stays near the base threshold).</li>
-            </ul>
-          </div>
-          <div>
-            <div className="font-semibold">It cannot support</div>
-            <ul className="mt-1 list-disc space-y-1 pl-5">
-              <li>
-                Component-level conclusions. Most configurations were run only at screening budget: all six at {ab.stage_badges.screening}, only{" "}
-                {reachedCounts.shortlist.join(", ")} at {ab.stage_badges.shortlist}, and only {reachedCounts.confirmation.join(" and ")} at{" "}
-                {ab.stage_badges.confirmation}. No component-level conclusions are drawn.
-              </li>
-              <li>A comparison with &ldquo;no adaptation&rdquo;: no adaptation-off arm was run at a matched budget. A3 is a proxy only (see the reference toggle).</li>
-              <li>Effects on other weeks: every stage used W40 only; the cross-week context below is a separate, suggestive comparison.</li>
-            </ul>
-          </div>
-        </div>
-        <p className="mt-2 text-xs text-fg-2">{ab.evidence_note}</p>
-      </section>
 
       <Section id="matrix" title="Signals used by each variant" kicker="Click a variant, or switch signals on and off to see which variant that combination is.">
         <div className="flex flex-wrap items-center gap-4" role="group" aria-label="Component toggles">
@@ -385,13 +354,8 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
         id="crossweek"
         scope
         title="Cross-week context: A6 against the first-pass A3"
-        kicker="Suggestive only: n = 5 folds, one trained model per fold on folds 1-4 (three on W50). Values from paired.json, averaged over evaluation seeds and then training seeds per fold."
-        badge={
-          <span className="flex gap-1">
-            <EvidenceBadge kind="cross_week" />
-            <EvidenceBadge kind="supplementary" label="suggestive, n = 5 folds" />
-          </span>
-        }
+        kicker="Suggestive only: n = 5 folds, one trained model per fold on folds 1-4 (three on W50), averaged over evaluation seeds and then training seeds per fold."
+        badge={<EvidenceBadge kind="supplementary" label="suggestive, n = 5 folds" />}
       >
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" data-testid="crossweek">
           <PerFoldBars pm={dm} trace={P} />
@@ -442,7 +406,6 @@ function AblationView({ ab, paired, thr }: { ab: Ablation; paired: PairedFile; t
 }
 
 const STAGE_FILL: Record<Stage, string> = { screening: "#b45309", shortlist: "#a16207", confirmation: "#0369a1" };
-/** Short chart-axis labels (full names are in the tooltip and the Compare-against section). */
 const CHART_LABEL: Record<string, string> = {
   A1: "all signals",
   A2: "scarcity only",
@@ -640,7 +603,7 @@ function ThresholdBehaviour({ ab, thr, a3ref, refIdx }: { ab: Ablation; thr: Thr
             </tbody>
           </table>
           <div className="rounded-md border border-line bg-sunken p-3" data-num-scope data-testid="a3-near-base">
-            <EvidenceBadge kind="cross_week" /> A3 first pass, cross-week mean selected threshold{" "}
+            <EvidenceBadge kind="supplementary" /> A3 first pass, cross-week mean selected threshold{" "}
             <Num v={sd.cross_week_mean_selected_threshold} trace={`ablation.json:references/${refIdx}/supporting_data/cross_week_mean_selected_threshold`} format={f4} /> (base{" "}
             <Num v={sd.base_threshold} trace={`ablation.json:references/${refIdx}/supporting_data/base_threshold`} format={f2} />
             ).

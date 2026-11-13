@@ -1,8 +1,3 @@
-/**
- * Equirectangular Earth texture drawn on a canvas from Natural Earth land polygons
- * (world-atlas land-110m, public domain data; bundled, nothing fetched at runtime).
- * u = (lon + 180) / 360 matches three.js SphereGeometry and geo.latLonToVec3.
- */
 import * as THREE from "three";
 import { geoEquirectangular, geoGraticule10, geoPath } from "d3";
 import { feature } from "topojson-client";

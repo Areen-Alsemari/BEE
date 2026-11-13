@@ -18,7 +18,7 @@ export function ErrorState({ error }: { error: Error }) {
     <div role="alert" className="m-2 rounded-lg border border-danger-fg/40 bg-danger-bg p-3 text-sm text-danger-fg">
       <div className="font-semibold">{isData ? "Data file problem" : "Something went wrong"}</div>
       <div className="mt-1 font-mono text-xs">{error.message}</div>
-      <div className="mt-1 text-xs text-danger-fg">Re-run scripts/export_data.py and reload. Nothing is shown in place of the missing data.</div>
+      <div className="mt-1 text-xs text-danger-fg">Try reloading the page. Nothing is shown in place of the missing data.</div>
     </div>
   );
 }
@@ -32,7 +32,6 @@ export function Pending({ children }: { children: ReactNode }) {
   );
 }
 
-/** Render children only when every loadable is ready; otherwise loading or error. */
 export function Ready<T extends unknown[]>({
   items,
   what,

@@ -1,4 +1,3 @@
-/** Typed, cached, validated loaders for public/data. Each file is fetched once and only when needed. */
 import { useEffect, useState } from "react";
 import { DataError, columnIndex, expectFields } from "./validate";
 import type { BeeParamsFile } from "../lib/beeMath";
@@ -46,7 +45,6 @@ function cached<T>(key: string, load: () => Promise<T>): Promise<T> {
   return cache.get(key) as Promise<T>;
 }
 
-// ------------------------------------------------------------------ individual loaders
 export const loadMethods = () =>
   cached("methods.json", async () => {
     const d = (await fetchJson("methods.json")) as MethodsFile;
@@ -330,10 +328,8 @@ export const loadBeeParams = () =>
     return d;
   });
 
-// ------------------------------------------------------------------ React hook
 export type Loadable<T> = { status: "loading" } | { status: "error"; error: Error } | { status: "ready"; data: T };
 
-/** Run a loader keyed by deps; returns loading / error / ready. */
 export function useData<T>(load: (() => Promise<T>) | null, deps: unknown[]): Loadable<T> {
   const [state, setState] = useState<Loadable<T>>({ status: "loading" });
   useEffect(() => {
@@ -347,7 +343,6 @@ export function useData<T>(load: (() => Promise<T>) | null, deps: unknown[]): Lo
     return () => {
       alive = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
   return state;
 }

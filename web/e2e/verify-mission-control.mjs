@@ -1,7 +1,3 @@
-// Playwright check of the Mission Control page (light theme).
-// Usage: node e2e/verify-mission-control.mjs [baseUrl] [outDir]
-// Data checks (unchanged from Checkpoint 4), scene geometry checks, camera presets, compare mode,
-// axe-core accessibility scan, dark-surface scan, colour-blind simulations, console report.
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
@@ -76,7 +72,6 @@ function labelsOk(state) {
   return { ok: true, n: vis.length, complexes: (state?.labels ?? []).filter((l) => l.visible).map((l) => l.id) };
 }
 
-// ------------------------------------------------------------------ data checks (unchanged from Checkpoint 4)
 async function crossCheck(page, label, spec) {
   const row = runs.find(
     (r) => r.method === spec.method && r.variant === spec.variant && r.test_week === `${spec.week}_2018` && r.evaluation_seed === spec.eval && (spec.train === null ? r.training_seed === null : r.training_seed === spec.train),
@@ -113,7 +108,6 @@ for (const viewport of [
   check(`${tag}: complex and spacecraft labels do not overlap (default view)`, lab0.ok, JSON.stringify(lab0), "b");
   check(`${tag}: at least 3 spacecraft variants present`, s0.variants.length >= 3, s0.variants.join(", "), "c");
 
-  // logo without badge
   const logo = await page.locator('img[alt="BEE project logo"]').first().evaluate((img) => {
     const p = img.parentElement;
     const bg = getComputedStyle(img).backgroundColor;
@@ -121,7 +115,6 @@ for (const viewport of [
   });
   check(`${tag}: logo shown directly (no badge background)`, /rgba\(0, 0, 0, 0\)|transparent/.test(logo.imgBg) && logo.src.endsWith("brand/bee-logo.png"), JSON.stringify(logo), "g");
 
-  // ---------------- camera presets
   for (const p of ["goldstone", "canberra", "madrid", "follow", "system"]) {
     await page.click(`[data-testid="preset-${p}"]`);
     await page.waitForTimeout(2600);
@@ -136,7 +129,6 @@ for (const viewport of [
   const back = await sceneState(page);
   check(`${tag}: returns to Whole system (Earth fraction restored)`, back.mode === "system" && Math.abs(back.earthFraction - s0.earthFraction) < 0.02, `${back.earthFraction.toFixed(3)} vs ${s0.earthFraction.toFixed(3)}`, "e");
 
-  // ---------------- beams: 12 timestamps over 3 weeks x 2 methods
   if (viewport.width === 1440) {
     for (const method of ["adaptive_bee", "plain_ppo"]) {
       await page.selectOption('[data-testid="a-method"]', method);
@@ -161,7 +153,6 @@ for (const viewport of [
     }
   }
 
-  // ---------------- data checks (i)
   await page.click('[data-testid="week-W20"]');
   await page.selectOption('[data-testid="a-method"]', "plain_ppo");
   await page.selectOption('[data-testid="evaluation-seed"]', "3003");
@@ -200,7 +191,6 @@ for (const viewport of [
   await settle(page);
   if (viewport.width === 1440) await crossCheck(page, "W10 fixed BEE seed 42 eval 5005", { method: "fixed_bee", variant: "F2", week: "W10", train: 42, eval: 5005, series: "fixed_bee" });
 
-  // ---------------- axe on the default single view
   await page.click('[data-testid="week-W40"]');
   await page.selectOption('[data-testid="a-method"]', "adaptive_bee");
   await settle(page);
@@ -211,7 +201,6 @@ for (const viewport of [
   report.axe[`${tag}:single`] = axe1.violations.map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length, sample: v.nodes.slice(0, 3).map((n) => n.failureSummary?.split("\n").slice(0, 2).join(" ") + " :: " + n.target.join(" ")) }));
   check(`${tag}: axe (WCAG 2.1 AA) on single view`, axe1.violations.length === 0, axe1.violations.map((v) => `${v.id}:${v.nodes.length}`).join(", ") || "0 violations", "g");
 
-  // ---------------- compare mode
   await page.check('[data-testid="compare-toggle"]');
   await page.selectOption('[data-testid="b-method"]', "plain_ppo");
   await settle(page);
@@ -242,7 +231,6 @@ for (const viewport of [
   report.axe[`${tag}:compare`] = axe2.violations.map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length, sample: v.nodes.slice(0, 3).map((n) => n.target.join(" ")) }));
   check(`${tag}: axe (WCAG 2.1 AA) on compare view`, axe2.violations.length === 0, axe2.violations.map((v) => `${v.id}:${v.nodes.length}`).join(", ") || "0 violations", "g");
 
-  // ---------------- dark-surface scan: any sizeable element with a dark background that is not a brand primary control
   const dark = await page.evaluate(() => {
     const lum = (c) => {
       const m = c.match(/rgba?\(([^)]+)\)/);
@@ -266,7 +254,6 @@ for (const viewport of [
   report.darkSurfaces[tag] = dark;
   check(`${tag}: no dark surfaces (brand primary buttons and active nav excluded)`, dark.length === 0, dark.slice(0, 4).map((d) => `${d.tag}.${d.cls} ${d.bg}`).join(" | ") || "none", "g");
 
-  // ---------------- colour-blind simulation screenshots (Chrome vision deficiency emulation)
   if (viewport.width === 1440) {
     const cdp = await ctx.newCDPSession(page);
     for (const type of ["deuteranopia", "protanopia", "tritanopia", "achromatopsia"]) {
@@ -292,7 +279,6 @@ for (const viewport of [
   await ctx.close();
 }
 
-// other pages: logo and light surfaces
 for (const hash of ["/", "/results"]) {
   const { ctx, page } = await openPage({ width: 1440, height: 900 }, hash);
   await page.waitForTimeout(500);
@@ -305,7 +291,6 @@ for (const hash of ["/", "/results"]) {
 
 await browser.close();
 
-// ---------------- simulated colour distances for the method palette (Machado et al. 2009, severity 1.0)
 const PALETTE = { heuristics: "#2f2f2f", plain_ppo: "#b84e00", fixed_bee: "#00805c", adaptive_bee: "#a23f9c" };
 const M = {
   none: [1, 0, 0, 0, 1, 0, 0, 0, 1],

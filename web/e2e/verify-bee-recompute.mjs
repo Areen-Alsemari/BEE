@@ -1,9 +1,3 @@
-// Recompute check for the BEE Mechanism Lab.
-// Samples >= 200 recorded trace rows (A6 and A3), recomputes stimulus, contention increase,
-// relative unmet pressure, pressure count, adaptation flag, threshold and activation with the
-// browser equations (window.__beeMath on the page) and the exported parameters, and asserts
-// agreement with the recorded values within 1e-6.
-// Usage: node e2e/verify-bee-recompute.mjs [baseUrl] [outFile]
 import { chromium } from "playwright";
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -16,7 +10,6 @@ const thr = JSON.parse(readFileSync(join(here, "..", "public", "data", "threshol
 const TOL = 1e-6;
 const PER_METHOD = 150;
 
-// deterministic sampler (mulberry32)
 let seed = 20181001;
 const rand = () => {
   seed |= 0;
@@ -64,7 +57,6 @@ samples.forEach((s, i) => {
   }
 });
 
-// The on-page button, for one A6 and one A3 run
 const ui = [];
 for (const [method, run, step] of [
   ["adaptive_bee", "3", 57],

@@ -2,7 +2,6 @@ import { useEffect, useMemo } from "react";
 import { useLab } from "../../store/useLabStore";
 import {
   loadComplexes,
-  loadGaps,
   loadMissions,
   loadPaired,
   loadRuns,
@@ -19,7 +18,7 @@ import { PageIntro } from "../../components/PageChrome";
 import { Scene } from "./Scene";
 import { Timeline } from "./Timeline";
 import { Playback } from "./Playback";
-import { CompareSummary, Controls, DetailCard, MetricsPanel, UnscheduledList, findGap } from "./Panels";
+import { CompareSummary, Controls, DetailCard, MetricsPanel, UnscheduledList } from "./Panels";
 import { MethodGlyph } from "../../components/MethodGlyph";
 import { PRESETS, useView } from "./viewStore";
 import { findRun, findScheduleEntry, seriesId, trainingSeedsFor, type RunSpec } from "./runModel";
@@ -32,10 +31,9 @@ export default function MissionControl() {
   const paired = useData(loadPaired, []);
   const complexes = useData(loadComplexes, []);
   const missions = useData(loadMissions, []);
-  const gaps = useData(loadGaps, []);
   return (
-    <Ready items={[runs, index, summary, paired, complexes, missions, gaps]} what="lab data">
-      {(r, i, s, p, c, m, g) => <MissionControlView runs={r} index={i} summary={s} paired={p} complexes={c} missions={m} gaps={g} />}
+    <Ready items={[runs, index, summary, paired, complexes, missions]} what="lab data">
+      {(r, i, s, p, c, m) => <MissionControlView runs={r} index={i} summary={s} paired={p} complexes={c} missions={m} />}
     </Ready>
   );
 }
@@ -49,7 +47,6 @@ function MissionControlView({
   paired,
   complexes,
   missions,
-  gaps,
 }: {
   runs: ReadyData<typeof loadRuns>;
   index: ReadyData<typeof loadScheduleIndex>;
@@ -57,7 +54,6 @@ function MissionControlView({
   paired: ReadyData<typeof loadPaired>;
   complexes: ReadyData<typeof loadComplexes>;
   missions: ReadyData<typeof loadMissions>;
-  gaps: ReadyData<typeof loadGaps>;
 }) {
   const st = useLab();
   const week = st.selectedWeek;
@@ -66,7 +62,6 @@ function MissionControlView({
   const seedsA = trainingSeedsFor(runs.rows, st.methodA, st.ruleA, week);
   useEffect(() => {
     if (seedsA.length && !seedsA.includes(st.trainingSeed)) st.set({ trainingSeed: seedsA[0] });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seedsA.join(","), st.trainingSeed]);
 
   const evalSeeds = useMemo(() => [...new Set(runs.rows.map((r) => r.evaluation_seed))].sort((a, b) => a - b), [runs]);
@@ -87,14 +82,11 @@ function MissionControlView({
   const keyA = seriesId(st.methodA, st.ruleA);
   const keyB = seriesId(st.methodB, st.ruleB);
 
-  // Start the clock at the beginning of the week when a week loads.
   useEffect(() => {
-    // Only once the windows for *this* week have arrived; the previous week's data can still be in state.
     if (windows.status !== "ready" || windows.data.week !== `${week}_2018`) return;
     const t = useLab.getState().currentTime;
     const [a, b] = windows.data.span;
     if (t === null || t < a || t > b) st.set({ currentTime: a + 6 * 3600 });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windows, week]);
 
   const seedInfo = (seed: number) => {
@@ -200,7 +192,6 @@ function MissionControlView({
           week={week}
           schedule={sA}
           hasScheduleFile={!!entryA}
-          gaps={gaps}
           compact={st.compareMode}
         />
         {st.compareMode && (
@@ -217,15 +208,12 @@ function MissionControlView({
             week={week}
             schedule={sB}
             hasScheduleFile={!!entryB}
-            gaps={gaps}
             compact
           />
         )}
         {windows.status === "ready" && (
           <>
-            {sA && sB && (
-              <CompareSummary pairNote={new Set([st.methodA, st.methodB]).has("adaptive_bee") && new Set([st.methodA, st.methodB]).has("fixed_bee") ? n4Note(gaps) : null} scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} colorA={colorA} colorB={colorB} windows={windows.data} />
-            )}
+            {sA && sB && <CompareSummary scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} colorA={colorA} colorB={colorB} windows={windows.data} />}
             <DetailCard windows={windows.data} complexes={complexes} scheduleA={sA} scheduleB={sB} labelA={labelA} labelB={labelB} />
             <UnscheduledList windows={windows.data} schedule={sA} tag="A" label={labelA} />
             {sB && <UnscheduledList windows={windows.data} schedule={sB} tag="B" label={labelB} />}
@@ -258,9 +246,4 @@ function ViewBar() {
       {preset === "free" && <span className="text-xs text-muted">Drag to look around, scroll to zoom</span>}
     </div>
   );
-}
-
-function n4Note(gaps: Parameters<typeof findGap>[0]) {
-  const r = findGap(gaps, "N4");
-  return r ? { id: "N4", text: `Awaiting owner confirmation: ${r["What needs confirming"]}` } : null;
 }

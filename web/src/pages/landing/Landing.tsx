@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { loadComplexes, loadSummary, useData } from "../../data/loaders";
 import { Ready } from "../../components/States";
 import { Logo } from "../../components/Logo";
-import { EvidenceBadge } from "../../components/EvidenceBadge";
 import { MethodGlyph } from "../../components/MethodGlyph";
 import { Num } from "../../components/Num";
 import { tracePath } from "../../lib/download";
@@ -54,27 +53,17 @@ function View({ summary, complexes }: { summary: SummaryFile; complexes: Complex
             We compared simple rules and learning schedulers for booking Deep Space Network antennas, using five real weeks from 2018.
           </p>
           <div className="mt-4 text-sm text-fg-2" data-testid="team">
-            {TEAM.members.map((m) => (
-              <span key={m.role} className="mr-4 inline-block">
-                <span className="font-medium text-fg">{m.name}</span> <span className="text-muted">{m.role}</span>
-              </span>
-            ))}
-            <div className="mt-1">{TEAM.affiliation}</div>
-            {TEAM.placeholder && <div className="mt-1 text-xs text-warn-fg">Team details are placeholders.</div>}
+            {TEAM.members.join(" · ")}
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/mission-control" className="btn btn-on px-4 py-2 text-base" data-testid="open-lab">
               Open the lab
             </Link>
-            <button type="button" className="btn px-4 py-2 text-base" disabled aria-disabled title="The guided tour is coming next" data-testid="start-tour">
-              Start the tour <span className="text-xs text-muted">(coming next)</span>
-            </button>
           </div>
         </div>
         <div className="relative h-[420px] rounded-2xl border border-line" style={{ background: "linear-gradient(180deg, rgb(var(--scene-top)) 0%, rgb(var(--scene-bottom)) 100%)" }}>
           <HeroGlobe complexes={complexes} />
           <div className="chip pointer-events-none absolute bottom-3 left-3 flex items-center gap-2">
-            <EvidenceBadge kind="illustrative" />
             Antenna sites are real; the spin is decoration.
           </div>
         </div>
@@ -95,7 +84,6 @@ function View({ summary, complexes }: { summary: SummaryFile; complexes: Complex
           <h2 id="strip-h" className="text-lg font-semibold text-brand">
             Requested time delivered, average of five test weeks
           </h2>
-          <EvidenceBadge kind="cross_week" />
         </div>
         <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4 xl:grid-cols-8">
           {strip.map((s) => {

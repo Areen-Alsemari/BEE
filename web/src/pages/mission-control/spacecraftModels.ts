@@ -1,10 +1,3 @@
-/**
- * Low-poly procedural spacecraft. Four illustrative variants built from primitives; a mission is
- * assigned a variant by a stable hash of its id. These are generic shapes, not models of any
- * real spacecraft (the data has mission ids only).
- *
- * Local frame: +z points at the Earth (high-gain dish faces +z), +y is "up".
- */
 import * as THREE from "three";
 
 export type PartRole = "body" | "trim" | "panel" | "dark";
@@ -25,7 +18,6 @@ export const VARIANT_LABEL: Record<VariantId, string> = {
 const m = (p: [number, number, number], r: [number, number, number] = [0, 0, 0], s: [number, number, number] = [1, 1, 1]) =>
   new THREE.Matrix4().compose(new THREE.Vector3(...p), new THREE.Quaternion().setFromEuler(new THREE.Euler(...r)), new THREE.Vector3(...s));
 
-/** Shallow parabolic dish opening towards +z. */
 function dish(radius: number, depth: number, segments = 18): THREE.BufferGeometry {
   const pts: THREE.Vector2[] = [];
   for (let i = 0; i <= 8; i++) {
@@ -33,7 +25,7 @@ function dish(radius: number, depth: number, segments = 18): THREE.BufferGeometr
     pts.push(new THREE.Vector2(x, (x * x) / (radius * radius) * depth));
   }
   const g = new THREE.LatheGeometry(pts, segments);
-  g.rotateX(Math.PI / 2); // lathe axis y -> z (opening towards +z)
+  g.rotateX(Math.PI / 2);
   return g;
 }
 

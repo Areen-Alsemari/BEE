@@ -1,21 +1,3 @@
-/**
- * BEE feature equations, transcribed from the code (see docs/BEE_MECHANISM_NOTES.md).
- * Parameters always come from bee_params.json; nothing numeric is typed in here.
- *
- * Adaptive stream (notebooks/04_adaptive_bee/src/bee_*_environment.py):
- *   stimulus   = clip(w_s*scarcity + w_c*contention + w_u*unmet, 0, 1)
- *   increase   = max(contention - initial_contention, 0)
- *   rel_unmet  = max(unmet - mean_mission_unmet, 0)
- *   count      = [scarcity >= L_s] + [increase >= L_c] + [rel_unmet >= L_u]
- *   enabled    = !selective || count >= min_indicators
- *   threshold  = enabled ? clip(base - a_s*scarcity - a_c*increase - a_u*rel_unmet, min, max) : base
- *   activation = clip(stimulus^k / (stimulus^k + threshold^k + 1e-8), 0, 1)
- * Fixed stream, F2 (notebooks/03_fixed_bee/03_fixed_threshold_bee.ipynb, cells 27 and 41):
- *   stimulus   = w_s*scarcity + w_c*contention + w_u*unmet   (no clip in the formula)
- *   threshold  = constant
- *   activation = stimulus^k / (stimulus^k + threshold^k)     (no epsilon, no clip)
- * The definitions of scarcity and contention also differ between the streams (N4).
- */
 
 type Ref = { file: string; line?: number; cell?: number; text: string };
 type V<T> = { value: T; source: Ref };
@@ -100,7 +82,6 @@ export function activation(p: BeeMethodParams, s: number, theta: number): number
   return p.activation.clip ? clip(a, p.activation.clip[0], p.activation.clip[1]) : a;
 }
 
-/** Recompute a recorded adaptive trace row from its recorded pressure terms. */
 export function recomputeTraceRow(
   p: BeeMethodParams,
   r: { placement_scarcity: number; resource_contention: number; mission_unmet_ratio: number; initial_contention: number; mean_mission_unmet: number },

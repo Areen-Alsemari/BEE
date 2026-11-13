@@ -1,6 +1,5 @@
 import { METHOD_CUES, seriesColor, type HeuristicRule, type MethodId } from "../config/theme";
 
-/** Marker shape for a method: the non-colour cue that goes with every method colour. */
 export function MethodGlyph({ method, rule, size = 12 }: { method: MethodId; rule?: HeuristicRule; size?: number }) {
   const c = seriesColor(method, rule);
   const { shape } = METHOD_CUES[method];
@@ -17,7 +16,6 @@ export function MethodGlyph({ method, rule, size = 12 }: { method: MethodId; rul
   );
 }
 
-/** Short line sample in the method's dash pattern (legend use). */
 export function MethodDash({ method, rule, width = 26 }: { method: MethodId; rule?: HeuristicRule; width?: number }) {
   return (
     <svg width={width} height={8} aria-hidden className="shrink-0">

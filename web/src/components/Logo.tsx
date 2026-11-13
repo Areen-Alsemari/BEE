@@ -1,7 +1,3 @@
-/**
- * The team logo, used exactly as provided (web/public/brand/bee-logo.png): dark navy on a
- * transparent background, shown directly on the light theme. Never recoloured, cropped or redrawn.
- */
 const SRC = `${import.meta.env.BASE_URL}brand/bee-logo.png`;
 
 const SIZES = { sm: "h-8", md: "h-12", lg: "h-36" } as const;

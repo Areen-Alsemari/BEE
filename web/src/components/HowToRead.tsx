@@ -7,7 +7,6 @@ import { HEURISTIC_RULES, METHOD_CUES } from "../config/theme";
 import { MethodDash, MethodGlyph } from "./MethodGlyph";
 import { methodLabel } from "../lib/format";
 
-/** One line per page (<=20 words), docs/COPY_DECK.md section 2. */
 const PAGE_NOTES: Record<string, string> = {
   "/mission-control": "Pick a week and a method. The globe and timeline show the same schedule.",
   "/bee-lab": "BEE gives the learner extra information about each request. It never changes which requests are allowed.",
@@ -52,18 +51,14 @@ export function HowToRead() {
           )}
           <section className="mt-5">
             <h3 className="panel-title">Reading the numbers</h3>
-            <p className="mt-2 text-sm text-fg">
-              Numbers come from the team&apos;s result files. Only five test weeks, so treat small gaps as hints.
-            </p>
+            <p className="mt-2 text-sm text-fg">Numbers come from this study's result files. Only five test weeks, so treat small gaps as hints.</p>
           </section>
           <section className="mt-5">
             <h3 className="panel-title">Badges</h3>
             <div className="mt-2 flex flex-wrap gap-1.5">
-              {(["cross_week", "recomputed", "supplementary", "heuristic", "screening", "shortlist", "confirmation", "pending", "illustrative", "needs_confirmation"] as const).map(
-                (k) => (
-                  <EvidenceBadge key={k} kind={k} />
-                ),
-              )}
+              {(["screening", "shortlist", "confirmation", "supplementary", "pending", "whatif", "config", "recorded"] as const).map((k) => (
+                <EvidenceBadge key={k} kind={k} />
+              ))}
             </div>
             <p className="mt-1.5 text-xs text-muted">Hover a badge to see exactly what it means.</p>
           </section>

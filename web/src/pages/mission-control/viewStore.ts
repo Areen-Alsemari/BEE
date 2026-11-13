@@ -1,4 +1,3 @@
-/** Camera preset shared by every scene on the page (so compare mode keeps both views in step). */
 import { create } from "zustand";
 
 export type ViewPreset = "system" | "goldstone" | "canberra" | "madrid" | "follow" | "free";

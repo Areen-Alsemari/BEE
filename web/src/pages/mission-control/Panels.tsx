@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { useLab } from "../../store/useLabStore";
 import { HEURISTIC_RULES, PRIMARY_METHODS, seriesTextColor, type HeuristicRule, type MethodId } from "../../config/theme";
 import { MethodGlyph } from "../../components/MethodGlyph";
-import { WEEKS, type ComplexesFile, type GapsFile, type PairedFile, type RunRow, type Schedule, type SeriesSummary, type WeekId, type Windows } from "../../data/types";
-import { ConfirmMarker, EvidenceBadge, evidenceFromStage } from "../../components/EvidenceBadge";
+import { WEEKS, type ComplexesFile, type PairedFile, type RunRow, type Schedule, type SeriesSummary, type WeekId, type Windows } from "../../data/types";
+import { EvidenceBadge, evidenceFromStage } from "../../components/EvidenceBadge";
 import { MetricCard } from "../../components/MetricCard";
 import { Pending } from "../../components/States";
 import { Details, SpreadNote } from "../../components/PageChrome";
@@ -11,7 +11,6 @@ import { fmtDuration, fmtMain, fmtMetric, fmtTime, methodLabel, METRIC_LABEL } f
 
 const fmtRaw = (m: string, v: number | null | undefined) => (v == null ? "" : m === "unmet_hours" ? v.toFixed(1) : v.toFixed(4));
 
-// ------------------------------------------------------------ controls
 function MethodPicker({
   label,
   method,
@@ -169,18 +168,8 @@ export function Controls({
   );
 }
 
-// ------------------------------------------------------------ metrics
 const HEADLINE_METRICS = ["duration_fulfillment", "full_satisfaction_rate", "unmet_hours"] as const;
 const MORE_METRICS = ["minimum_satisfaction_rate", "mission_fairness"] as const;
-
-export const findGap = (gaps: GapsFile, id: string) => gaps.needs_confirmation.find((r) => (r.id ?? r["#"]) === id);
-
-export function confirmFor(method: MethodId, gaps: GapsFile): { id: string; text: string } | null {
-  const id = method === "fixed_bee" ? "N1" : method === "plain_ppo" ? "N2" : method === "heuristics" ? "N3" : null;
-  if (!id) return null;
-  const row = findGap(gaps, id);
-  return row ? { id, text: `${row["Item"]}: ${row["What needs confirming"]}` } : null;
-}
 
 export function MetricsPanel({
   tag,
@@ -194,7 +183,6 @@ export function MetricsPanel({
   week,
   schedule,
   hasScheduleFile,
-  gaps,
   compact,
 }: {
   tag: "A" | "B";
@@ -209,18 +197,16 @@ export function MetricsPanel({
   week: WeekId;
   schedule: Schedule | null;
   hasScheduleFile: boolean;
-  gaps: GapsFile;
   compact: boolean;
 }) {
-  const confirm = confirmFor(method, gaps);
   void paired;
   void seriesKey;
+  const stageBadge = run ? evidenceFromStage(run.evidence_stage) : null;
   return (
     <section className="panel p-3" data-testid={`metrics-${tag}`} aria-label={`Metrics for ${label}`}>
       <div className="flex flex-wrap items-center gap-1.5">
         <MethodGlyph method={method} rule={rule} size={13} />
         <h2 className="text-base font-semibold text-fg">{label}</h2>
-        {confirm && <ConfirmMarker id={confirm.id} text={confirm.text} />}
       </div>
       {!run ? (
         <div className="mt-2">
@@ -229,8 +215,7 @@ export function MetricsPanel({
       ) : (
         <>
           <div className="mt-1.5 flex flex-wrap gap-1">
-            <EvidenceBadge kind={evidenceFromStage(run.evidence_stage)} />
-            {run.source === "recomputed from schedules" && <EvidenceBadge kind="recomputed" />}
+            {stageBadge && <EvidenceBadge kind={stageBadge} />}
             {!run.protocol && <EvidenceBadge kind="supplementary" label="supplementary seed" />}
           </div>
           <div className="mt-1.5 text-xs text-muted">
@@ -298,7 +283,6 @@ export function MetricsPanel({
   );
 }
 
-// ------------------------------------------------------------ request detail
 export function DetailCard({
   windows,
   complexes,
@@ -411,7 +395,6 @@ export function DetailCard({
   );
 }
 
-// ------------------------------------------------------------ unscheduled list and compare summary
 export function UnscheduledList({ windows, schedule, tag, label }: { windows: Windows; schedule: Schedule | null; tag: "A" | "B"; label: string }) {
   const sel = useLab((s) => s.selectedRequestId);
   const set = useLab((s) => s.set);
@@ -425,14 +408,14 @@ export function UnscheduledList({ windows, schedule, tag, label }: { windows: Wi
   );
   if (!schedule) return null;
   return (
-    <section className="panel flex min-h-0 flex-col p-3" aria-label={`Unscheduled requests for ${label}`}>
+    <section className="panel shrink-0 p-3" aria-label={`Unscheduled requests for ${label}`}>
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold">Not booked ({tag})</h2>
         <span className="num text-xs text-muted" data-testid={`unscheduled-list-count-${tag}`} data-value={items.length}>
           {items.length} of {schedule.n_requests}
         </span>
       </div>
-      <ul className="mt-2 min-h-0 flex-1 space-y-0.5 overflow-y-auto pr-1 text-xs">
+      <ul className="mt-2 max-h-48 space-y-0.5 overflow-y-auto pr-1 text-xs">
         {items.map((r) => (
           <li key={r.request_id}>
             <button
@@ -458,9 +441,7 @@ export function CompareSummary({
   colorA,
   colorB,
   windows,
-  pairNote,
 }: {
-  pairNote?: { id: string; text: string } | null;
   scheduleA: Schedule;
   scheduleB: Schedule;
   labelA: string;
@@ -496,11 +477,6 @@ export function CompareSummary({
         </button>
       </div>
       <div className="mt-1 text-2xs text-muted">Dashed means only one method booked it.</div>
-      {pairNote && (
-        <div className="mt-2 text-xs text-muted" data-testid="pair-note-n4">
-          <ConfirmMarker id={pairNote.id} text={pairNote.text} />
-        </div>
-      )}
       <ul className="mt-1.5 max-h-28 space-y-0.5 overflow-y-auto">
         {list.map((id) => (
           <li key={id}>

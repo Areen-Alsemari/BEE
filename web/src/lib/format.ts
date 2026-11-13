@@ -1,7 +1,6 @@
 import { utcFormat } from "d3";
 import type { MetricKey } from "../data/types";
 
-/** Plain-language labels (docs/COPY_DECK.md section 1.1). Raw field names stay in Details/tooltips only. */
 export const METRIC_LABEL: Record<MetricKey | "scheduled_requests" | "allocated_hours" | "number_of_requests", string> = {
   duration_fulfillment: "Requested time delivered",
   minimum_satisfaction_rate: "Got at least their minimum",
@@ -15,7 +14,6 @@ export const METRIC_LABEL: Record<MetricKey | "scheduled_requests" | "allocated_
   number_of_requests: "Requests that week",
 };
 
-/** One-sentence definitions, written from the code (environment.py get_episode_metrics, validator.py). */
 export const METRIC_DEFINITION: Record<MetricKey, string> = {
   duration_fulfillment: "Share of all antenna time requested that week that the schedule actually delivered.",
   minimum_satisfaction_rate: "Share of that week's requests scheduled for at least their minimum duration.",
@@ -26,10 +24,8 @@ export const METRIC_DEFINITION: Record<MetricKey, string> = {
   runtime_seconds: "Seconds of computer time to build one week's schedule.",
 };
 
-/** Metrics shown as a share (0-1 in the data) are written as percentages in the main view. */
 export const PERCENT_METRICS = new Set(["duration_fulfillment", "minimum_satisfaction_rate", "full_satisfaction_rate", "mission_fairness"]);
 
-/** Display formatting only; values are never altered before formatting. Exact fractions (4dp) for tables, Details and downloads. */
 export function fmtMetric(key: string, v: number | null | undefined): string {
   if (v === null || v === undefined || Number.isNaN(v)) return "n/a";
   if (key === "unmet_hours" || key === "allocated_hours") return v.toFixed(1);
@@ -39,7 +35,6 @@ export function fmtMetric(key: string, v: number | null | undefined): string {
   return v.toFixed(4);
 }
 
-/** Main-view display for rate metrics: a percentage. Falls back to fmtMetric for non-rate metrics. */
 export function fmtMain(key: string, v: number | null | undefined): string {
   if (v === null || v === undefined || Number.isNaN(v)) return "n/a";
   if (PERCENT_METRICS.has(key)) return `${(v * 100).toFixed(1)}%`;
@@ -51,7 +46,6 @@ export function fmtSigned(key: string, v: number): string {
   return (v > 0 ? "+" : v < 0 ? "−" : "±") + s;
 }
 
-/** Plain words for a signed difference: "higher by X", "lower by X", "about the same". */
 export function fmtWords(key: string, v: number, tol = 0): string {
   if (Math.abs(v) <= tol) return "about the same";
   const s = fmtMain(key, Math.abs(v));
@@ -68,7 +62,6 @@ export function fmtDuration(seconds: number): string {
   return h ? `${h} h ${m.toString().padStart(2, "0")} min` : `${m} min`;
 }
 
-/** Primary names keep PPO; the configuration code (A6, F2...) is a small secondary label, not in the main name. */
 export function methodLabel(method: string, rule?: string): string {
   const base: Record<string, string> = {
     heuristics: "Simple rule",
@@ -87,7 +80,6 @@ export function methodLabel(method: string, rule?: string): string {
   return method === "heuristics" && rule ? `${base[method]}: ${rules[rule] ?? rule}` : base[method] ?? method;
 }
 
-/** Small secondary code shown beside a method's plain name (deck 1.2: "code in a small secondary label"). */
 export function methodCode(method: string, rule?: string): string | null {
   if (method === "fixed_bee") return "F2";
   if (method === "adaptive_bee") return "A6";
@@ -96,7 +88,6 @@ export function methodCode(method: string, rule?: string): string | null {
   return null;
 }
 
-/** Plain names for the ablation variants (deck 1.3), derived from their component flags. */
 export const ABLATION_NAME: Record<string, string> = {
   A1: "All three signals, always adapting",
   A2: "Scarcity signal only",

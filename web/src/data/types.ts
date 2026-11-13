@@ -1,4 +1,3 @@
-/** Types for every file in public/data, matching scripts/export_data.py. */
 import type { HeuristicRule, MethodId } from "../config/theme";
 
 export type WeekId = "W10" | "W20" | "W30" | "W40" | "W50";
@@ -19,7 +18,6 @@ export const EXTRA_KEYS = ["scheduled_requests", "allocated_hours", "number_of_r
 export type ExtraKey = (typeof EXTRA_KEYS)[number];
 export type MetricRecord = Record<MetricKey | ExtraKey, number | null>;
 
-// methods.json
 export interface MethodInfo {
   id: MethodId;
   name: string;
@@ -33,13 +31,11 @@ export interface MethodsFile {
   methods: MethodInfo[];
 }
 
-// missions.json
 export interface MissionsFile {
   missions: { id: string; color: string; color_dark: string }[];
   source: string;
 }
 
-// complexes.json
 export interface Complex {
   id: "goldstone" | "canberra" | "madrid";
   name: string;
@@ -56,7 +52,6 @@ export interface ComplexesFile {
   source: string;
 }
 
-// results_runs.json
 export interface RunRow extends MetricRecord {
   method: MethodId;
   variant: string;
@@ -75,7 +70,6 @@ export interface RunsFile {
   rows: (string | number | boolean | null)[][];
 }
 
-// results_summary.json
 export interface WeekSummary {
   fold: number;
   test_week: WeekKey;
@@ -109,7 +103,6 @@ export interface SummaryFile {
   supplementary: Record<string, SeriesSummary & { label: string }>;
 }
 
-// paired.json
 export interface PairMetric {
   direction: string;
   per_fold: { fold: number; test_week: WeekId; first: number; second: number; difference: number }[];
@@ -151,7 +144,6 @@ export interface PairedFile {
   >;
 }
 
-// schedules
 export interface ScheduleIndexEntry {
   file: string;
   method: MethodId;
@@ -196,7 +188,6 @@ export interface Schedule extends Omit<ScheduleFile, "rows"> {
   rows: ScheduleRow[];
 }
 
-// windows
 export interface RequestInfo {
   request_id: string;
   mission: string;
@@ -240,7 +231,6 @@ export interface Windows {
   maintenance: { antenna: string; start: number; end: number }[];
 }
 
-// gaps.json
 export interface GapsFile {
   source: string;
   open: Record<string, string>[];
@@ -249,7 +239,6 @@ export interface GapsFile {
   caveats: Record<string, string>[];
 }
 
-// protocol.json (only fields used by the UI are typed strictly)
 export interface ProtocolFile {
   weeks: WeekKey[];
   weekly_request_totals: Record<WeekId, number>;
@@ -262,6 +251,5 @@ export interface ProtocolFile {
   [k: string]: unknown;
 }
 
-// ablation.json and thresholds.json are typed loosely until their pages are built
 export type AblationFile = Record<string, unknown> & { configurations: unknown[]; references: unknown[] };
 export type ThresholdsFile = Record<string, unknown> & { traces: unknown[]; diagnostic: unknown };

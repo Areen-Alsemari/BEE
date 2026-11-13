@@ -1,13 +1,11 @@
 import type { ReactNode } from "react";
-import { loadBeeParams, loadGaps, loadProtocol, useData } from "../../data/loaders";
+import { loadBeeParams, loadProtocol, useData } from "../../data/loaders";
 import { Ready } from "../../components/States";
-import { ConfirmMarker, EvidenceBadge } from "../../components/EvidenceBadge";
+import { EvidenceBadge } from "../../components/EvidenceBadge";
 import { Num } from "../../components/Num";
 import { tracePath } from "../../lib/download";
-import { TEAM } from "../../config/team";
-import { InlineMd } from "../../components/InlineMd";
 import { PageIntro } from "../../components/PageChrome";
-import type { GapsFile, ProtocolFile } from "../../data/types";
+import type { ProtocolFile } from "../../data/types";
 import type { BeeParamsFile } from "../../lib/beeMath";
 
 const PR = "protocol.json";
@@ -15,12 +13,11 @@ const int = (x: number) => x.toLocaleString("en-GB");
 
 export default function Protocol() {
   const protocol = useData(loadProtocol, []);
-  const gaps = useData(loadGaps, []);
   const bee = useData(loadBeeParams, []);
   return (
     <div className="mx-auto max-w-[1300px] px-6 pb-12 pt-5" data-testid="protocol-page">
-      <Ready items={[protocol, gaps, bee]} what="protocol">
-        {(p, g, b) => <View p={p} gaps={g} bee={b} />}
+      <Ready items={[protocol, bee]} what="protocol">
+        {(p, b) => <View p={p} bee={b} />}
       </Ready>
     </div>
   );
@@ -40,13 +37,6 @@ function Section({ id, title, children, badge = <EvidenceBadge kind="config" />,
   );
 }
 
-/** Replace owner names from gaps.json with the placeholders in config/team.ts (by member number). */
-function owners(text: string): string {
-  const nums = [...text.matchAll(/member (\d)/gi)].map((m) => Number(m[1]));
-  if (!nums.length) return text;
-  return nums.map((n) => `${TEAM.members[n - 1]?.name ?? `[Member ${n} name]`} (member ${n})`).join(" and ");
-}
-
 const DOWNLOADS: { file: string; what: string }[] = [
   { file: "methods.json", what: "method ids, names and descriptions" },
   { file: "results_runs.json", what: "one row per run with every metric" },
@@ -54,30 +44,25 @@ const DOWNLOADS: { file: string; what: string }[] = [
   { file: "paired.json", what: "paired differences per fold, bootstrap intervals, seed spreads" },
   { file: "ablation.json", what: "A1-A6 configuration study with evidence stages" },
   { file: "thresholds.json", what: "adaptive threshold traces, summary and diagnostic" },
-  { file: "bee_params.json", what: "BEE feature definitions and parameters with source lines" },
+  { file: "bee_params.json", what: "BEE feature definitions and parameters" },
   { file: "protocol.json", what: "this page's protocol values" },
-  { file: "gaps.json", what: "open gaps and items awaiting owner confirmation" },
+  { file: "gaps.json", what: "known gaps in the data" },
   { file: "complexes.json", what: "DSN complexes and antennas (public reference locations)" },
   { file: "missions.json", what: "mission ids and colours" },
   { file: "schedules/index.json", what: "index of the exported schedules" },
 ];
 
-function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParamsFile }) {
+function View({ p, bee }: { p: ProtocolFile; bee: BeeParamsFile }) {
   const ts = p.timesteps as Record<string, { actual: number[] | null; source: string }> & { requested: number };
   const sel = p.selection as Record<string, Record<string, unknown>>;
   const ppo = p.ppo_parameters as Record<string, number>;
   const tsIds = ["plain_ppo", "fixed_bee", "adaptive_bee"] as const;
   const label: Record<string, string> = { plain_ppo: "Plain PPO", fixed_bee: "Fixed BEE (F2)", adaptive_bee: "Adaptive BEE (A6)", heuristics: "Heuristics" };
-  const gap = (id: string) => gaps.needs_confirmation.find((r) => (r.id ?? r["#"]) === id);
-  const cm = (id: string) => {
-    const g = gap(id);
-    return g ? <ConfirmMarker id={id} text={g["What needs confirming"]} /> : null;
-  };
   return (
     <>
       <header>
         <h1 className="text-2xl font-semibold text-brand">Method</h1>
-        <PageIntro>How the study was run and where every number comes from, so anyone can rebuild it. Open questions are marked.</PageIntro>
+        <PageIntro>How the study was run and where every number comes from, so anyone can rebuild it.</PageIntro>
       </header>
 
       <Section id="selection" title="How each method's settings were chosen">
@@ -88,17 +73,16 @@ function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParam
         <ul className="mt-2 list-disc space-y-1.5 pl-5">
           <li>
             Heuristics: {String(sel.heuristics.selected)} selected on {String(sel.heuristics.week).slice(0, 3)} by {String(sel.heuristics.metric).replace(/_/g, " ")}. Package version recorded:{" "}
-            <code>{String(sel.heuristics.package_version_recorded)}</code> {cm("N3")}
+            <code>{String(sel.heuristics.package_version_recorded)}</code>
           </li>
           <li>
             Plain PPO: validated on {String(sel.plain_ppo.validation_week).slice(0, 3)}. Training seeds recorded in its configuration file:{" "}
             {(sel.plain_ppo.training_seeds_recorded as number[]).map((s, i) => (
               <Num key={i} v={s} trace={tracePath(PR, "selection", "plain_ppo", "training_seeds_recorded", i)} format={String} />
-            ))}{" "}
-            {cm("N2")}
+            ))}
           </li>
           <li>
-            Fixed BEE: {String(sel.fixed_bee.selected)} selected. Recorded selection basis: &ldquo;{String(sel.fixed_bee.selection_basis_recorded)}&rdquo; {cm("N1")}
+            Fixed BEE: {String(sel.fixed_bee.selected)} selected. Recorded selection basis: &ldquo;{String(sel.fixed_bee.selection_basis_recorded)}&rdquo;
           </li>
           <li>
             Adaptive BEE: {String(sel.adaptive_bee.selected)} selected on {String(sel.adaptive_bee.validation_week).slice(0, 3)}, ranking by {(sel.adaptive_bee.metric_order as string[]).map((m) => m.replace(/_/g, " ")).join(", then ")}. Declared tie-break:
@@ -216,51 +200,11 @@ function View({ p, gaps, bee }: { p: ProtocolFile; gaps: GapsFile; bee: BeeParam
         </table>
       </Section>
 
-      <Section id="sources" title="Data sources" badge={<EvidenceBadge kind="illustrative" label="positions illustrative" />} scope={false}>
+      <Section id="sources" title="Data sources" badge={null} scope={false}>
         <ul className="list-disc space-y-1.5 pl-5">
           <li>Deep Space Network schedule data: requests, visibility windows, antennas and maintenance for weeks W10, W20, W30, W40 and W50 of 2018.</li>
           <li>There is no orbital data. Spacecraft positions in Mission Control are illustrative; schedule times, antennas and missions are real data. DSN complex locations are public reference coordinates.</li>
-          <li>
-            {bee.statement} See <code>docs/BEE_MECHANISM_NOTES.md</code> for the code lines.
-          </li>
-          <li>Notebooks: {Object.values(p.notebooks).map((n) => <code key={n} className="mr-2 inline-block">{n}</code>)}</li>
-        </ul>
-      </Section>
-
-      <Section id="confirm" title="Open questions" badge={<EvidenceBadge kind="needs_confirmation" />} scope={false}>
-        <p className="text-fg-2">Recorded in the source files but not yet confirmed by their owners. None of these is treated as settled anywhere in the lab.</p>
-        <table className="mt-2 w-full text-sm" data-testid="confirm-table">
-          <thead>
-            <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-muted">
-              <th className="py-1 font-semibold">Item</th>
-              <th className="font-semibold">Owner</th>
-              <th className="font-semibold">What needs confirming</th>
-            </tr>
-          </thead>
-          <tbody>
-            {gaps.needs_confirmation.map((r) => (
-              <tr key={r.id} className="border-b border-line/60 align-top">
-                <td className="py-1.5 pr-3">
-                  <ConfirmMarker id={r.id} text={r["What needs confirming"]} /> {r.Item}
-                </td>
-                <td className="pr-3">{owners(r.Owner)}</td>
-                <td>
-                  <InlineMd text={r["What needs confirming"]} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className="mt-2 text-xs text-muted">Owner names are placeholders from config/team.ts{TEAM.placeholder ? " (not yet filled in)" : ""}.</p>
-      </Section>
-
-      <Section id="gaps" title="Missing data" badge={<EvidenceBadge kind="pending" />} scope={false}>
-        <ul className="list-disc space-y-1.5 pl-5" data-testid="open-gaps">
-          {gaps.open.map((r) => (
-            <li key={r.id}>
-              <strong>{r.id}</strong> <InlineMd text={r.Item} />: <InlineMd text={r.Detail} />
-            </li>
-          ))}
+          <li>{bee.statement}</li>
         </ul>
       </Section>
 

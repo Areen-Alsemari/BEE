@@ -1,9 +1,3 @@
-// Checks for the BEE Mechanism Lab and the Ablation Lab.
-// - Ablation number trace: every displayed traced number equals its JSON value, its text matches
-//   the value, and it has an evidence badge in its scope (>= 30 cells sampled across states).
-// - axe-core (WCAG 2.1 AA) on both pages at 1440x900 and 1920x1080.
-// - Wording scan, console errors and warnings, screenshots.
-// Usage: node e2e/verify-pages-2-3.mjs [baseUrl] [outDir]
 import { chromium } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -75,7 +69,6 @@ for (const viewport of [
     check(`${tag} ${name}: no banned comparison words`, !hit, hit ? hit[0] : "");
   }
 
-  // page 2 interactions
   await page.goto(`${BASE}/#/bee-lab`, { waitUntil: "networkidle" });
   await page.waitForSelector('[data-testid="hex-cards"]');
   check(`${tag} bee_lab: mask statement shown`, (await page.locator('[data-testid="mask-statement"]').innerText()).includes("The BEE features are inputs to the policy. The action mask is the shared feasibility mask."));
@@ -109,7 +102,6 @@ for (const viewport of [
   check(`${tag} bee_lab: A6 selective gate shows off when fewer than 2 indicators fire`, /off/.test(gateOff), gateOff);
   if (viewport.width === 1440) await page.locator("#sandbox").screenshot({ path: join(OUT, `${tag}_bee_lab_sandbox_gate_off.png`) });
 
-  // page 3 number trace across states
   if (viewport.width === 1440) {
     await page.goto(`${BASE}/#/ablation`, { waitUntil: "networkidle" });
     await page.waitForSelector('[data-testid="matrix"]');

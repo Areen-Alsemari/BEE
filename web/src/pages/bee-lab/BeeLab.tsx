@@ -1,31 +1,29 @@
 import * as d3 from "d3";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { loadBeeParams, loadGaps, loadProtocol, loadThresholds, useData, type Thresholds, type Trace, type TraceRow } from "../../data/loaders";
+import { loadBeeParams, loadProtocol, loadThresholds, useData, type Thresholds, type Trace, type TraceRow } from "../../data/loaders";
 import { Ready } from "../../components/States";
-import { ConfirmMarker, EvidenceBadge } from "../../components/EvidenceBadge";
+import { EvidenceBadge } from "../../components/EvidenceBadge";
 import { Details, PageIntro } from "../../components/PageChrome";
 import { activation, recomputeTraceRow, stimulus, threshold, type BeeMethodParams, type BeeParamsFile } from "../../lib/beeMath";
 import { BRAND, METHOD_COLORS } from "../../config/theme";
-import type { GapsFile, ProtocolFile } from "../../data/types";
+import type { ProtocolFile } from "../../data/types";
 
 const fmt = (v: number, d = 4) => v.toFixed(d);
 const pct = (v: number, d = 0) => `${(v * 100).toFixed(d)}%`;
 const sig = (v: number, n = 2) => Number(v.toPrecision(n)).toString();
 const exact = (v: number | boolean | string) => String(v);
 
-// Expose the browser equations for the automated recompute check.
 (window as unknown as { __beeMath?: unknown }).__beeMath = { recomputeTraceRow, stimulus, threshold, activation };
 
 export default function BeeLab() {
   const params = useData(loadBeeParams, []);
   const thr = useData(loadThresholds, []);
-  const gaps = useData(loadGaps, []);
   const protocol = useData(loadProtocol, []);
   return (
     <div className="mx-auto max-w-[1500px] px-6 pb-12 pt-5" data-testid="bee-lab">
-      <Ready items={[params, thr, gaps, protocol]} what="BEE data">
-        {(p, t, g, pr) => <BeeLabView params={p} thr={t} gaps={g} protocol={pr} />}
+      <Ready items={[params, thr, protocol]} what="BEE data">
+        {(p, t, pr) => <BeeLabView params={p} thr={t} protocol={pr} />}
       </Ready>
     </div>
   );
@@ -46,11 +44,10 @@ function Section({ id, title, goal, badge, children }: { id: string; title: stri
   );
 }
 
-function BeeLabView({ params, thr, gaps, protocol }: { params: BeeParamsFile; thr: Thresholds; gaps: GapsFile; protocol: ProtocolFile }) {
+function BeeLabView({ params, thr, protocol }: { params: BeeParamsFile; thr: Thresholds; protocol: ProtocolFile }) {
   useEffect(() => {
     (window as unknown as { __beeParams?: unknown }).__beeParams = params;
   }, [params]);
-  const n4 = gaps.needs_confirmation.find((r) => (r.id ?? r["#"]) === "N4");
   return (
     <>
       <header>
@@ -60,23 +57,16 @@ function BeeLabView({ params, thr, gaps, protocol }: { params: BeeParamsFile; th
         </PageIntro>
         <div className="mt-3 flex flex-wrap items-center gap-3 rounded-lg border border-brand/30 bg-brand-tint px-4 py-3" data-testid="mask-statement">
           <span className="text-base font-semibold text-brand">{params.statement}</span>
-          <Details summary="Show the code">
-            <p className="text-xs text-muted">
-              Source: <code>{params.mask.shared_mask.file}</code> lines {params.mask.shared_mask.lines?.[0]}-{params.mask.shared_mask.lines?.[1]}; fixed stream check{" "}
-              <code>{params.mask.fixed_stream_mask_unchanged_test.text}</code> (cell {params.mask.fixed_stream_mask_unchanged_test.cell}).
-            </p>
-          </Details>
         </div>
       </header>
       <HowBeeDecides params={params} thr={thr} protocol={protocol} />
-      <Sandbox params={params} n4={n4} />
+      <Sandbox params={params} />
       <Replay params={params} thr={thr} />
       <TracesShow params={params} thr={thr} />
     </>
   );
 }
 
-// ------------------------------------------------------------------ shared bits
 function Hex({ size, fill, opacity, stroke, children, label }: { size: number; fill: string; opacity: number; stroke: string; children?: ReactNode; label?: string }) {
   const r = size / 2;
   const pts = d3.range(6).map((i) => {
@@ -154,7 +144,6 @@ function ActivationCurve({ p, theta, points, width = 420, height = 240 }: { p: B
   );
 }
 
-// ------------------------------------------------------------------ (a) What BEE adds
 function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: Thresholds; protocol: ProtocolFile }) {
   const p = params.methods.adaptive_A6;
   const trace = thr.traces.find((t) => t.method === "adaptive_bee" && t.test_week === "W40_2018" && t.training_seed === 42 && t.evaluation_seed === 1001)!;
@@ -245,8 +234,7 @@ function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: 
           <Details summary="Show how this run was generated">
             <p className="text-xs text-muted">
               Rule {thr.diagnostic.episode.rule}, environment seed {thr.diagnostic.episode.environment_seed}, random-choice seed {thr.diagnostic.episode.action_rng_seed},{" "}
-              {thr.diagnostic.episode.steps} steps. Generator: {thr.diagnostic.episode.generator.random_policy.file}, cell {thr.diagnostic.episode.generator.random_policy.cell}.
-              Data: {thr.diagnostic.source_file}.
+              {thr.diagnostic.episode.steps} steps.
             </p>
           </Details>
         </div>
@@ -255,13 +243,12 @@ function HowBeeDecides({ params, thr, protocol }: { params: BeeParamsFile; thr: 
   );
 }
 
-// ------------------------------------------------------------------ (b) Try the formula
 const METHOD_KEYS = ["fixed_F2", "adaptive_A6", "adaptive_A3"] as const;
 type MKey = (typeof METHOD_KEYS)[number];
 const MCOLOR: Record<MKey, string> = { fixed_F2: METHOD_COLORS.fixed_bee, adaptive_A6: METHOD_COLORS.adaptive_bee, adaptive_A3: METHOD_COLORS.adaptive_a3_first_pass };
 const SANDBOX_LABEL: Record<MKey, string> = { fixed_F2: "Fixed threshold", adaptive_A6: "Adaptive, under pressure", adaptive_A3: "Earlier adaptive" };
 
-function Sandbox({ params, n4 }: { params: BeeParamsFile; n4?: Record<string, string> }) {
+function Sandbox({ params }: { params: BeeParamsFile }) {
   const [sel, setSel] = useState<MKey>("adaptive_A6");
   const [v, setV] = useState({ scarcity: 0.35, contention: 0.6, increase: 0.05, unmet: 0.8, rel: 0.12 });
   const set = (k: keyof typeof v) => (x: number) => setV((o) => ({ ...o, [k]: x }));
@@ -396,9 +383,8 @@ function Sandbox({ params, n4 }: { params: BeeParamsFile; n4?: Record<string, st
               })}
             </tbody>
           </table>
-          <div className="mt-3 flex items-start gap-1 rounded-md border border-orange-300 bg-orange-50 px-3 py-2 text-sm text-orange-900" data-testid="pair-note-n4">
-            {n4 && <ConfirmMarker id="N4" text={n4["What needs confirming"]} />}
-            <span>The fixed and adaptive versions also compute their inputs differently, so this is not a pure threshold comparison.</span>
+          <div className="mt-3 flex items-start gap-1 rounded-md border border-line-strong bg-sunken px-3 py-2 text-sm text-fg-2">
+            The fixed and adaptive versions also compute their inputs differently, so this is not a pure threshold comparison.
           </div>
           <Details summary="How each version computes its inputs">
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
@@ -409,11 +395,7 @@ function Sandbox({ params, n4 }: { params: BeeParamsFile; n4?: Record<string, st
                     {Object.entries(params.methods[k].definitions).map(([name, d]) => (
                       <li key={name}>
                         <span className="font-medium text-fg">{name.replace(/_/g, " ")}</span>: {d.words}
-                        {d.normalisation ? ` (normalisation: ${d.normalisation})` : ""}.{" "}
-                        <span className="text-muted">
-                          {d.source.file}
-                          {d.source.cell !== undefined ? `, cell ${d.source.cell}` : ""}, line {d.source.line}
-                        </span>
+                        {d.normalisation ? ` (normalisation: ${d.normalisation})` : ""}.
                       </li>
                     ))}
                   </ul>
@@ -427,7 +409,6 @@ function Sandbox({ params, n4 }: { params: BeeParamsFile; n4?: Record<string, st
   );
 }
 
-// ------------------------------------------------------------------ (c) Replay a real step
 const REPLAY_FIELDS: (keyof TraceRow)[] = [
   "placement_scarcity",
   "resource_contention",
@@ -464,12 +445,7 @@ function Replay({ params, thr }: { params: BeeParamsFile; thr: Thresholds }) {
       id="replay"
       title="Replay a real step"
       goal="Pick a run and a step. See the saved values, then check them with the formula."
-      badge={
-        <span className="flex gap-1">
-          <EvidenceBadge kind="recorded" />
-          <EvidenceBadge kind="cross_week" />
-        </span>
-      }
+      badge={<EvidenceBadge kind="recorded" />}
     >
       <p className="-mt-2 mb-3 text-sm text-brand-2">
         <span className="font-medium">Try this:</span> Press Check and see the difference shrink to zero.
@@ -552,7 +528,6 @@ function Replay({ params, thr }: { params: BeeParamsFile; thr: Thresholds }) {
   );
 }
 
-// ------------------------------------------------------------------ (d) What the runs show
 function TracesShow({ params, thr }: { params: BeeParamsFile; thr: Thresholds }) {
   const p = params.methods.adaptive_A6;
   const base = p.threshold.kind === "adaptive" ? p.threshold.base_threshold.value : 0.5;
@@ -576,7 +551,7 @@ function TracesShow({ params, thr }: { params: BeeParamsFile; thr: Thresholds })
     { k: "contention_term", label: "contention term", color: METHOD_COLORS.adaptive_bee, dash: "2 3" },
   ];
   return (
-    <Section id="traces" title="What the runs show" goal="How often the adaptive threshold moved, across every step of all test runs." badge={<EvidenceBadge kind="cross_week" />}>
+    <Section id="traces" title="What the runs show" goal="How often the adaptive threshold moved, across every step of all test runs.">
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <div>
           <h3 className="font-semibold text-fg">How often the threshold moved</h3>

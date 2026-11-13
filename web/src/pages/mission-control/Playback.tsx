@@ -9,7 +9,6 @@ const SPEEDS = [
   { v: 12 * 3600, label: "12 h/s" },
 ];
 
-/** Play/pause, speed and scrubber for the selected week. Drives currentTime with requestAnimationFrame. */
 export function Playback({ span }: { span: [number, number] }) {
   const t = useLab((s) => s.currentTime) ?? span[0];
   const playing = useLab((s) => s.playing);
