@@ -41,4 +41,4 @@ data/raw/maintenance.csv
 web/test-results/
 web/playwright-report/
 .claude/
-docs/screenshots/
+docs/

@@ -20,7 +20,6 @@ Areen Alsemari · Aroob Almutairi · Shahad Albawardi · Sara Althobiti
 notebooks/   one folder per method - the notebook, the write-up section, the source
 shared/      the shared environment/validator/config package every method runs on
 data/        raw requests + per-method results, summaries and schedules
-docs/        data gaps and third-party asset licensing
 report/      the figures used in our write-up
 scripts/     turns incoming/ and data/ into the JSON the site reads
 web/         the site itself (Vite + React + TypeScript)
@@ -48,4 +47,3 @@ cd web && npm run build
 - Every number on the site is read straight from the exported JSON, nothing is hand-typed.
 - Spacecraft positions in the 3D view are for illustration; everything else (schedule times,
   antennas, missions) is real.
-- Known gaps in the data are tracked in [`docs/DATA_GAPS.md`](docs/DATA_GAPS.md).
