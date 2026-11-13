@@ -6,7 +6,8 @@ import { ConfirmMarker, EvidenceBadge } from "../../components/EvidenceBadge";
 import { MethodGlyph } from "../../components/MethodGlyph";
 import { Num } from "../../components/Num";
 import { BRAND, HEURISTIC_RULES, METHOD_CUES, seriesColor, type HeuristicRule, type MarkerShape, type MethodId } from "../../config/theme";
-import { METRIC_LABEL, methodLabel } from "../../lib/format";
+import { METRIC_LABEL, fmtMain, methodLabel } from "../../lib/format";
+import { PageIntro } from "../../components/PageChrome";
 import { downloadCsv, downloadPng, downloadSvg, tracePath } from "../../lib/download";
 import { WEEKS, type GapsFile, type Pair, type PairedFile, type SummaryFile, type WeekId } from "../../data/types";
 
@@ -101,17 +102,38 @@ function Arena({ summary, paired, gaps }: { summary: SummaryFile; paired: Paired
   return (
     <>
       <header>
-        <h1 className="text-2xl font-semibold text-brand">Results Arena</h1>
-        <p className="mt-1 max-w-5xl text-fg-2">
-          Cross-week results for every method: five test weeks (folds), averaged over evaluation seeds, then training seeds, then folds. Every number is read from
-          the exported result files.
-        </p>
+        <h1 className="text-2xl font-semibold text-brand">Results</h1>
+        <PageIntro tryThis="Pick a metric above the chart, then tick methods on and off.">
+          How well each method booked antenna time, averaged over five real weeks.
+        </PageIntro>
       </header>
-      <CrossWeekTable summary={summary} paired={paired} gap={gap} />
       <WeekChart summary={summary} paired={paired} />
-      <PairedPanel paired={paired} n4={n4} />
-      <WhatTheyShow summary={summary} paired={paired} n4={n4} />
+      <TopFinding summary={summary} />
+      <details open className="mt-5">
+        <summary className="panel cursor-pointer p-4 text-sm font-medium text-brand">Show the table, paired comparisons and every sentence</summary>
+        <CrossWeekTable summary={summary} paired={paired} gap={gap} />
+        <PairedPanel paired={paired} n4={n4} />
+        <WhatTheyShow summary={summary} paired={paired} n4={n4} />
+      </details>
     </>
+  );
+}
+
+// ------------------------------------------------------------------ one plain finding, up top
+function TopFinding({ summary }: { summary: SummaryFile }) {
+  const m: Metric = "duration_fulfillment";
+  const overall = (sid: string) => summary.series[sid].overall.mean[m]!;
+  const top = [...SERIES].filter((s) => !s.secondary).sort((a, b) => overall(b.sid) - overall(a.sid))[0];
+  return (
+    <p className="panel mt-5 p-4 text-sm" data-num-scope data-testid="top-finding">
+      <span className="inline-flex items-center gap-1 align-middle font-semibold">
+        <MethodGlyph method={top.method} rule={top.rule} />
+        {top.label}
+      </span>{" "}
+      delivered the most requested time overall, at{" "}
+      <Num v={overall(top.sid)} trace={tracePath(S, "series", top.sid, "overall", "mean", m)} format={(v) => fmtMain(m, v)} className="font-semibold" />.{" "}
+      <EvidenceBadge kind={top.method === "heuristics" ? "heuristic" : "cross_week"} />
+    </p>
   );
 }
 
@@ -144,12 +166,11 @@ function CrossWeekTable({ summary, paired, gap }: { summary: SummaryFile; paired
   return (
     <Section
       id="table"
-      title="Cross-week table"
+      title="Every week, side by side"
       kicker={
         <>
-          Mean of {METRIC_LABEL[metric].toLowerCase()} per test week, the overall mean over the five folds, the SD across folds, and the SD across W50 seeds (training
-          seeds for the PPO-based methods, evaluation seeds for heuristics) as the comparison scale. {LOWER_BETTER.has(metric) ? "Lower is better for this metric." : "Higher is better for this metric."}{" "}
-          Click a column header to sort.
+          Average {METRIC_LABEL[metric].toLowerCase()} per test week, the overall average, and how much that varies from fold to fold or seed to seed.{" "}
+          {LOWER_BETTER.has(metric) ? "Lower is better for this metric." : "Higher is better for this metric."} Click a column header to sort.
         </>
       }
       right={
@@ -291,11 +312,11 @@ function WeekChart({ summary, paired }: { summary: SummaryFile; paired: PairedFi
   return (
     <Section
       id="chart"
-      title="By week, every fold visible"
+      title="By week, every method"
       kicker={
         <>
-          Each marker is one fold (test week) of one method, connected in the method&apos;s dash pattern. At W50 the thin whisker and small hollow markers show the
-          spread across training seeds (evaluation seeds for heuristics): the reference scale for differences. The Overall column is the mean of the five folds.
+          Each marker is one test week for one method. The thin whisker at W50 shows how much that method's own result varies from run to run &mdash; the yardstick for
+          judging any difference between methods. The Overall column is the average of the five weeks.
         </>
       }
       right={
@@ -521,12 +542,11 @@ function PairedPanel({ paired, n4 }: { paired: PairedFile; n4?: Record<string, s
   return (
     <Section
       id="paired"
-      title="Paired comparisons"
+      title="Method vs. method"
       kicker={
         <>
-          Per-fold differences (first method minus second), after averaging over evaluation seeds and then training seeds; folds 1-4 use training seed 42 and W50 uses
-          42, 123 and 456. Dots: the five folds. Dashed line: mean. Black bar: bootstrap interval over folds (n = 5 folds, indicative only). Shaded band: the W50 seed
-          spread, for scale. {LOWER_BETTER.has(metric) ? "For this metric lower is better." : ""}
+          How two methods differ, week by week. Dots: the five test weeks. Dashed line: the average difference. Black bar: an indicative range from those five weeks
+          only. Shaded band: typical run-to-run variation, for scale. {LOWER_BETTER.has(metric) ? "For this metric lower is better." : ""}
         </>
       }
       right={
@@ -551,7 +571,7 @@ function PairedPanel({ paired, n4 }: { paired: PairedFile; n4?: Record<string, s
         <PairStrip pair={paired.supplementary_pairs[a3]} group="supplementary_pairs" index={a3} metric={metric} />
         <label className="flex cursor-pointer items-center gap-2 pt-2 text-sm">
           <input type="checkbox" className="h-4 w-4" checked={heur} onChange={(e) => setHeur(e.target.checked)} data-testid="toggle-heuristic-pairs" />
-          Show PPO-based methods minus each heuristic rule (supplementary; compared on evaluation seeds only)
+          Also compare each learning method against every simple rule (extra, suggestive only)
         </label>
         {heur &&
           heurIdx.map(([p, i]) => (
@@ -641,7 +661,7 @@ function WhatTheyShow({ summary, paired, n4 }: { summary: SummaryFile; paired: P
     return out;
   }, [summary, paired]);
   return (
-    <Section id="show" title="What these results show" kicker="Every sentence below is filled from results_summary.json and paired.json when the page loads; no number is typed in." scope>
+    <Section id="show" title="Every comparison, in words" kicker="Every sentence below is filled in from the result files when the page loads; no number here is typed by hand." scope>
       <div className="flex gap-1">
         <EvidenceBadge kind="cross_week" />
         <EvidenceBadge kind="heuristic" />
@@ -654,11 +674,11 @@ function WhatTheyShow({ summary, paired, n4 }: { summary: SummaryFile; paired: P
         ))}
       </ul>
       <div className="mt-3 rounded-md border border-dashed border-line-strong bg-sunken px-3 py-2 text-sm" data-testid="hypothesis">
-        <span className="mr-1 rounded border border-slate-400 bg-white px-1.5 text-xs font-semibold text-slate-800">hypothesis, not tested</span>
-        Under the shared 25,088-step budget the PPO-based policies may not have trained long enough to separate from each other or from simple rules. The study did not
-        test longer training.
+        <span className="mr-1 rounded border border-slate-400 bg-white px-1.5 text-xs font-semibold text-slate-800">an idea, not tested</span>
+        The learning methods may not have trained long enough, under this budget, to separate from each other or from the simple rules. The study did not test
+        longer training.
       </div>
-      <h3 className="mt-4 font-semibold text-fg">What this cannot show</h3>
+      <h3 className="mt-4 font-semibold text-fg">What these numbers can&apos;t tell you</h3>
       <ul className="mt-1 list-disc space-y-1 pl-5 text-sm" data-testid="cannot-show">
         <li>No ranking among the PPO-based methods: their differences are of the size of the seed spread, with n = 5 folds.</li>
         <li>
