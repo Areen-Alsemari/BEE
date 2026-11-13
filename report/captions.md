@@ -1,9 +1,0 @@
-# Figure captions
-
-**Figure D1.** Adaptive BEE (A6) minus Plain PPO, per-fold differences for six metrics (n = 5 folds: W10 to W50). Each marker is one test week, after averaging over evaluation seeds and then training seeds (training seed 42 on folds 1-4; 42, 123 and 456 on W50). For duration fulfillment the mean difference is lower by 0.0026, with the first method higher in 2 of 5 folds; this is within the W50 seed spread (±0.0088, shaded). The bar is a bootstrap interval over folds (n = 5 folds, indicative only). No significance test was run.
-Files: report/figure_D1_adaptive_vs_plain.svg, report/figure_D1_adaptive_vs_plain.png (300 dpi).
-
-**Figure D2.** Adaptive BEE (A6) minus Fixed BEE (F2), per-fold differences for six metrics (n = 5 folds: W10 to W50). Each marker is one test week, after averaging over evaluation seeds and then training seeds (training seed 42 on folds 1-4; 42, 123 and 456 on W50). For duration fulfillment the mean difference is lower by 0.0050, with the first method higher in 2 of 5 folds; this is within the W50 seed spread (±0.0073, shaded). The bar is a bootstrap interval over folds (n = 5 folds, indicative only). No significance test was run. N4 (awaiting owner confirmation): fixed BEE (F2) and adaptive BEE differ in stimulus weights (0.5/0.3/0.2 vs 0.4/0.4/0.2), in the contention definition (static min-max over training weeks vs dynamic competitors / valid actions) and in the activation formula details, so adaptive minus fixed BEE is not an isolated effect of the threshold rule.
-Files: report/figure_D2_adaptive_vs_fixed.svg, report/figure_D2_adaptive_vs_fixed.png (300 dpi).
-
-**Table D.** Paired per-fold differences for adaptive BEE (A6) against plain PPO and against fixed BEE, six metrics, with mean, folds better, range, bootstrap interval (n = 5 folds, indicative only) and the W50 seed band for scale. File: report/table_D_paired.md (and .csv).

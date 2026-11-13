@@ -41,7 +41,4 @@ data/raw/maintenance.csv
 web/test-results/
 web/playwright-report/
 .claude/
-
-# Screenshots: only the report figures are tracked
-docs/screenshots/*
-!docs/screenshots/report_figures/
+docs/screenshots/
